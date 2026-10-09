@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hardwick Construction — Website Concepts</title>
+  <meta name="description" content="Six draft website templates for Hardwick Construction.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f5f2;
+      --surface: #ffffff;
+      --ink: #12172b;
+      --muted: #5d6275;
+      --line: #e3e1db;
+      --navy: #13245c;
+      --gold: #e2b33c;
+      --ease: cubic-bezier(.2, .7, .2, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font: 400 16px/1.6 Inter, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+    header.top { padding: 28px 0; border-bottom: 1px solid var(--line); }
+    header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .mark { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: .02em; text-decoration: none; }
+    .mark i { display: grid; width: 34px; height: 34px; grid-template-rows: 1fr 1fr; border-radius: 4px; overflow: hidden; }
+    .mark i::before { content: ""; background: var(--navy); }
+    .mark i::after { content: ""; background: var(--gold); }
+    .tag { font-size: 13px; color: var(--muted); }
+
+    .intro { padding: 88px 0 56px; }
+    .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    h1 {
+      font: 400 clamp(44px, 7vw, 88px)/1 "Instrument Serif", Georgia, serif;
+      letter-spacing: -.01em; margin: 18px 0 24px; max-width: 14ch;
+    }
+    h1 em { color: var(--navy); }
+    .lede { max-width: 62ch; color: var(--muted); font-size: 18px; margin: 0; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; padding-bottom: 96px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(18, 23, 43, .28); }
+    .shot { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #e9e7e1; border-bottom: 1px solid var(--line); }
+    .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 1.2s var(--ease); }
+    .card:hover .shot img { transform: scale(1.04); }
+    .body { padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .num { font-size: 12px; font-weight: 600; letter-spacing: .14em; color: var(--muted); }
+    .card h2 { font: 400 32px/1.1 "Instrument Serif", Georgia, serif; margin: 0; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    .swatches { display: flex; gap: 6px; margin-top: 4px; }
+    .swatches span { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, .08); }
+    .links { margin-top: auto; padding-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px;
+      font-size: 14px; font-weight: 500; text-decoration: none; border: 1px solid var(--line);
+      transition: background .3s, color .3s, border-color .3s;
+    }
+    .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .btn.primary:hover { background: var(--navy); border-color: var(--navy); }
+    .btn:not(.primary):hover { border-color: var(--ink); }
+    .btn svg { transition: transform .3s var(--ease); }
+    .btn:hover svg { transform: translateX(3px); }
+    a:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+
+    .notes { background: var(--navy); color: #e8ebf5; padding: 80px 0; }
+    .notes h2 { font: 400 clamp(32px, 4vw, 48px)/1.1 "Instrument Serif", Georgia, serif; margin: 0 0 32px; color: #fff; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+    .cols h3 { font-size: 15px; font-weight: 600; margin: 0 0 8px; color: var(--gold); }
+    .cols p { margin: 0; color: #c3c9de; font-size: 15px; }
+    code { font-size: 13px; background: rgba(255, 255, 255, .08); padding: 2px 6px; border-radius: 4px; color: #fff; }
+    footer { padding: 32px 0; font-size: 13px; color: var(--muted); }
+
+    [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+    [data-reveal].is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+    @media (max-width: 420px) {
+      .grid { grid-template-columns: 1fr; }
+      .wrap { padding: 0 16px; }
+      .tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="mark" href="./"><i aria-hidden="true"></i>Hardwick Construction</a>
+      <span class="tag">Website concepts · Draft for review</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro wrap">
+      <div class="eyebrow" data-reveal>Six directions · October 2026</div>
+      <h1 data-reveal style="--i:1">A new home for <em>Hardwick</em> online.</h1>
+      <p class="lede" data-reveal style="--i:2">
+        Six draft templates, each with a home page and a page for every development showing exactly
+        what is for sale. Current and completed developments are kept separate, and the blue and yellow
+        brand colours have been refined so they read as premium rather than loud. All developments,
+        prices and photos are sample content.
+      </p>
+    </section>
+
+    <section class="wrap grid" id="templates" data-stagger></section>
+  </main>
+
+  <section class="notes">
+    <div class="wrap">
+      <h2 data-reveal>Keeping it up to date</h2>
+      <div class="cols" data-stagger>
+        <div data-reveal>
+          <h3>Marking a home as sold</h3>
+          <p>All six templates read from one file, <code>assets/data/developments.js</code>. Change a plot from
+          <code>"available"</code> to <code>"sold"</code> and every page updates, including counts and “from” prices.</p>
+        </div>
+        <div data-reveal>
+          <h3>Finishing a development</h3>
+          <p>Change <code>stage: "current"</code> to <code>"completed"</code> and add the year. The site moves
+          to the completed or previous projects section automatically.</p>
+        </div>
+        <div data-reveal>
+          <h3>Starting a new site</h3>
+          <p>Copy an existing development block, paste it, and change the name, details, photos and plots.
+          A new development page is created automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">Draft templates prepared for Hardwick Construction · Sample content only</footer>
+
+  <script>
+    var templates = [
+      { n: "01", slug: "01-heritage", name: "Heritage",
+        text: "Timeless and editorial. Ivory, deep navy and antique gold, with elegant serif headings. Feels like an upmarket boutique housebuilder.",
+        sw: ["#f7f4ee", "#0f1f4b", "#c8a24a"] },
+      { n: "02", slug: "02-minimal", name: "Minimal",
+        text: "Swiss-style minimalism. White space, big type and a single crisp blue, with yellow kept to a tiny accent. Availability can be filtered on each development.",
+        sw: ["#ffffff", "#111111", "#2a44c9", "#f5c400"] },
+      { n: "03", slug: "03-blueprint", name: "Blueprint",
+        text: "Architectural and technical, a nod to the build itself. Dark navy blueprint grid, amber highlights and an interactive plot-by-plot site plan.",
+        sw: ["#0b1430", "#eef1f8", "#f2c94c"] },
+      { n: "04", slug: "04-portfolio", name: "Portfolio",
+        text: "Built around Current and Previous projects, as on Alexander Bruce. Warm stone tones, a hero slideshow and a gallery lightbox.",
+        sw: ["#efebe4", "#1b2a52", "#d9a521"] },
+      { n: "05", slug: "05-developments", name: "Find Your Home",
+        text: "A page per development, as on Cameron Homes. A home finder on the front page, a list of every available home, and sticky tabs on each development.",
+        sw: ["#f4f6fa", "#1a2f7a", "#ffc93c"] },
+      { n: "06", slug: "06-bold", name: "Bold Brand",
+        text: "Uses the blue and yellow with confidence and discipline. Big colour blocks, a yellow accent and bold type, showing the brand colours can look premium.",
+        sw: ["#14248a", "#ffffff", "#ffd23f"] }
+    ];
+    var arrow = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    document.getElementById("templates").innerHTML = templates.map(function (t) {
+      var base = "templates/" + t.slug + "/";
+      return '<article class="card" data-reveal>' +
+        '<a class="shot" href="' + base + 'index.html" tabindex="-1" aria-hidden="true">' +
+          '<img src="assets/previews/' + t.n + '.jpg" alt="" loading="lazy"></a>' +
+        '<div class="body">' +
+          '<div class="num">TEMPLATE ' + t.n + '</div>' +
+          '<h2>' + t.name + '</h2>' +
+          '<p>' + t.text + '</p>' +
+          '<div class="swatches">' + t.sw.map(function (c) { return '<span style="background:' + c + '"></span>'; }).join("") + '</div>' +
+          '<div class="links">' +
+            '<a class="btn primary" href="' + base + 'index.html">View home page ' + arrow + '</a>' +
+            '<a class="btn" href="' + base + 'development.html?site=oaktree-meadow">Development page</a>' +
+          '</div>' +
+        '</div></article>';
+    }).join("");
+
+    (function () {
+      document.querySelectorAll("[data-stagger]").forEach(function (g) {
+        Array.prototype.forEach.call(g.children, function (c, i) { c.style.setProperty("--i", i % 3); });
+      });
+      var els = document.querySelectorAll("[data-reveal]");
+      if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        els.forEach(function (e) { e.classList.add("is-in"); }); return;
+      }
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+      }, { threshold: .12 });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
+</body>
+</html>
