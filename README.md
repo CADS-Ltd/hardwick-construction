@@ -39,4 +39,5 @@ npx http-server -p 8000
 
 ## Deployment
 
-`.github/workflows/pages.yml` deploys the repository root to GitHub Pages on every push.
+GitHub Pages serves the `gh-pages` branch. `.github/workflows/pages.yml` syncs that branch
+with every push, so the live site updates within a minute or two.
