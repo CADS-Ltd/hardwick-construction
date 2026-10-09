@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Homes in South Derbyshire | Hardwick Construction</title>
+  <meta name="description" content="Find your new home with Hardwick Construction — a family-run housebuilder in Swadlincote building quality new homes across South Derbyshire.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="brand__mark" aria-hidden="true">H</span>
+        <span class="brand__text"><span class="brand__name">Hardwick</span><span class="brand__sub">Construction</span></span>
+      </a>
+      <nav class="nav" data-nav aria-label="Main">
+        <a href="#developments">Current developments</a>
+        <a href="#available">Homes for sale</a>
+        <a href="#completed">Completed developments</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn--primary btn--sm nav__cta" data-company="phone" href="#">01283 212304</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO + FINDER -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero__media">
+          <img class="hero__img" src="../../assets/img/ext-brick-street.jpg" alt="Sunny street of new brick homes with green lawns" fetchpriority="high">
+          <div class="hero__content">
+            <p class="eyebrow eyebrow--light">New homes in South Derbyshire</p>
+            <h1 id="hero-title">Find your new <span class="hl">home</span></h1>
+            <p class="hero__lead" data-company="strapline">Quality new homes, built locally in South Derbyshire</p>
+            <p class="hero__chips" id="hero-chips"></p>
+          </div>
+        </div>
+
+        <form class="finder" id="finder" aria-labelledby="finder-title" onsubmit="return false">
+          <div class="finder__head">
+            <h2 id="finder-title">Find your new home</h2>
+            <p>Search every home we have for sale right now.</p>
+          </div>
+          <div class="finder__fields">
+            <label class="field">
+              <span>Development</span>
+              <select id="f-dev"><option value="any">Any development</option></select>
+            </label>
+            <label class="field">
+              <span>Bedrooms</span>
+              <select id="f-beds">
+                <option value="0">Any</option>
+                <option value="3">3+ bedrooms</option>
+                <option value="4">4+ bedrooms</option>
+                <option value="5">5+ bedrooms</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Max price</span>
+              <select id="f-max">
+                <option value="0">No max</option>
+                <option value="275000">£275,000</option>
+                <option value="325000">£325,000</option>
+                <option value="400000">£400,000</option>
+                <option value="450000">£450,000</option>
+                <option value="500000">£500,000</option>
+                <option value="600000">£600,000</option>
+              </select>
+            </label>
+            <div class="finder__result" aria-live="polite">
+              <p class="finder__count" id="f-count"></p>
+              <a class="btn btn--primary btn--block" id="f-go" href="#available">View homes</a>
+            </div>
+          </div>
+          <div class="finder__breakdown" id="f-breakdown"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- CURRENT DEVELOPMENTS -->
+    <section class="section" id="developments" aria-labelledby="dev-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Current developments</p>
+            <h2 id="dev-title">Our developments</h2>
+          </div>
+          <p class="section-head__aside">Small, carefully planned sites across South Derbyshire. Each one has its own page with every home, price and specification.</p>
+        </div>
+        <div class="dev-grid" id="dev-grid" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- HOMES AVAILABLE NOW -->
+    <section class="section section--tint" id="available" aria-labelledby="avail-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Ready to reserve</p>
+            <h2 id="avail-title">Homes available now</h2>
+          </div>
+          <div class="strip-controls">
+            <button class="round-btn" type="button" data-strip="-1" aria-label="Scroll homes left">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+            </button>
+            <button class="round-btn" type="button" data-strip="1" aria-label="Scroll homes right">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="chips" id="strip-chips" role="group" aria-label="Filter homes by development" data-reveal></div>
+        <p class="strip-note" id="strip-note" hidden></p>
+        <div class="strip" id="strip" tabindex="0" aria-label="Homes available now — scrollable list"></div>
+      </div>
+    </section>
+
+    <!-- COMPLETED -->
+    <section class="section" id="completed" aria-labelledby="done-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Previous projects</p>
+            <h2 id="done-title">Completed developments</h2>
+          </div>
+          <p class="section-head__aside">Every home on these sites has found its owners. Take a look at what we have built.</p>
+        </div>
+        <div class="done-grid" id="done-grid" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section section--tint" id="about" aria-labelledby="about-title">
+      <div class="container about">
+        <div class="about__media" data-reveal>
+          <img class="about__img about__img--main" src="../../assets/img/ext-brick-row.jpg" alt="A new Hardwick brick-built family home" loading="lazy">
+          <img class="about__img about__img--inset" src="../../assets/img/int-kitchen.jpg" alt="Bright fitted kitchen with island and bar stools" loading="lazy">
+          <span class="about__badge"><strong>Family-run</strong> since day one</span>
+        </div>
+        <div class="about__body" data-reveal>
+          <p class="eyebrow">About Hardwick</p>
+          <h2 id="about-title">Homes we'd be happy to live in ourselves</h2>
+          <p data-company="about"></p>
+          <ul class="ticks">
+            <li>Built by a local, family-run team</li>
+            <li>Small sites, carefully planned</li>
+            <li>Every home covered by a 10 year warranty</li>
+          </ul>
+          <div class="stats" id="stats" data-stagger></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact" data-reveal>
+          <div class="contact__info">
+            <p class="eyebrow eyebrow--light">Get in touch</p>
+            <h2 id="contact-title">Let's find your next home together</h2>
+            <p>Talk to James and the team about any home, book a viewing or ask about upcoming plots.</p>
+            <ul class="contact__list">
+              <li><span class="ico ico--sun" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></span>
+                <div><small>Office</small><a data-company="phone" href="#"></a></div></li>
+              <li><span class="ico ico--sun" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span>
+                <div><small>Mobile</small><a data-company="mobile" href="#"></a></div></li>
+              <li><span class="ico ico--sun" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                <div><small>Email</small><a class="break" data-company="email" href="#"></a></div></li>
+              <li><span class="ico ico--sun" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+                <div><small>Office address</small><span data-company="address-inline"></span></div></li>
+            </ul>
+          </div>
+          <form class="contact__form" id="contact-form" novalidate>
+            <h3>Send us a message</h3>
+            <div class="form-row">
+              <label class="field"><span>Your name</span><input id="c-name" type="text" autocomplete="name" required></label>
+              <label class="field"><span>Phone</span><input id="c-phone" type="tel" autocomplete="tel"></label>
+            </div>
+            <label class="field"><span>I'm interested in</span>
+              <select id="c-dev"><option value="">General enquiry</option></select>
+            </label>
+            <label class="field"><span>Message</span><textarea id="c-msg" rows="4" placeholder="E.g. I'd like to book a viewing of Plot 5…"></textarea></label>
+            <button class="btn btn--primary btn--block" type="submit">Email the team</button>
+            <p class="form-hint">Opens your email app with your message ready to send.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <a class="brand brand--light" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="brand__mark" aria-hidden="true">H</span>
+          <span class="brand__text"><span class="brand__name">Hardwick</span><span class="brand__sub">Construction</span></span>
+        </a>
+        <p class="footer__strap" data-company="strapline"></p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <p data-company="address"></p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>Office <a data-company="phone" href="#"></a><br>Mobile <a data-company="mobile" href="#"></a><br><a class="break" data-company="email" href="#"></a></p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <p><a href="#developments">Current developments</a><br><a href="#available">Homes for sale</a><br><a href="#completed">Completed developments</a><br><a href="#about">About us</a></p>
+      </div>
+    </div>
+    <div class="container footer__base">
+      <span>&copy; <span data-company="year"></span> <span data-company="name"></span></span>
+      <span class="footer__draft">Draft template — sample content</span>
+    </div>
+  </footer>
+
+  <a class="tpl-pill" href="../../index.html">&larr; All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

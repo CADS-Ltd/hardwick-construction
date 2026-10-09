@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Development | Hardwick Construction</title>
+  <meta name="description" content="New homes for sale from Hardwick Construction — prices, availability, specification and location.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="development">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="brand__mark" aria-hidden="true">H</span>
+        <span class="brand__text"><span class="brand__name">Hardwick</span><span class="brand__sub">Construction</span></span>
+      </a>
+      <nav class="nav" data-nav aria-label="Main">
+        <a href="index.html#developments">Current developments</a>
+        <a href="index.html#available">Homes for sale</a>
+        <a href="index.html#completed">Completed developments</a>
+        <a href="index.html#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn--primary btn--sm nav__cta" data-company="phone" href="#">01283 212304</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="dhero" aria-labelledby="d-name">
+      <div class="container">
+        <div class="dhero__media">
+          <img class="hero__img" id="d-hero-img" src="" alt="">
+          <div class="dhero__content">
+            <nav class="crumbs" aria-label="Breadcrumb">
+              <ol>
+                <li><a href="index.html">Home</a></li>
+                <li><a id="d-crumb-group" href="index.html#developments">Developments</a></li>
+                <li aria-current="page" id="d-crumb"></li>
+              </ol>
+            </nav>
+            <p class="dhero__loc" id="d-loc"></p>
+            <h1 id="d-name"></h1>
+            <p class="dhero__headline" id="d-headline"></p>
+            <div class="dhero__chips" id="d-chips"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STICKY TABS -->
+    <div class="tabs" id="tabs">
+      <div class="container tabs__inner">
+        <nav class="tabs__nav" aria-label="On this page">
+          <div class="tabs__track" id="tabs-track">
+            <a href="#overview" data-tab>Overview</a>
+            <a href="#homes" data-tab id="tab-homes">Available homes</a>
+            <a href="#specification" data-tab>Specification</a>
+            <a href="#gallery" data-tab>Gallery</a>
+            <a href="#location" data-tab>Location</a>
+            <span class="tabs__indicator" id="tabs-indicator" aria-hidden="true"></span>
+          </div>
+        </nav>
+        <a class="btn btn--primary btn--sm tabs__cta" id="tabs-cta" href="#">Enquire</a>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="section dsec" id="overview" aria-labelledby="ov-title">
+      <div class="container overview">
+        <div class="overview__body" data-reveal>
+          <p class="eyebrow">Overview</p>
+          <h2 id="ov-title"></h2>
+          <div class="prose" id="d-desc"></div>
+          <dl class="facts" id="d-facts"></dl>
+        </div>
+        <aside class="avail-card" id="avail-card" data-reveal aria-label="Availability summary"></aside>
+      </div>
+    </section>
+
+    <!-- HOMES -->
+    <section class="section section--tint dsec" id="homes" aria-labelledby="homes-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow" id="homes-eyebrow">Homes for sale</p>
+            <h2 id="homes-title">Available homes</h2>
+          </div>
+          <p class="section-head__aside" id="homes-summary"></p>
+        </div>
+        <p class="strip-note" id="homes-note" hidden></p>
+        <div class="plot-grid" id="plot-grid" data-stagger></div>
+        <div class="plots-table" id="plots-table" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- SPEC -->
+    <section class="section dsec" id="specification" aria-labelledby="spec-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Specification</p>
+            <h2 id="spec-title">What's included</h2>
+          </div>
+          <p class="section-head__aside" id="spec-aside">Thoughtful touches as standard, so your new home is ready to move straight into.</p>
+        </div>
+        <ul class="spec" id="spec" data-stagger></ul>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section section--tint dsec" id="gallery" aria-labelledby="gal-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Gallery</p>
+            <h2 id="gal-title">Take a look inside</h2>
+          </div>
+          <p class="section-head__aside">Tap any photo to view it larger. Images may show typical Hardwick homes.</p>
+        </div>
+        <div class="gallery" id="gallery-grid" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="section dsec" id="location" aria-labelledby="loc-title">
+      <div class="container">
+        <div class="loc" data-reveal>
+          <div class="loc__info">
+            <p class="eyebrow">Location</p>
+            <h2 id="loc-title"></h2>
+            <p id="loc-text"></p>
+            <div class="loc__postcode">
+              <small>Sat-nav postcode</small>
+              <strong id="loc-postcode"></strong>
+            </div>
+            <div class="loc__actions">
+              <a class="btn btn--primary" id="loc-directions" href="#" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>
+                Get directions
+              </a>
+              <a class="btn btn--ghost" data-company="phone" href="#"></a>
+            </div>
+          </div>
+          <div class="loc__map" aria-hidden="true">
+            <svg class="loc__roads" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <path d="M-20 210 C 80 190, 140 120, 230 130 S 380 90, 430 60" />
+              <path d="M60 -20 C 90 80, 120 160, 110 320" />
+              <path d="M260 -20 C 250 90, 300 200, 280 320" class="thin"/>
+              <path d="M-20 70 C 100 90, 200 60, 430 170" class="thin"/>
+              <path d="M150 320 C 180 250, 240 230, 430 250" class="thin"/>
+            </svg>
+            <div class="loc__pin">
+              <span class="loc__pin-dot"></span>
+              <span class="loc__pin-label" id="loc-pin-label"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OTHER DEVELOPMENTS -->
+    <section class="section section--tint" id="others" aria-labelledby="others-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Keep looking</p>
+            <h2 id="others-title">Other developments</h2>
+          </div>
+          <a class="link-arrow" href="index.html#developments">&larr; All developments</a>
+        </div>
+        <div class="dev-grid" id="others-grid" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section class="section section--tight" id="contact" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-band" data-reveal>
+          <div>
+            <p class="eyebrow eyebrow--light">Book a viewing</p>
+            <h2 id="cta-title"></h2>
+            <p>Call the team or drop us an email — we'll happily show you around.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn--sun" data-company="phone" href="#"></a>
+            <a class="btn btn--outline-light" id="cta-email" href="#">Email us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <a class="brand brand--light" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="brand__mark" aria-hidden="true">H</span>
+          <span class="brand__text"><span class="brand__name">Hardwick</span><span class="brand__sub">Construction</span></span>
+        </a>
+        <p class="footer__strap" data-company="strapline"></p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <p data-company="address"></p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>Office <a data-company="phone" href="#"></a><br>Mobile <a data-company="mobile" href="#"></a><br><a class="break" data-company="email" href="#"></a></p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <p><a href="index.html#developments">Current developments</a><br><a href="index.html#available">Homes for sale</a><br><a href="index.html#completed">Completed developments</a><br><a href="index.html#about">About us</a></p>
+      </div>
+    </div>
+    <div class="container footer__base">
+      <span>&copy; <span data-company="year"></span> <span data-company="name"></span></span>
+      <span class="footer__draft">Draft template — sample content</span>
+    </div>
+  </footer>
+
+  <!-- Sticky mobile contact bar -->
+  <div class="mobile-bar" aria-label="Contact Hardwick">
+    <a class="btn btn--primary" data-mobilebar="phone" href="#">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg> Call
+    </a>
+    <a class="btn btn--sun" id="mobile-email" href="#">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> Email
+    </a>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close round-btn" type="button" aria-label="Close photo viewer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__prev round-btn" type="button" aria-label="Previous photo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="">
+    <button class="lightbox__nav lightbox__next round-btn" type="button" aria-label="Next photo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+
+  <a class="tpl-pill" href="../../index.html">&larr; All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
