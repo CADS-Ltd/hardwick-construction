@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Development — Hardwick Construction</title>
+  <meta name="description" content="New homes by Hardwick Construction — details, availability and prices.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-dev">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="wordmark-top">Hardwick</span>
+        <span class="wordmark-bottom">Construction</span>
+      </a>
+      <nav class="nav" data-nav aria-label="Main">
+        <a href="index.html#current">Current developments</a>
+        <a href="index.html#completed">Completed developments</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a class="btn btn-gold btn-sm nav-cta" href="#" data-company="phone">01283 212304</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- COLOUR-BLOCK HERO -->
+    <section class="dev-hero" aria-labelledby="dev-name">
+      <div class="wrap dev-hero-grid">
+        <div class="dev-hero-copy">
+          <a class="back-link hero-in" style="--d:0" href="index.html#current" id="back-link">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M16 10H5M9 5l-5 5 5 5"/></svg> All developments
+          </a>
+          <p class="eyebrow eyebrow-light hero-in" style="--d:1" id="dev-location"></p>
+          <h1 class="dev-title hero-in" style="--d:2" id="dev-name"></h1>
+          <p class="dev-headline hero-in" style="--d:3" id="dev-headline"></p>
+          <div class="hero-actions hero-in" style="--d:4" id="dev-hero-actions"></div>
+        </div>
+        <div class="dev-hero-media">
+          <div class="reveal-img is-hero">
+            <img id="dev-hero-img" src="" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEY FACTS -->
+    <div class="facts" aria-label="Key facts">
+      <dl class="wrap facts-grid" id="facts"></dl>
+    </div>
+
+    <!-- OVERVIEW + FEATURES -->
+    <section class="section" aria-labelledby="overview-title">
+      <div class="wrap overview">
+        <div class="overview-copy" data-reveal>
+          <p class="eyebrow">The development</p>
+          <h2 class="h2" id="overview-title">About <span id="dev-name-2"></span></h2>
+          <span class="bar" aria-hidden="true"></span>
+          <div class="prose" id="dev-description"></div>
+        </div>
+        <aside class="features-card" data-reveal aria-labelledby="features-title">
+          <h3 class="h3" id="features-title">Key features</h3>
+          <ul class="ticks" id="dev-features" data-stagger></ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- AVAILABILITY -->
+    <section class="section section-stone" id="availability" aria-labelledby="availability-title">
+      <div class="wrap">
+        <div class="section-head section-head-row" data-reveal>
+          <div>
+            <p class="eyebrow" id="availability-eyebrow">Availability</p>
+            <h2 class="h2" id="availability-title">Homes for sale</h2>
+            <span class="bar" aria-hidden="true"></span>
+          </div>
+          <ul class="summary" id="summary" aria-label="Availability summary"></ul>
+        </div>
+        <div id="plots"></div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section" aria-labelledby="gallery-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Inside &amp; out</p>
+          <h2 class="h2" id="gallery-title">Gallery</h2>
+          <span class="bar" aria-hidden="true"></span>
+        </div>
+        <div class="gallery" id="gallery"></div>
+        <p class="note">Images are representative of the specification and may show other Hardwick homes.</p>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="location" aria-labelledby="location-title">
+      <div class="wrap location-grid">
+        <div data-reveal>
+          <p class="eyebrow eyebrow-light">Location</p>
+          <h2 class="h2 h2-light" id="location-title">Finding <span id="dev-name-3"></span></h2>
+          <span class="bar" aria-hidden="true"></span>
+          <p class="contact-lead" id="location-text"></p>
+          <a class="btn btn-ghost-light" id="map-link" href="#" target="_blank" rel="noopener">Open in Google Maps <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M7 4h9v9M16 4L5 15"/></svg></a>
+        </div>
+        <div class="postcode-block" data-reveal>
+          <span class="postcode-label">Sat-nav postcode</span>
+          <span class="postcode" id="dev-postcode"></span>
+          <span class="postcode-place" id="dev-place"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENQUIRE -->
+    <section class="enquire" aria-labelledby="enquire-title">
+      <div class="wrap enquire-grid" data-reveal>
+        <div>
+          <h2 class="h2" id="enquire-title">Interested in <span id="dev-name-4"></span>?</h2>
+          <p>Speak to James and the team about availability, reservations or a viewing.</p>
+        </div>
+        <div class="enquire-actions">
+          <a class="btn btn-navy" href="#" data-company="phone"></a>
+          <a class="btn btn-navy-outline" href="#" id="enquire-email">Email an enquiry</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MORE -->
+    <section class="section" aria-labelledby="more-title" id="more-section">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Also by Hardwick</p>
+          <h2 class="h2" id="more-title">Now selling elsewhere</h2>
+          <span class="bar" aria-hidden="true"></span>
+        </div>
+        <div class="done-grid" id="more" data-stagger></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <img src="../../assets/img/hardwick-logo.png" alt="Hardwick Construction logo" width="130" height="99" class="footer-logo">
+        <p data-company="strapline"></p>
+      </div>
+      <div>
+        <h3 class="footer-h">Visit</h3>
+        <address data-company="address"></address>
+      </div>
+      <div>
+        <h3 class="footer-h">Call or email</h3>
+        <p>Office <a href="#" data-company="phone"></a><br>Mobile <a href="#" data-company="mobile"></a><br><a class="email-link" href="#" data-company="email"></a></p>
+      </div>
+      <div>
+        <h3 class="footer-h">Developments</h3>
+        <ul class="footer-links" id="footer-devs"></ul>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <p>© <span data-company="year"></span> <span data-company="name"></span>. All rights reserved.</p>
+      <p class="draft">Draft template — sample content</p>
+    </div>
+  </footer>
+
+  <a class="templates-pill" href="../../index.html"><span aria-hidden="true">←</span> All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
