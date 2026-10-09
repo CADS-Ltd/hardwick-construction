@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hardwick Construction — New homes in South Derbyshire</title>
+  <meta name="description" content="Hardwick Construction is a family-run housebuilder in Swadlincote, building small developments of quality new homes across South Derbyshire.">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="header" id="top">
+    <div class="wrap header__inner">
+      <a class="wordmark" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="wordmark__mark" aria-hidden="true"></span>
+        <span class="wordmark__name">Hardwick</span>
+        <span class="wordmark__sub">Construction</span>
+      </a>
+      <nav class="nav" data-nav aria-label="Main">
+        <a href="#current"><span class="nav__no">01</span>Current developments</a>
+        <a href="#completed"><span class="nav__no">02</span>Completed</a>
+        <a href="#about"><span class="nav__no">03</span>About</a>
+        <a href="#contact"><span class="nav__no">04</span>Contact</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <p class="label hero__label load-fade">Family-run housebuilder &nbsp;/&nbsp; Swadlincote</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line"><span>Quality new</span></span>
+          <span class="line"><span>homes, built</span></span>
+          <span class="line"><span>locally.</span></span>
+        </h1>
+        <p class="hero__lead load-fade">Small, carefully planned developments across South Derbyshire — finished to a standard we would be happy to live in ourselves.</p>
+        <div class="hero__links load-fade">
+          <a class="link-arrow link-arrow--strong" href="#current">View homes for sale <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="link-arrow" href="#contact">Arrange a viewing <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <figure class="hero__media wipe wipe--load">
+        <img src="../../assets/img/ext-brick-row.jpg" alt="A new red-brick family home with a gabled roof on a quiet street" width="1600" height="1067">
+      </figure>
+      <dl class="hero__facts load-fade">
+        <div><dt>Current developments</dt><dd id="fact-current">—</dd></div>
+        <div><dt>Homes available now</dt><dd id="fact-available">—</dd></div>
+        <div><dt>Based in</dt><dd>South Derbyshire</dd></div>
+      </dl>
+    </section>
+
+    <!-- 01 Current -->
+    <section class="section wrap" id="current" aria-labelledby="current-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">01</span>Current developments</p>
+        <h2 class="section__title" id="current-title">Homes for sale now</h2>
+        <p class="section__note">Select a development to see every plot, price and what is still available.</p>
+      </header>
+      <div class="devlist" id="current-list"></div>
+    </section>
+
+    <!-- 02 Completed -->
+    <section class="section wrap" id="completed" aria-labelledby="completed-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">02</span>Completed developments</p>
+        <h2 class="section__title" id="completed-title">Previous developments</h2>
+        <p class="section__note">Every home on these sites has been sold. They give a good idea of how we build.</p>
+      </header>
+      <div class="donegrid" id="completed-list" data-stagger></div>
+    </section>
+
+    <!-- 03 About -->
+    <section class="section wrap" id="about" aria-labelledby="about-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">03</span>About</p>
+        <h2 class="section__title" id="about-title">A local builder, not a volume builder</h2>
+      </header>
+      <div class="about">
+        <figure class="about__media wipe" data-reveal>
+          <img src="../../assets/img/build-plans.jpg" alt="Drawing up house plans at a desk" loading="lazy" width="1600" height="900">
+        </figure>
+        <div class="about__body" data-reveal>
+          <p class="about__lead" data-company="about"></p>
+          <p class="about__text">We keep our sites small so we can look after every detail ourselves — from planning and groundwork through to the final snag list. When you buy a Hardwick home, you deal with the family who built it.</p>
+        </div>
+        <dl class="stats" id="stats" data-stagger></dl>
+      </div>
+    </section>
+
+    <!-- 04 Contact -->
+    <section class="section wrap" id="contact" aria-labelledby="contact-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">04</span>Contact</p>
+        <h2 class="section__title" id="contact-title">Talk to James</h2>
+        <p class="section__note">For viewings, prices or to register interest in a future development, get in touch directly.</p>
+      </header>
+      <div class="contact" data-reveal>
+        <a class="contact__email link-arrow" data-company="email" href="#"></a>
+        <dl class="contact__grid">
+          <div><dt>Office</dt><dd><a data-company="phone" href="#"></a></dd></div>
+          <div><dt>Mobile</dt><dd><a data-company="mobile" href="#"></a></dd></div>
+          <div><dt>Address</dt><dd data-company="address"></dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <a class="wordmark" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="wordmark__mark" aria-hidden="true"></span>
+          <span class="wordmark__name">Hardwick</span>
+          <span class="wordmark__sub">Construction</span>
+        </a>
+        <p class="footer__strap" data-company="strapline"></p>
+      </div>
+      <address class="footer__col" data-company="address"></address>
+      <div class="footer__col">
+        <a data-company="phone" href="#"></a><br>
+        <a data-company="mobile" href="#"></a><br>
+        <a data-company="email" href="#"></a>
+      </div>
+      <div class="footer__base">
+        <span>© <span data-company="year"></span> <span data-company="name"></span></span>
+        <span>Draft template — sample content</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="pill" href="../../index.html">← All templates</a>
+  <div class="peek" aria-hidden="true"><div class="peek__inner"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="></div></div>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

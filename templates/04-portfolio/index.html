@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hardwick Construction — New homes in South Derbyshire</title>
+  <meta name="description" content="Hardwick Construction is a family-run housebuilder in Swadlincote, building small developments of quality new homes across South Derbyshire.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-home">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-text">
+          <span class="brand-name">Hardwick</span>
+          <span class="brand-sub">Construction</span>
+        </span>
+      </a>
+      <nav class="nav" id="site-nav" data-nav aria-label="Main">
+        <a href="index.html#current" data-tab-link="current">Current projects</a>
+        <a href="index.html#previous" data-tab-link="previous">Previous projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a class="nav-phone" href="#" data-company="phone">01283 212304</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Menu</span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero slideshow of current developments (built from developments.js) -->
+    <section class="hero" aria-roledescription="carousel" aria-label="Current developments">
+      <div class="hero-slides" id="hero-slides"></div>
+      <div class="hero-controls">
+        <div class="wrap hero-controls-inner">
+          <p class="hero-count" aria-hidden="true"><span id="hero-index">01</span><span class="sep"></span><span id="hero-total">03</span></p>
+          <div class="hero-dots" id="hero-dots"></div>
+          <button class="hero-pause" id="hero-pause" type="button" aria-label="Pause slideshow">
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro">
+      <div class="wrap intro-grid">
+        <h1 class="intro-title" data-reveal><span data-company="strapline">Quality new homes, built locally in South Derbyshire</span><span class="dot">.</span></h1>
+        <div class="intro-copy" data-reveal>
+          <p>Small, carefully planned developments by a family-run builder based in Swadlincote. Browse the homes we are selling now, or take a look back at the developments we have completed.</p>
+          <a class="link-arrow" href="#current" data-tab-link="current">See homes for sale <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects: tabbed current / previous -->
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <div class="wrap">
+        <div class="projects-head">
+          <div data-reveal>
+            <p class="eyebrow">Our developments</p>
+            <h2 class="section-title" id="projects-title">Projects</h2>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Projects" data-reveal>
+            <button class="tab" role="tab" type="button" id="tab-current" aria-controls="panel-current" aria-selected="true" data-tab="current">
+              Current projects <span class="tab-count" id="count-current"></span>
+            </button>
+            <button class="tab" role="tab" type="button" id="tab-previous" aria-controls="panel-previous" aria-selected="false" tabindex="-1" data-tab="previous">
+              Previous projects <span class="tab-count" id="count-previous"></span>
+            </button>
+            <span class="tabs-ink" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="tab-panels">
+          <div class="tab-panel is-active is-shown" role="tabpanel" id="panel-current" aria-labelledby="tab-current" tabindex="0">
+            <p class="panel-lede">Homes for sale now. Choose a development to see every plot, price and what is still available.</p>
+            <div class="cards" id="cards-current" data-stagger></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="panel-previous" aria-labelledby="tab-previous" tabindex="0" hidden>
+            <p class="panel-lede">A selection of developments we have completed. Every home is now sold and lived in.</p>
+            <div class="cards" id="cards-previous" data-stagger></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="wrap about-grid">
+        <figure class="about-media" data-reveal>
+          <img src="../../assets/img/build-plans.jpg" alt="Plans being drawn up for a new Hardwick development" loading="lazy" width="1600" height="900">
+        </figure>
+        <div class="about-copy" data-reveal>
+          <p class="eyebrow">About Hardwick</p>
+          <h2 class="section-title" id="about-title">A family builder, rooted in Swadlincote</h2>
+          <p class="about-lead" data-company="about"></p>
+          <p>We keep our developments small so that every home gets our full attention — from the first drawing to the final hand-over. When you buy a Hardwick home, you deal with the family who built it.</p>
+          <dl class="stats" id="stats"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Hardwick -->
+    <section class="why" aria-labelledby="why-title">
+      <div class="wrap">
+        <div class="why-head" data-reveal>
+          <p class="eyebrow eyebrow-light">Why Hardwick</p>
+          <h2 class="section-title" id="why-title">Built the way we would want our own home built</h2>
+        </div>
+        <div class="why-grid" data-stagger>
+          <article class="value" data-reveal>
+            <svg class="value-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 22 24 9l16 13"/><path d="M12 19v20h24V19"/><path d="M20 39V28h8v11"/></svg>
+            <h3>Local &amp; family-run</h3>
+            <p>We are based in Swadlincote and build within a few miles of our yard. We know every site, every street and every neighbour.</p>
+          </article>
+          <article class="value" data-reveal>
+            <svg class="value-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M9 39 39 9"/><path d="M9 39h30V9"/><path d="M16 39v-4M23 39v-6M30 39v-4M39 32h-4M39 25h-6M39 18h-4"/></svg>
+            <h3>Small by design</h3>
+            <p>Developments of four to twelve homes, carefully planned around their setting, so each one gets our complete attention.</p>
+          </article>
+          <article class="value" data-reveal>
+            <svg class="value-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 39 11v12c0 9.5-6.4 16.4-15 19-8.6-2.6-15-9.5-15-19V11z"/><path d="m17 24 5 5 9-10"/></svg>
+            <h3>Finished properly</h3>
+            <p>Quality kitchens, flooring throughout and turfed gardens as standard — all backed by a 10 year new home warranty.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div class="contact-info" data-reveal>
+          <p class="eyebrow">Get in touch</p>
+          <h2 class="section-title" id="contact-title">Register your interest</h2>
+          <p class="contact-lead">Interested in one of our homes, or want to hear about new developments first? Call James or send us a message and we will get straight back to you.</p>
+          <ul class="contact-list">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+              <span><span class="label">Office</span><a href="#" data-company="phone"></a></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/></svg>
+              <span><span class="label">Mobile</span><a href="#" data-company="mobile"></a></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>
+              <span><span class="label">Email</span><a class="break" href="#" data-company="email"></a></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <span><span class="label">Office address</span><span data-company="address"></span></span>
+            </li>
+          </ul>
+        </div>
+
+        <form class="enquiry" id="enquiry-form" method="post" enctype="text/plain" data-reveal>
+          <h3 class="enquiry-title">Send an enquiry</h3>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-name">Your name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone <span class="opt">(optional)</span></label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="f-dev">Development</label>
+            <div class="select">
+              <select id="f-dev" name="development"></select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Message</label>
+            <textarea id="f-msg" name="message" rows="4" placeholder="e.g. I'd like to arrange a viewing of plot 5"></textarea>
+          </div>
+          <div class="form-foot">
+            <button class="btn btn-navy" type="submit">Send enquiry
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="form-note">Opens your email app with your message ready to send.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand brand-footer" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span class="brand-text"><span class="brand-name">Hardwick</span><span class="brand-sub">Construction</span></span>
+        </a>
+        <p class="footer-strap" data-company="strapline"></p>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-head">Visit</h2>
+        <p data-company="address"></p>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-head">Contact</h2>
+        <p>T <a href="#" data-company="phone"></a><br>M <a href="#" data-company="mobile"></a><br><a class="break" href="#" data-company="email"></a></p>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-head">Explore</h2>
+        <p><a href="index.html#current" data-tab-link="current">Current projects</a><br><a href="index.html#previous" data-tab-link="previous">Previous projects</a><br><a href="index.html#about">About us</a><br><a href="index.html#contact">Contact</a></p>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <p>&copy; <span data-company="year"></span> <span data-company="name"></span>. All rights reserved.</p>
+      <p class="draft-note">Draft template — sample content</p>
+    </div>
+  </footer>
+
+  <a class="templates-pill" href="../../index.html"><span aria-hidden="true">&larr;</span> All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

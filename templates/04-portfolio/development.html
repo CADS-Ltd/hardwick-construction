@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Development — Hardwick Construction</title>
+  <meta name="description" content="New homes by Hardwick Construction — development details, gallery and homes for sale.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-dev">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-text">
+          <span class="brand-name">Hardwick</span>
+          <span class="brand-sub">Construction</span>
+        </span>
+      </a>
+      <nav class="nav" id="site-nav" data-nav aria-label="Main">
+        <a href="index.html#current">Current projects</a>
+        <a href="index.html#previous">Previous projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a class="nav-phone" href="#" data-company="phone">01283 212304</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Menu</span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="dev-hero">
+      <div class="dev-hero-media"><img id="dev-hero-img" src="" alt=""></div>
+      <div class="dev-hero-shade" aria-hidden="true"></div>
+      <div class="wrap dev-hero-inner">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span aria-hidden="true">/</span>
+          <a id="crumb-stage" href="index.html#current">Current projects</a>
+          <span aria-hidden="true">/</span>
+          <span id="crumb-name" aria-current="page"></span>
+        </nav>
+        <span class="ribbon hero-ribbon" id="dev-ribbon"></span>
+        <h1 class="dev-title" id="dev-name"></h1>
+        <p class="dev-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span id="dev-location"></span></p>
+      </div>
+    </section>
+
+    <!-- Overview + Project details sidebar -->
+    <section class="dev-overview">
+      <div class="wrap overview-grid">
+        <div class="overview-main" data-reveal>
+          <p class="eyebrow">The development</p>
+          <h2 class="overview-headline" id="dev-headline"></h2>
+          <div class="overview-body" id="dev-description"></div>
+          <h3 class="features-title">Key features</h3>
+          <ul class="features" id="dev-features"></ul>
+        </div>
+        <aside class="details" aria-labelledby="details-title" data-reveal>
+          <h2 class="details-title" id="details-title">Project details</h2>
+          <dl class="details-list" id="dev-details"></dl>
+          <div class="details-bar" id="dev-bar"></div>
+          <div class="details-actions" id="dev-actions"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="dev-gallery" aria-labelledby="gallery-title">
+      <div class="wrap">
+        <div class="block-head" data-reveal>
+          <p class="eyebrow">Inside &amp; out</p>
+          <h2 class="section-title" id="gallery-title">Gallery</h2>
+        </div>
+        <div class="gallery" id="gallery" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- Availability -->
+    <section class="dev-homes" id="homes" aria-labelledby="homes-title">
+      <div class="wrap">
+        <div class="block-head homes-head" data-reveal>
+          <div>
+            <p class="eyebrow" id="homes-eyebrow">Availability</p>
+            <h2 class="section-title" id="homes-title">Homes for sale</h2>
+          </div>
+          <ul class="summary" id="homes-summary"></ul>
+        </div>
+        <div id="homes-body" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- Enquiry CTA -->
+    <section class="dev-cta" aria-labelledby="cta-title">
+      <div class="wrap cta-grid">
+        <div data-reveal>
+          <p class="eyebrow eyebrow-light">Enquire</p>
+          <h2 class="cta-title" id="cta-title"></h2>
+          <p class="cta-text" id="cta-text"></p>
+          <p class="cta-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span id="cta-loc"></span> · <a id="cta-map" href="#" target="_blank" rel="noopener">View on map</a></p>
+        </div>
+        <div class="cta-actions" data-reveal>
+          <a class="cta-line" href="#" data-company="phone" id="cta-phone"></a>
+          <a class="cta-line cta-line-sm" href="#" data-company="mobile"></a>
+          <a class="btn btn-ochre" id="cta-email" href="#">Email an enquiry
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other projects -->
+    <section class="others" aria-labelledby="others-title">
+      <div class="wrap">
+        <div class="block-head others-head" data-reveal>
+          <div>
+            <p class="eyebrow">Keep exploring</p>
+            <h2 class="section-title" id="others-title">Other projects</h2>
+          </div>
+          <div class="carousel-nav">
+            <button class="round-btn" type="button" id="others-prev" aria-label="Previous projects">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+            </button>
+            <button class="round-btn" type="button" id="others-next" aria-label="More projects">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel" id="others" tabindex="0" aria-label="Other projects, scrollable"></div>
+        <p class="back-row"><a class="link-arrow link-back" href="index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back to all projects</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand brand-footer" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span class="brand-text"><span class="brand-name">Hardwick</span><span class="brand-sub">Construction</span></span>
+        </a>
+        <p class="footer-strap" data-company="strapline"></p>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-head">Visit</h2>
+        <p data-company="address"></p>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-head">Contact</h2>
+        <p>T <a href="#" data-company="phone"></a><br>M <a href="#" data-company="mobile"></a><br><a class="break" href="#" data-company="email"></a></p>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-head">Explore</h2>
+        <p><a href="index.html#current">Current projects</a><br><a href="index.html#previous">Previous projects</a><br><a href="index.html#about">About us</a><br><a href="index.html#contact">Contact</a></p>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <p>&copy; <span data-company="year"></span> <span data-company="name"></span>. All rights reserved.</p>
+      <p class="draft-note">Draft template — sample content</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+    <div class="lb-backdrop" data-lb-close></div>
+    <figure class="lb-stage">
+      <img class="lb-img" id="lb-img" src="" alt="">
+      <figcaption class="lb-caption"><span id="lb-caption"></span><span class="lb-count" id="lb-count"></span></figcaption>
+    </figure>
+    <button class="lb-btn lb-close" type="button" data-lb-close aria-label="Close image viewer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <button class="lb-btn lb-prev" type="button" id="lb-prev" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button class="lb-btn lb-next" type="button" id="lb-next" aria-label="Next image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <a class="templates-pill" href="../../index.html"><span aria-hidden="true">&larr;</span> All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

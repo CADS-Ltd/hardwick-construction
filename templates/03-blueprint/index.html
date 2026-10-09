@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hardwick Construction — Quality new homes in South Derbyshire</title>
+  <meta name="description" content="Hardwick Construction is a family-run housebuilder in Swadlincote, building small, carefully planned developments of quality new homes across South Derbyshire.">
+  <meta name="theme-color" content="#0b1430">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="wrap header-in">
+      <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-text">
+          <span class="brand-name">Hardwick</span>
+          <span class="brand-sub">Construction</span>
+        </span>
+      </a>
+      <nav class="nav" id="site-nav" data-nav aria-label="Main">
+        <a href="#current"><span class="nav-n">01</span>Current developments</a>
+        <a href="#completed"><span class="nav-n">02</span>Completed</a>
+        <a href="#about"><span class="nav-n">03</span>About</a>
+        <a href="#contact"><span class="nav-n">04</span>Contact</a>
+        <a class="btn btn-amber btn-sm nav-cta" href="#contact">Enquire</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media">
+        <img src="../../assets/img/ext-evening.jpg" alt="A newly built family home lit up at dusk" fetchpriority="high">
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-marks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+      <div class="wrap hero-in">
+        <p class="mono-label hero-anim" style="--d:0">
+          <span class="amber">DRG. HC-01</span><span class="lbl-sep"> &nbsp;—&nbsp; </span><span class="lbl-loc">Swadlincote, South Derbyshire</span>
+        </p>
+        <h1 id="hero-title" class="hero-title hero-anim" style="--d:1">
+          Quality new homes, <span class="nowrap">built locally</span> in South&nbsp;Derbyshire.
+        </h1>
+
+        <svg class="draw-line hero-line" viewBox="0 0 560 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path class="dl-main" pathLength="1" d="M1 12 H559" />
+          <path class="dl-tick" pathLength="1" d="M1 4 V20" />
+          <path class="dl-tick" pathLength="1" d="M559 4 V20" />
+          <path class="dl-tick" pathLength="1" d="M-3 16 L5 8" />
+          <path class="dl-tick" pathLength="1" d="M555 16 L563 8" />
+        </svg>
+
+        <p class="hero-lead hero-anim" style="--d:2">
+          A family-run builder creating small, carefully planned developments —
+          each home finished to a standard we would be happy to live in ourselves.
+        </p>
+        <div class="hero-actions hero-anim" style="--d:3">
+          <a class="btn btn-amber" href="#current">View homes for sale <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#contact">Speak to James</a>
+        </div>
+      </div>
+
+      <div class="wrap hero-foot mono" aria-hidden="true">
+        <span>52.77° N &nbsp;/&nbsp; 1.55° W</span>
+        <span class="hero-scroll">Scroll <i></i></span>
+      </div>
+    </section>
+
+    <!-- ============ SPEC SHEET ============ -->
+    <section class="spec-wrap" aria-label="Hardwick Construction at a glance">
+      <div class="wrap">
+        <div class="sheet" data-reveal>
+          <div class="sheet-head mono">
+            <span>Specification sheet</span>
+            <span class="hide-sm">Hardwick Construction</span>
+            <span>Sheet 01 / 01</span>
+          </div>
+          <dl class="sheet-grid" id="spec-grid"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CURRENT ============ -->
+    <section class="section" id="current" aria-labelledby="current-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <div>
+            <p class="mono-label"><span class="amber">01</span> — Current developments</p>
+            <h2 id="current-title">Homes for sale now</h2>
+          </div>
+          <p class="sec-intro">Each development is a small group of homes, planned plot by plot. Choose a site to see the full site plan, prices and what's still available.</p>
+        </header>
+        <div class="dim" data-reveal aria-hidden="true"><span id="current-dim">Current sites</span></div>
+        <div class="dev-grid" id="current-list" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ============ COMPLETED ============ -->
+    <section class="section section-alt" id="completed" aria-labelledby="completed-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <div>
+            <p class="mono-label"><span class="amber">02</span> — Completed developments</p>
+            <h2 id="completed-title">Built, sold &amp; lived in</h2>
+          </div>
+          <p class="sec-intro">A record of our recent developments around Swadlincote and the surrounding villages — every home now sold and occupied.</p>
+        </header>
+        <div class="dim" data-reveal aria-hidden="true"><span>As-built record</span></div>
+        <ol class="timeline" id="completed-list"></ol>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap about-grid">
+        <div class="about-figs">
+          <figure class="fig fig-a" data-reveal>
+            <div class="crop"><div class="img-frame"><img src="../../assets/img/build-plans.jpg" alt="Reviewing house plans at the drawing board" loading="lazy"></div></div>
+            <figcaption class="mono"><span class="amber">Fig. 01</span> — Every home starts on paper</figcaption>
+          </figure>
+          <figure class="fig fig-b" data-reveal style="--i:2">
+            <div class="crop"><div class="img-frame"><img src="../../assets/img/build-site.jpg" alt="The site team walking a development during construction" loading="lazy"></div></div>
+            <figcaption class="mono"><span class="amber">Fig. 02</span> — Then it's built on site</figcaption>
+          </figure>
+        </div>
+
+        <div class="about-text" data-reveal>
+          <p class="mono-label"><span class="amber">03</span> — About Hardwick</p>
+          <h2 id="about-title">A family builder, working to the detail.</h2>
+          <p class="about-lead" data-company="about"></p>
+          <ol class="principles" data-stagger>
+            <li data-reveal>
+              <span class="mono amber">01</span>
+              <div><h3>Small, planned sites</h3><p>A handful of homes at a time, so every plot gets proper attention from drawing to handover.</p></div>
+            </li>
+            <li data-reveal>
+              <span class="mono amber">02</span>
+              <div><h3>Local, start to finish</h3><p>Based in Swadlincote and building across South Derbyshire and the surrounding villages.</p></div>
+            </li>
+            <li data-reveal>
+              <span class="mono amber">03</span>
+              <div><h3>Finished properly</h3><p>Ready to move straight into, and backed by a 10 year new home warranty.</p></div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div class="contact-intro" data-reveal>
+          <p class="mono-label"><span class="amber">04</span> — Contact</p>
+          <h2 id="contact-title">Talk to us about your next home</h2>
+          <p>Whether you'd like to arrange a viewing, reserve a plot or simply ask a question, call or email — you'll speak directly to the family.</p>
+          <div class="contact-actions">
+            <a class="btn btn-amber" data-company="phone" href="#">01283 212304</a>
+            <a class="btn btn-ghost" href="mailto:james.hardwick@hardwickconstruction.co.uk" id="email-btn">Email us</a>
+          </div>
+        </div>
+
+        <div class="title-block" data-reveal style="--i:1">
+          <div class="tb-row tb-head">
+            <div class="tb-cell tb-wide"><span class="tb-k">Project</span><span class="tb-v">Your new home</span></div>
+            <div class="tb-cell"><span class="tb-k">Drg. no.</span><span class="tb-v mono">HC-04</span></div>
+          </div>
+          <div class="tb-row">
+            <div class="tb-cell"><span class="tb-k">Office</span><a class="tb-v" data-company="phone" href="#">01283 212304</a></div>
+            <div class="tb-cell"><span class="tb-k">Mobile</span><a class="tb-v" data-company="mobile" href="#">07595 081891</a></div>
+          </div>
+          <div class="tb-row">
+            <div class="tb-cell tb-full"><span class="tb-k">Email</span><a class="tb-v tb-email" data-company="email" href="#">james.hardwick@hardwickconstruction.co.uk</a></div>
+          </div>
+          <div class="tb-row">
+            <div class="tb-cell tb-wide"><span class="tb-k">Address</span><span class="tb-v tb-addr" data-company="address-inline"></span></div>
+            <div class="tb-cell"><span class="tb-k">Contact</span><span class="tb-v">James Hardwick</span></div>
+          </div>
+          <div class="tb-row tb-foot mono">
+            <div class="tb-cell"><span class="tb-k">Scale</span>NTS</div>
+            <div class="tb-cell"><span class="tb-k">Rev.</span>A</div>
+            <div class="tb-cell"><span class="tb-k">Date</span><span data-company="year"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span class="brand-text"><span class="brand-name">Hardwick</span><span class="brand-sub">Construction</span></span>
+        </a>
+        <p data-company="strapline"></p>
+      </div>
+      <div>
+        <h2 class="foot-h mono">Office</h2>
+        <address data-company="address"></address>
+      </div>
+      <div>
+        <h2 class="foot-h mono">Contact</h2>
+        <ul class="foot-list">
+          <li><span class="mono">T</span> <a data-company="phone" href="#"></a></li>
+          <li><span class="mono">M</span> <a data-company="mobile" href="#"></a></li>
+          <li><span class="mono">E</span> <a class="foot-email" data-company="email" href="#"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h mono">Explore</h2>
+        <ul class="foot-list">
+          <li><a href="#current">Current developments</a></li>
+          <li><a href="#completed">Completed developments</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-base mono">
+      <span>© <span data-company="year"></span> <span data-company="name"></span></span>
+      <span>Draft template — sample content</span>
+    </div>
+  </footer>
+
+  <a class="tpl-pill mono" href="../../index.html">← All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

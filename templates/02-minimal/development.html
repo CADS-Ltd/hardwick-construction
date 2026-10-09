@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Development — Hardwick Construction</title>
+  <meta name="description" content="New homes by Hardwick Construction — plots, prices and availability.">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-dev">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="header" id="top">
+    <div class="wrap header__inner">
+      <a class="wordmark" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="wordmark__mark" aria-hidden="true"></span>
+        <span class="wordmark__name">Hardwick</span>
+        <span class="wordmark__sub">Construction</span>
+      </a>
+      <nav class="nav" data-nav aria-label="Main">
+        <a href="index.html#current"><span class="nav__no">01</span>Current developments</a>
+        <a href="index.html#completed"><span class="nav__no">02</span>Completed</a>
+        <a href="index.html#about"><span class="nav__no">03</span>About</a>
+        <a href="index.html#contact"><span class="nav__no">04</span>Contact</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Title -->
+    <section class="dhero wrap" aria-labelledby="dev-title">
+      <div class="dhero__top load-fade">
+        <a class="link-back" id="dev-back" href="index.html#current"><span class="arrow" aria-hidden="true">←</span> <span id="dev-back-text">All developments</span></a>
+        <p class="label" id="dev-stage"></p>
+      </div>
+      <h1 class="dhero__title" id="dev-title"><span class="line"><span id="dev-name">&nbsp;</span></span></h1>
+      <div class="dhero__meta load-fade">
+        <p class="dhero__headline" id="dev-headline"></p>
+        <dl class="dhero__facts" id="dev-facts"></dl>
+      </div>
+      <figure class="dhero__media wipe wipe--load">
+        <img id="dev-hero" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="">
+      </figure>
+    </section>
+
+    <!-- 01 Overview -->
+    <section class="section wrap" id="overview" aria-labelledby="overview-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">01</span>Overview</p>
+        <h2 class="section__title" id="overview-title">The development</h2>
+      </header>
+      <div class="overview">
+        <div class="overview__text" id="dev-description" data-reveal></div>
+        <div class="overview__features" data-reveal>
+          <h3 class="minihead">Key features</h3>
+          <ol class="features" id="dev-features"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 Gallery -->
+    <section class="section wrap" id="gallery" aria-labelledby="gallery-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">02</span>Gallery</p>
+        <h2 class="section__title" id="gallery-title">Inside &amp; out</h2>
+        <p class="section__note">Images show typical Hardwick finishes and may include optional upgrades.</p>
+      </header>
+      <div class="gallery" id="dev-gallery"></div>
+    </section>
+
+    <!-- 03 Availability -->
+    <section class="section wrap" id="availability" aria-labelledby="availability-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">03</span>Availability</p>
+        <h2 class="section__title" id="availability-title">Homes for sale</h2>
+        <p class="section__note" id="avail-note"></p>
+      </header>
+      <div id="dev-availability"></div>
+    </section>
+
+    <!-- 04 Location & enquire -->
+    <section class="section wrap" id="enquire" aria-labelledby="enquire-title">
+      <header class="section__head" data-reveal>
+        <p class="label"><span class="label__no">04</span>Location &amp; enquiries</p>
+        <h2 class="section__title" id="enquire-title">Arrange a viewing</h2>
+      </header>
+      <div class="enquire" data-reveal>
+        <dl class="enquire__loc">
+          <div><dt>Location</dt><dd id="dev-location"></dd></div>
+          <div><dt>Postcode</dt><dd id="dev-postcode"></dd></div>
+          <div><dt>Map</dt><dd><a class="link-arrow" id="dev-map" href="#" target="_blank" rel="noopener">Open in Google Maps <span class="arrow" aria-hidden="true">↗</span></a></dd></div>
+        </dl>
+        <div class="enquire__cta">
+          <p class="enquire__lead" id="enquire-lead">Speak to James Hardwick directly about any of the homes here.</p>
+          <div class="enquire__actions">
+            <a class="btn" id="dev-email" href="#">Email an enquiry <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn--ghost" data-company="phone" href="#"></a>
+          </div>
+          <p class="enquire__small">Mobile <a data-company="mobile" href="#"></a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next -->
+    <nav class="next wrap" aria-label="More developments" id="dev-next"></nav>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <a class="wordmark" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="wordmark__mark" aria-hidden="true"></span>
+          <span class="wordmark__name">Hardwick</span>
+          <span class="wordmark__sub">Construction</span>
+        </a>
+        <p class="footer__strap" data-company="strapline"></p>
+      </div>
+      <address class="footer__col" data-company="address"></address>
+      <div class="footer__col">
+        <a data-company="phone" href="#"></a><br>
+        <a data-company="mobile" href="#"></a><br>
+        <a data-company="email" href="#"></a>
+      </div>
+      <div class="footer__base">
+        <span>© <span data-company="year"></span> <span data-company="name"></span></span>
+        <span>Draft template — sample content</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="pill" href="../../index.html">← All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

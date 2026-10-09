@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Development — Hardwick Construction</title>
+  <meta name="description" content="New homes by Hardwick Construction, South Derbyshire.">
+  <meta name="theme-color" content="#0b1430">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="development">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="wrap header-in">
+      <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span class="brand-text">
+          <span class="brand-name">Hardwick</span>
+          <span class="brand-sub">Construction</span>
+        </span>
+      </a>
+      <nav class="nav" id="site-nav" data-nav aria-label="Main">
+        <a href="index.html#current"><span class="nav-n">01</span>Current developments</a>
+        <a href="index.html#completed"><span class="nav-n">02</span>Completed</a>
+        <a href="index.html#about"><span class="nav-n">03</span>About</a>
+        <a href="index.html#contact"><span class="nav-n">04</span>Contact</a>
+        <a class="btn btn-amber btn-sm nav-cta" href="#enquire">Enquire</a>
+      </nav>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero hero-dev" aria-labelledby="dev-title">
+      <div class="hero-media"><img id="dev-hero-img" src="" alt=""></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-marks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+      <div class="wrap hero-in">
+        <nav class="crumbs mono hero-anim" style="--d:0" aria-label="Breadcrumb">
+          <a href="index.html" id="crumb-back">← All developments</a>
+          <span aria-hidden="true">/</span>
+          <span id="crumb-stage">Current</span>
+        </nav>
+        <p class="mono-label hero-anim" style="--d:0" id="dev-ref"></p>
+        <h1 id="dev-title" class="hero-title hero-anim" style="--d:1"></h1>
+        <svg class="draw-line hero-line" viewBox="0 0 560 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path class="dl-main" pathLength="1" d="M1 12 H559" />
+          <path class="dl-tick" pathLength="1" d="M1 4 V20" />
+          <path class="dl-tick" pathLength="1" d="M559 4 V20" />
+          <path class="dl-tick" pathLength="1" d="M-3 16 L5 8" />
+          <path class="dl-tick" pathLength="1" d="M555 16 L563 8" />
+        </svg>
+        <p class="hero-lead hero-anim" style="--d:2" id="dev-headline"></p>
+        <div class="hero-actions hero-anim" style="--d:3" id="dev-actions"></div>
+      </div>
+    </section>
+
+    <!-- ============ KEY FACTS ============ -->
+    <section class="spec-wrap" aria-label="Key facts">
+      <div class="wrap">
+        <div class="sheet" data-reveal>
+          <div class="sheet-head mono">
+            <span>Key facts</span>
+            <span class="hide-sm" id="facts-name"></span>
+            <span id="facts-sheet">Sheet 01</span>
+          </div>
+          <dl class="sheet-grid sheet-grid-facts" id="facts-grid"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="section" aria-labelledby="overview-title">
+      <div class="wrap overview-grid">
+        <div class="overview-text" data-reveal>
+          <p class="mono-label"><span class="amber">01</span> — Overview</p>
+          <h2 id="overview-title">About the development</h2>
+          <div class="prose" id="dev-description"></div>
+        </div>
+        <aside class="features" data-reveal style="--i:1" aria-labelledby="features-title">
+          <div class="features-head mono"><span id="features-title">Specification</span><span>Key features</span></div>
+          <ol class="features-list" id="dev-features"></ol>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ AVAILABILITY ============ -->
+    <section class="section section-alt" id="availability" aria-labelledby="avail-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <div>
+            <p class="mono-label" id="avail-label"><span class="amber">02</span> — Site plan &amp; availability</p>
+            <h2 id="avail-title">Homes for sale</h2>
+          </div>
+          <p class="sec-intro" id="avail-intro"></p>
+        </header>
+        <div id="avail-body"></div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <div>
+            <p class="mono-label"><span class="amber">03</span> — Gallery</p>
+            <h2 id="gallery-title">Inside the homes</h2>
+          </div>
+          <p class="sec-intro">A look at the finish and specification. Images are illustrative and may show optional upgrades.</p>
+        </header>
+        <div class="gallery" id="dev-gallery" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ============ LOCATION ============ -->
+    <section class="section section-alt" id="location" aria-labelledby="location-title">
+      <div class="wrap location-grid">
+        <div class="location-text" data-reveal>
+          <p class="mono-label"><span class="amber">04</span> — Location</p>
+          <h2 id="location-title"></h2>
+          <p id="location-copy"></p>
+          <dl class="loc-list">
+            <div><dt class="mono">Development</dt><dd id="loc-name"></dd></div>
+            <div><dt class="mono">Area</dt><dd id="loc-area"></dd></div>
+            <div><dt class="mono">Postcode</dt><dd id="loc-postcode"></dd></div>
+          </dl>
+          <a class="btn btn-ghost" id="map-link" href="#" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="locator" data-reveal style="--i:1" aria-hidden="true">
+          <div class="locator-rings"></div>
+          <span class="locator-pin"></span>
+          <span class="locator-tag mono" id="locator-tag"></span>
+          <span class="locator-n mono">N</span>
+          <span class="locator-corner tl mono">Site ref.</span>
+          <span class="locator-corner br mono" id="locator-pc"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ENQUIRE ============ -->
+    <section class="cta-band" id="enquire" aria-labelledby="enquire-title">
+      <div class="wrap"><div class="cta-in" data-reveal>
+        <div>
+          <p class="mono-label"><span class="amber">05</span> — Enquiries</p>
+          <h2 id="enquire-title"></h2>
+          <p id="enquire-copy"></p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-amber" data-company="phone" href="#">01283 212304</a>
+          <a class="btn btn-ghost" id="enquire-email" href="#">Email an enquiry</a>
+          <a class="cta-back mono" href="index.html#current">← Back to all developments</a>
+        </div>
+      </div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span class="brand-text"><span class="brand-name">Hardwick</span><span class="brand-sub">Construction</span></span>
+        </a>
+        <p data-company="strapline"></p>
+      </div>
+      <div>
+        <h2 class="foot-h mono">Office</h2>
+        <address data-company="address"></address>
+      </div>
+      <div>
+        <h2 class="foot-h mono">Contact</h2>
+        <ul class="foot-list">
+          <li><span class="mono">T</span> <a data-company="phone" href="#"></a></li>
+          <li><span class="mono">M</span> <a data-company="mobile" href="#"></a></li>
+          <li><span class="mono">E</span> <a class="foot-email" data-company="email" href="#"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h mono">Explore</h2>
+        <ul class="foot-list">
+          <li><a href="index.html#current">Current developments</a></li>
+          <li><a href="index.html#completed">Completed developments</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-base mono">
+      <span>© <span data-company="year"></span> <span data-company="name"></span></span>
+      <span>Draft template — sample content</span>
+    </div>
+  </footer>
+
+  <a class="tpl-pill mono" href="../../index.html">← All templates</a>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Image viewer">
+    <figure>
+      <img id="lb-img" src="" alt="">
+      <figcaption class="mono" id="lb-cap"></figcaption>
+    </figure>
+    <button class="lb-btn lb-close" type="button" data-lb="close" aria-label="Close">✕</button>
+    <button class="lb-btn lb-prev" type="button" data-lb="prev" aria-label="Previous image">←</button>
+    <button class="lb-btn lb-next" type="button" data-lb="next" aria-label="Next image">→</button>
+  </dialog>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
