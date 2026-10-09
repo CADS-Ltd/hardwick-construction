@@ -106,7 +106,7 @@ button { font: inherit; color: inherit; }
 .chip {
   display: inline-flex; align-items: center; gap: 8px;
   font: 500 11px/1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 7px 10px; border-radius: 2px; border: 1px solid var(--line-2);
+  padding: 7px 10px; border-radius: 2px; border: 1px solid var(--line-2); white-space: nowrap;
   background: rgba(8, 16, 38, 0.82); color: var(--ink-2);
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
 }
@@ -789,6 +789,7 @@ a.tb-v:hover { color: var(--amber); }
   .gallery.g-4 .g-item:nth-child(n) { grid-column: auto; }
   .g-btn .img-frame { height: 240px; }
   .asbuilt { grid-template-columns: 1fr; }
+  .asbuilt-links a { flex-direction: column; align-items: flex-start; gap: 10px; }
   .asbuilt-stamp { width: 150px; }
   .asbuilt-stamp strong { font-size: 2.6rem; }
   .plan { padding: 16px 12px; }

@@ -368,8 +368,9 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .footer-col p { margin: 0; line-height: 1.85; }
 .site-footer a { color: rgba(255, 255, 255, .9); text-decoration: none; }
 .site-footer a:hover { color: var(--white); text-decoration: underline; text-decoration-color: var(--ochre); text-underline-offset: 4px; }
-.footer-base { display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; border-top: 1px solid rgba(255, 255, 255, .12); padding-top: 22px; padding-bottom: 26px; font-size: 13.5px; }
+.footer-base { position: relative; display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; padding-top: 22px; padding-bottom: 26px; font-size: 13.5px; }
 .footer-base p { margin: 0; }
+.footer-base::before { content: ""; position: absolute; top: 0; left: clamp(16px, 4vw, 40px); right: clamp(16px, 4vw, 40px); height: 1px; background: rgba(255, 255, 255, .12); }
 .draft-note { color: var(--ochre-soft); }
 
 /* Fixed "All templates" pill */
@@ -725,4 +726,10 @@ body.lb-lock { overflow: hidden; }
   .dev-hero-media img, .dev-hero-inner > * { animation: none; }
   .card-link:hover, .card-link:hover .card-media img, .g-item:hover img { transform: none; }
   .carousel { scroll-behavior: auto; }
+}
+
+/* Carousel cards are narrower on phones — keep the facts line on one row */
+@media (max-width: 640px) {
+  .carousel .card-meta { font-size: 14px; gap: 2px 10px; }
+  .carousel .card-meta span + span::before { margin-right: 10px; }
 }
