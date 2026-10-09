@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Development — Hardwick Construction</title>
+  <meta name="description" content="New homes by Hardwick Construction, South Derbyshire.">
+  <script>document.documentElement.className += " js";</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="development">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="index.html" aria-label="Hardwick Construction — home">
+        <span class="wordmark-mono" aria-hidden="true">H</span>
+        <span class="wordmark-text">
+          <span class="wordmark-name">Hardwick</span>
+          <span class="wordmark-sub">Construction</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+      <nav class="site-nav" id="site-nav" data-nav aria-label="Main">
+        <a class="draw" href="index.html#current">Current developments</a>
+        <a class="draw" href="index.html#completed">Completed developments</a>
+        <a class="draw" href="index.html#about">About</a>
+        <a class="draw" href="index.html#contact">Contact</a>
+        <a class="btn btn-gold btn-sm nav-cta" href="#enquire">Enquire</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero hero-dev" aria-labelledby="dev-name">
+      <div class="hero-media" aria-hidden="true">
+        <img id="dev-hero-img" src="" alt="">
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="wrap hero-content">
+        <a class="back-link hero-fade" style="--d:.1s" href="index.html#current" id="back-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m5-5-5 5 5 5"/></svg>
+          <span>All developments</span>
+        </a>
+        <p class="eyebrow eyebrow-light hero-fade" style="--d:.25s" id="dev-location"></p>
+        <h1 class="hero-title hero-fade" style="--d:.45s" id="dev-name"></h1>
+        <p class="hero-lede hero-fade" style="--d:.7s" id="dev-headline"></p>
+        <p class="hero-chip hero-fade" style="--d:.95s" id="dev-chip"></p>
+      </div>
+    </section>
+
+    <!-- STICKY SUB NAV -->
+    <nav class="subnav" aria-label="On this page">
+      <div class="wrap subnav-inner">
+        <span class="subnav-name" id="subnav-name" aria-hidden="true"></span>
+        <ul class="subnav-links">
+          <li><a href="#overview" data-sub>Overview</a></li>
+          <li><a href="#homes" data-sub>Homes</a></li>
+          <li><a href="#gallery" data-sub>Gallery</a></li>
+          <li><a href="#location" data-sub>Location</a></li>
+        </ul>
+        <a class="btn btn-navy btn-sm subnav-cta" href="#enquire">Enquire</a>
+      </div>
+    </nav>
+
+    <!-- OVERVIEW -->
+    <section class="section" id="overview" aria-labelledby="overview-title">
+      <div class="wrap overview-grid">
+        <div class="overview-copy">
+          <p class="eyebrow" data-reveal>Overview</p>
+          <h2 id="overview-title" class="display" data-reveal>About the development</h2>
+          <div id="dev-description" class="prose" data-reveal></div>
+          <h3 class="minor-title" data-reveal>Key features</h3>
+          <ul class="features" id="dev-features" data-stagger></ul>
+        </div>
+        <aside class="facts" aria-label="At a glance" data-reveal style="--i:1">
+          <p class="facts-title">At a glance</p>
+          <dl id="dev-facts"></dl>
+          <a class="btn btn-gold btn-block" href="#enquire">Book a viewing</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- HOMES -->
+    <section class="section section-alt" id="homes" aria-labelledby="homes-title">
+      <div class="wrap">
+        <header class="section-head section-head-split" data-reveal>
+          <div>
+            <p class="eyebrow">Homes for sale</p>
+            <h2 id="homes-title" class="display">Availability</h2>
+          </div>
+          <p class="section-intro" id="homes-intro"></p>
+        </header>
+        <div id="homes-body"></div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Gallery</p>
+          <h2 id="gallery-title" class="display">Inside &amp; out</h2>
+        </header>
+        <div class="gallery" id="dev-gallery" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="section section-alt" id="location" aria-labelledby="location-title">
+      <div class="wrap location-grid">
+        <div data-reveal>
+          <p class="eyebrow">Location</p>
+          <h2 id="location-title" class="display">Finding <span id="loc-name"></span></h2>
+          <p class="lead" id="loc-text"></p>
+          <a class="link-arrow draw" id="loc-map" href="#" target="_blank" rel="noopener">Open in Google Maps <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-5-5 5 5-5 5"/></svg></a>
+        </div>
+        <div class="loc-card" data-reveal style="--i:1">
+          <svg class="loc-pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <p class="loc-label">Development address</p>
+          <p class="loc-place" id="loc-place"></p>
+          <p class="loc-postcode" id="loc-postcode"></p>
+          <p class="loc-note" id="loc-note">Viewings strictly by appointment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENQUIRE -->
+    <section class="section section-navy enquire" id="enquire" aria-labelledby="enquire-title">
+      <div class="wrap enquire-inner" data-reveal>
+        <p class="eyebrow eyebrow-light">Enquiries</p>
+        <h2 id="enquire-title" class="display"><span id="enquire-title-pre">Interested in </span><em id="enq-name"></em>?</h2>
+        <p class="lead" id="enq-lead">Call the team or send us an email to arrange a viewing or reserve a plot.</p>
+        <div class="enquire-actions">
+          <a class="btn btn-gold" data-company="phone" href="#"></a>
+          <a class="btn btn-ghost-light" id="enq-mail" href="#">Email an enquiry</a>
+        </div>
+        <p class="enquire-alt">Mobile <a class="draw" data-company="mobile" href="#"></a></p>
+      </div>
+    </section>
+
+    <!-- OTHER DEVELOPMENTS -->
+    <section class="section others" aria-labelledby="others-title">
+      <div class="wrap">
+        <header class="section-head section-head-split" data-reveal>
+          <div>
+            <p class="eyebrow">Also by Hardwick</p>
+            <h2 id="others-title" class="display">Other developments</h2>
+          </div>
+          <a class="link-arrow draw" href="index.html#current">View all developments <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-5-5 5 5-5 5"/></svg></a>
+        </header>
+        <div class="completed-grid others-grid" id="others-list" data-stagger></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="wordmark wordmark-light" href="index.html" aria-label="Hardwick Construction — home">
+          <span class="wordmark-mono" aria-hidden="true">H</span>
+          <span class="wordmark-text">
+            <span class="wordmark-name">Hardwick</span>
+            <span class="wordmark-sub">Construction</span>
+          </span>
+        </a>
+        <p data-company="strapline"></p>
+      </div>
+      <div>
+        <h2 class="footer-title">Visit</h2>
+        <address data-company="address"></address>
+      </div>
+      <div>
+        <h2 class="footer-title">Call or email</h2>
+        <ul class="footer-links">
+          <li>Office <a class="draw" data-company="phone" href="#"></a></li>
+          <li>Mobile <a class="draw" data-company="mobile" href="#"></a></li>
+          <li><a class="draw" data-company="email" href="#"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="footer-title">Explore</h2>
+        <ul class="footer-links">
+          <li><a class="draw" href="index.html#current">Current developments</a></li>
+          <li><a class="draw" href="index.html#completed">Completed developments</a></li>
+          <li><a class="draw" href="index.html#about">About</a></li>
+          <li><a class="draw" href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <p>&copy; <span data-company="year"></span> <span data-company="name"></span>. All rights reserved.</p>
+      <p class="draft-note">Draft template — sample content</p>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+    <button class="lb-btn lb-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <figure class="lb-figure">
+      <img id="lb-img" src="" alt="">
+      <figcaption id="lb-cap"></figcaption>
+    </figure>
+    <button class="lb-btn lb-next" type="button" aria-label="Next image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <a class="templates-pill" href="../../index.html">&larr; All templates</a>
+
+  <script src="../../assets/data/developments.js"></script>
+  <script src="../../assets/js/hardwick.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
