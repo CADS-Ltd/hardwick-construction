@@ -195,7 +195,7 @@
     document.getElementById("dev-location").textContent = d.location;
     document.getElementById("dev-postcode").textContent = d.postcode;
     document.getElementById("dev-map").href =
-      "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(d.postcode + ", UK");
+      "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(d.mapQuery || d.postcode + ", UK");
 
     var subject = "Enquiry — " + d.name;
     document.getElementById("dev-email").href =
@@ -257,7 +257,7 @@
         '<td class="c-plot">' + pad(p.plot) + "</td>" +
         '<td class="c-type">' + esc(p.type) + "</td>" +
         '<td class="c-beds">' + p.beds + '<span class="m-only"> bed</span></td>' +
-        '<td class="c-sqft">' + p.sqft.toLocaleString("en-GB") + '<span class="m-only"> sq ft</span></td>' +
+        '<td class="c-sqft">' + H.sqft(p.sqft) + '<span class="m-only"> sq ft</span></td>' +
         '<td class="c-price">' + price + "</td>" +
         '<td class="c-status"><span class="status"><span class="dot dot--' + esc(p.status) + '" aria-hidden="true"></span>' +
         esc(H.statusLabel(p.status)) + "</span></td></tr>";

@@ -281,7 +281,7 @@
     setText("locator-tag", d.name);
     setText("locator-pc", d.postcode);
     document.getElementById("map-link").href =
-      "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(d.postcode + " " + d.location);
+      "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(d.mapQuery || d.postcode + " " + d.location);
 
     // Enquire
     setText("enquire-title", isDone ? "Looking for a new home nearby?" : "Interested in a home at " + d.name + "?");
@@ -305,7 +305,7 @@
 
   function plotLabel(p) {
     return "Plot " + p.plot + ", " + p.type + ", " + p.beds + " bedrooms, " +
-      p.sqft.toLocaleString("en-GB") + " square feet, " +
+      H.sqft(p.sqft) + " square feet, " +
       (p.status === "sold" ? "" : H.price(p.price) + ", ") + H.statusLabel(p.status);
   }
 
@@ -357,7 +357,7 @@
             '<th scope="row" class="c-plot"><span class="mono">Plot</span> ' + pad(p.plot) + "</th>" +
             '<td class="c-type">' + esc(p.type) + "</td>" +
             '<td class="c-beds" data-label="Beds">' + p.beds + "</td>" +
-            '<td class="c-sqft" data-label="Sq ft">' + p.sqft.toLocaleString("en-GB") + "</td>" +
+            '<td class="c-sqft" data-label="Sq ft">' + H.sqft(p.sqft) + "</td>" +
             '<td class="c-price">' + (sold
               ? '<s aria-label="Sold">' + esc(H.price(p.price)) + "</s>"
               : esc(H.price(p.price))) + "</td>" +
@@ -383,7 +383,7 @@
       tip.innerHTML =
         '<div class="tip-head"><span class="mono">Plot ' + pad(p.plot) + '</span><span class="badge badge-' + p.status + '">' + esc(H.statusLabel(p.status)) + "</span></div>" +
         "<strong>" + esc(p.type) + "</strong>" +
-        '<span class="mono tip-spec">' + p.beds + " bed — " + p.sqft.toLocaleString("en-GB") + " sq ft</span>" +
+        '<span class="mono tip-spec">' + p.beds + " bed — " + H.sqft(p.sqft) + " sq ft</span>" +
         '<span class="tip-price">' + (sold ? "<s>" + esc(H.price(p.price)) + "</s>" : esc(H.price(p.price))) + "</span>";
       tip.className = "plot-tip tip-" + p.status + " is-on";
       var pr = plan.getBoundingClientRect(), tr = tile.getBoundingClientRect();

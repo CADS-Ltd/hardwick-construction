@@ -70,8 +70,12 @@
               '<div><dt>Availability</dt><dd><span class="dot" aria-hidden="true"></span>' +
                 esc(c.available ? c.available + " available" : "Register interest") + "</dd></div>" +
             "</dl>" +
-            '<a class="link-arrow draw" href="' + devUrl(d) + '">View development' +
-              '<span class="sr-only"> — ' + esc(d.name) + "</span> " + ARROW + "</a>" +
+            '<p class="dev-row-links">' +
+              '<a class="link-arrow draw" href="' + devUrl(d) + '">View development' +
+                '<span class="sr-only"> — ' + esc(d.name) + "</span> " + ARROW + "</a>" +
+              (d.sitePlan ? '<a class="link-arrow draw" href="' + plotsUrl(d) + '">View plots' +
+                '<span class="sr-only"> — ' + esc(d.name) + "</span> " + ARROW + "</a>" : "") +
+            "</p>" +
           "</div>" +
         "</article>"
       );
@@ -181,48 +185,7 @@
     } else {
       intro.textContent = "Every plot at " + d.name + ", updated as homes are reserved and sold. " +
         "Contact us to arrange a viewing or reserve a home.";
-      var summary = [
-        ["available", "Available"],
-        ["reserved", "Reserved"],
-        ["coming-soon", "Coming soon"],
-        ["sold", "Sold"]
-      ];
-      var sumHtml = '<ul class="avail-summary" data-stagger>' + summary.map(function (s) {
-        return '<li class="is-' + s[0] + '" data-reveal><span class="avail-num" data-count="' +
-          (c[s[0]] || 0) + '">' + (c[s[0]] || 0) + '</span><span class="avail-label">' + s[1] + "</span></li>";
-      }).join("") + "</ul>";
-
-      var rows = d.plots.map(function (p) {
-        var sold = p.status === "sold";
-        var price = sold
-          ? '<s aria-hidden="true">' + esc(H.price(p.price)) + '</s><span class="sr-only">Sold</span>'
-          : esc(H.price(p.price));
-        return (
-          '<tr class="plot is-' + p.status + '">' +
-            '<td data-label="Plot"><span class="plot-no">' + esc(p.plot) + "</span></td>" +
-            '<td data-label="House type" class="plot-type">' + esc(p.type) + "</td>" +
-            '<td data-label="Bedrooms">' + esc(p.beds) + "</td>" +
-            '<td data-label="Sq ft">' + esc(p.sqft.toLocaleString("en-GB")) + "</td>" +
-            '<td data-label="Price" class="plot-price">' + price + "</td>" +
-            '<td data-label="Status"><span class="badge badge-' + p.status + '">' +
-              esc(H.statusLabel(p.status)) + "</span></td>" +
-          "</tr>"
-        );
-      }).join("");
-
-      body.innerHTML = sumHtml +
-        '<div class="table-wrap" data-reveal>' +
-          '<table class="plots">' +
-            '<caption class="sr-only">Plots and availability at ' + esc(d.name) + "</caption>" +
-            "<thead><tr>" +
-              '<th scope="col">Plot</th><th scope="col">House type</th><th scope="col">Bedrooms</th>' +
-              '<th scope="col">Sq ft</th><th scope="col">Price</th><th scope="col">Status</th>' +
-            "</tr></thead>" +
-            "<tbody>" + rows + "</tbody>" +
-          "</table>" +
-        "</div>" +
-        '<p class="table-note">Prices and availability are correct at the time of publishing and may change. ' +
-          'Please <a class="draw" href="#enquire">contact us</a> for the latest information.</p>';
+      body.innerHTML = (d.sitePlan ? planCta(d) : "") + availabilityHtml(d);
     }
 
     // Gallery
@@ -243,7 +206,7 @@
     setText("loc-text", d.name + " is located in " + d.location +
       ". Use the postcode " + d.postcode + " for satellite navigation.");
     document.getElementById("loc-map").href =
-      "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(d.postcode);
+      "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(H.mapQuery(d));
 
     // Enquire
     setText("enq-name", d.name);
@@ -254,6 +217,367 @@
     H.render("#others-list", others, completedCard);
 
     subnav();
+    H.reveal();
+    H.counters();
+  }
+
+  /* Availability summary + plot table, shared by the development and plots pages */
+  function availabilityHtml(d) {
+    var c = H.counts(d);
+    var summary = [
+      ["available", "Available"],
+      ["reserved", "Reserved"],
+      ["coming-soon", "Coming soon"],
+      ["sold", "Sold"]
+    ];
+    var sumHtml = '<ul class="avail-summary" data-stagger>' + summary.map(function (s) {
+      return '<li class="is-' + s[0] + '" data-reveal><span class="avail-num" data-count="' +
+        (c[s[0]] || 0) + '">' + (c[s[0]] || 0) + '</span><span class="avail-label">' + s[1] + "</span></li>";
+    }).join("") + "</ul>";
+
+    var rows = d.plots.map(function (p) {
+      var sold = p.status === "sold";
+      var price = sold
+        ? '<s aria-hidden="true">' + esc(H.price(p.price)) + '</s><span class="sr-only">Sold</span>'
+        : esc(H.price(p.price));
+      return (
+        '<tr class="plot is-' + p.status + '" data-plot="' + esc(p.plot) + '">' +
+          '<td data-label="Plot"><span class="plot-no">' + esc(p.plot) + "</span></td>" +
+          '<td data-label="House type" class="plot-type">' + esc(p.type) + "</td>" +
+          '<td data-label="Bedrooms">' + esc(p.beds) + "</td>" +
+          '<td data-label="Sq ft">' + esc(H.sqft(p.sqft)) + "</td>" +
+          '<td data-label="Price" class="plot-price">' + price + "</td>" +
+          '<td data-label="Status"><span class="badge badge-' + p.status + '">' +
+            esc(H.statusLabel(p.status)) + "</span></td>" +
+        "</tr>"
+      );
+    }).join("");
+
+    return sumHtml +
+      '<div class="table-wrap" data-reveal>' +
+        '<table class="plots">' +
+          '<caption class="sr-only">Plots and availability at ' + esc(d.name) + "</caption>" +
+          "<thead><tr>" +
+            '<th scope="col">Plot</th><th scope="col">House type</th><th scope="col">Bedrooms</th>' +
+            '<th scope="col">Sq ft</th><th scope="col">Price</th><th scope="col">Status</th>' +
+          "</tr></thead>" +
+          "<tbody>" + rows + "</tbody>" +
+        "</table>" +
+      "</div>" +
+      '<p class="table-note">Prices and availability are correct at the time of publishing and may change. ' +
+        'Please <a class="draw" href="#enquire">contact us</a> for the latest information.</p>';
+  }
+
+  /* Banner linking a development page to its interactive plots page */
+  function planCta(d) {
+    return (
+      '<a class="plan-cta" href="' + plotsUrl(d) + '" data-reveal>' +
+        '<span class="plan-cta-media"><img src="' + H.img(d.sitePlan.image) + '" alt="" loading="lazy"></span>' +
+        '<span class="plan-cta-body">' +
+          '<span class="eyebrow">Interactive site plan</span>' +
+          '<span class="plan-cta-title">Explore every plot at ' + esc(d.name) + "</span>" +
+          '<span class="plan-cta-text">Hover over each home to see its house type, room sizes and availability.</span>' +
+          '<span class="link-arrow">View the plots ' + ARROW + "</span>" +
+        "</span>" +
+      "</a>"
+    );
+  }
+
+  function plotsUrl(d) { return "plots.html?site=" + encodeURIComponent(d.slug); }
+
+  /* ---------- Plots (interactive site plan) ---------- */
+  function plots() {
+    var withPlan = H.all().filter(function (x) { return x.sitePlan && x.houseTypes; });
+    var d = H.get(H.param("site"));
+    if (!d || !d.sitePlan) d = withPlan[0];
+    if (!d) return;
+
+    var plan = d.sitePlan;
+    var types = d.houseTypes;
+    var typeKeys = Object.keys(types);
+    var byPlot = {};
+    d.plots.forEach(function (p) { byPlot[p.plot] = p; });
+    var c = H.counts(d);
+    var from = H.priceFrom(d);
+
+    document.title = "Plots at " + d.name + ", " + d.location + " — Hardwick Construction";
+
+    // Hero
+    document.getElementById("plots-hero-img").src = H.img(plan.image);
+    setText("plots-location", d.name + " · " + d.location);
+    setText("plots-lede", "Every home at " + d.name + ", plot by plot. Choose a home on the plan to see its house type, floor plan and availability.");
+    document.getElementById("plots-chip").innerHTML =
+      '<span class="chip-dot" aria-hidden="true"></span>' +
+      esc(plural(c.total, "home", "homes")) + " · " + esc(plural(typeKeys.length, "house type", "house types")) +
+      " · " + esc(c.available ? c.available + " available now" : "Register your interest") +
+      (from ? " · From " + esc(H.price(from)) : "");
+    var back = document.getElementById("plots-back");
+    back.href = devUrl(d);
+    setText("plots-back-text", d.name);
+    document.getElementById("enq-mail").href = mailto("Plot enquiry: " + d.name);
+
+    // Plan image + hotspots
+    var img = document.getElementById("plan-img");
+    img.src = H.img(plan.image);
+    img.alt = "Site plan of " + d.name + " showing " + d.plots.length + " plots";
+    var canvas = document.getElementById("plan-canvas");
+    canvas.style.aspectRatio = plan.width + " / " + plan.height;
+    var svg = document.getElementById("plan-svg");
+    svg.setAttribute("viewBox", "0 0 " + plan.width + " " + plan.height);
+    svg.innerHTML = plan.hotspots.map(function (h) {
+      var p = byPlot[h.plot];
+      if (!p) return "";
+      var t = types[p.houseType] || {};
+      var label = "Plot " + p.plot + ", " + (t.name || p.type) + ", " + (t.style || p.beds + " bedroom home") +
+        ", " + H.statusLabel(p.status) + (p.status !== "sold" && p.price ? ", " + H.price(p.price) : "");
+      return '<g class="hs is-' + p.status + '" data-plot="' + esc(p.plot) + '" data-type="' + esc(p.houseType) +
+        '" tabindex="0" role="button" aria-label="' + esc(label) + '">' +
+        '<polygon points="' + esc(h.points) + '"/></g>';
+    }).join("");
+    var hotspots = Array.prototype.slice.call(svg.querySelectorAll(".hs"));
+
+    // Type filter
+    H.render("#type-filter", [""].concat(typeKeys), function (k) {
+      return '<button type="button" class="type-btn" data-type="' + esc(k) + '" aria-pressed="false">' +
+        (k ? esc(types[k].name) : "All types") + "</button>";
+    });
+    var typeBtns = Array.prototype.slice.call(document.querySelectorAll(".type-btn"));
+
+    // House type cards
+    setText("types-intro", "There are " + typeKeys.length + " house types at " + d.name +
+      ". Room sizes are approximate and taken from the architect's drawings.");
+    H.render("#type-grid", typeKeys, typeCard);
+
+    // Full availability table
+    setText("homes-intro", "Every plot at " + d.name + ", updated as homes are reserved and sold.");
+    document.getElementById("homes-body").innerHTML = availabilityHtml(d);
+
+    /* --- Interaction state --- */
+    var panel = document.getElementById("plan-panel");
+    var tip = document.getElementById("plan-tip");
+    var pinned = null;   // { type, plot } chosen by click / tap / filter
+    var shown = null;    // key of what the panel currently shows
+
+    function plotsOfType(k) {
+      return d.plots.filter(function (p) { return p.houseType === k; });
+    }
+
+    function paint(state) {
+      var k = state && state.type;
+      canvas.classList.toggle("has-focus", !!k);
+      hotspots.forEach(function (g) {
+        g.classList.toggle("is-type", !!k && g.getAttribute("data-type") === k);
+        g.classList.toggle("is-active", !!state && state.plot != null && +g.getAttribute("data-plot") === state.plot);
+      });
+      var pinnedType = pinned ? pinned.type : "";
+      typeBtns.forEach(function (b) {
+        var on = b.getAttribute("data-type") === pinnedType;
+        b.classList.toggle("is-on", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      var key = k ? k + ":" + (state.plot == null ? "" : state.plot) : "";
+      if (key === shown) return;
+      shown = key;
+      panel.innerHTML = k ? typePanel(k, state.plot) : overviewPanel();
+      panel.classList.remove("is-swap");
+      void panel.offsetWidth; // restart the fade
+      panel.classList.add("is-swap");
+      bindPanel();
+    }
+
+    function bindPanel() {
+      panel.querySelectorAll("[data-pick]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var p = byPlot[+b.getAttribute("data-pick")];
+          pin({ type: p.houseType, plot: p.plot });
+        });
+      });
+      panel.querySelectorAll("[data-pick-type]").forEach(function (b) {
+        b.addEventListener("click", function () { pin({ type: b.getAttribute("data-pick-type"), plot: null }); });
+      });
+      var clear = panel.querySelector("[data-clear]");
+      if (clear) clear.addEventListener("click", function () { pin(null); });
+    }
+
+    function pin(state) {
+      pinned = state;
+      paint(state);
+    }
+
+    function stateFor(g) {
+      return { type: g.getAttribute("data-type"), plot: +g.getAttribute("data-plot") };
+    }
+
+    hotspots.forEach(function (g) {
+      // Hovering (or focusing) a home selects it, and the panel keeps showing it
+      // after the pointer leaves the plan so it can be read and scrolled.
+      g.addEventListener("mouseenter", function () { pin(stateFor(g)); showTip(g); });
+      g.addEventListener("mouseleave", function () { hideTip(); });
+      g.addEventListener("focus", function () { pin(stateFor(g)); });
+      g.addEventListener("click", function () {
+        pin(stateFor(g));
+        if (window.matchMedia("(max-width: 960px)").matches) {
+          var r = panel.getBoundingClientRect();
+          if (r.top > window.innerHeight * 0.85 || r.top < 0) {
+            panel.scrollIntoView({ behavior: H.reducedMotion ? "auto" : "smooth", block: "start" });
+          }
+        }
+      });
+      g.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); g.dispatchEvent(new MouseEvent("click")); }
+      });
+    });
+    canvas.addEventListener("mouseleave", hideTip);
+    canvas.addEventListener("mousemove", moveTip);
+
+    typeBtns.forEach(function (b) {
+      var k = b.getAttribute("data-type");
+      b.addEventListener("click", function () { pin(k ? { type: k, plot: null } : null); });
+      b.addEventListener("mouseenter", function () { if (k) paint({ type: k, plot: null }); });
+      b.addEventListener("mouseleave", function () { paint(pinned); });
+    });
+
+    // "Show on plan" buttons in the house type cards
+    document.querySelectorAll("[data-show-type]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        pin({ type: b.getAttribute("data-show-type"), plot: null });
+        document.getElementById("plan").scrollIntoView({ behavior: H.reducedMotion ? "auto" : "smooth" });
+      });
+    });
+
+    // Cursor tooltip (pointer devices only)
+    function showTip(g) {
+      var p = byPlot[+g.getAttribute("data-plot")];
+      var t = types[p.houseType] || {};
+      tip.innerHTML = "<strong>Plot " + esc(p.plot) + "</strong><span>" + esc(t.name || p.type) +
+        ' · <em class="tip-' + p.status + '">' + esc(H.statusLabel(p.status)) + "</em></span>";
+      tip.classList.add("is-on");
+    }
+    function hideTip() { tip.classList.remove("is-on"); }
+    function moveTip(e) {
+      var r = canvas.getBoundingClientRect();
+      var x = e.clientX - r.left, y = e.clientY - r.top;
+      var flip = x > r.width - 180;
+      tip.style.transform = "translate(" + (flip ? x - 16 : x + 16) + "px," + (y + 16) + "px)" + (flip ? " translateX(-100%)" : "");
+    }
+
+    /* --- Panel templates --- */
+    function overviewPanel() {
+      return (
+        '<div class="panel-intro">' +
+          '<p class="eyebrow">' + esc(d.name) + "</p>" +
+          '<p class="panel-title">Choose a home</p>' +
+          '<p class="panel-text">Hover over any home on the plan to see its house type, room sizes and the plots of that type available now.</p>' +
+          '<ul class="panel-types">' + typeKeys.map(function (k) {
+            var list = plotsOfType(k);
+            var avail = list.filter(function (p) { return p.status === "available"; }).length;
+            return '<li><button type="button" data-pick-type="' + esc(k) + '">' +
+              '<span class="pt-name">' + esc(types[k].name) + "</span>" +
+              '<span class="pt-meta">' + esc(plural(list.length, "plot", "plots")) + "</span>" +
+              '<span class="pt-avail' + (avail ? "" : " is-none") + '">' + (avail ? esc(avail + " available") : "None available") + "</span>" +
+            "</button></li>";
+          }).join("") + "</ul>" +
+        "</div>"
+      );
+    }
+
+    function typePanel(k, plotNo) {
+      var t = types[k];
+      var list = plotsOfType(k);
+      var avail = list.filter(function (p) { return p.status === "available"; });
+      var others = list.filter(function (p) { return p.status !== "available"; });
+      var p = plotNo != null ? byPlot[plotNo] : null;
+      var area = t.sqm ? "Approx. " + t.sqm + " m² · " + H.sqft(t.sqft) + " sq ft" : "Floor area to be confirmed";
+
+      var media = t.image
+        ? '<div class="panel-media"><img src="' + H.img(t.image) + '" alt="' + esc(t.name + " — computer generated image") + '"></div>'
+        : '<div class="panel-media is-empty"><span>' + esc(t.name) + "</span><small>Images to follow</small></div>";
+
+      var plotStrip = p
+        ? '<div class="panel-plot is-' + p.status + '">' +
+            '<span class="pp-no">Plot ' + esc(p.plot) + "</span>" +
+            '<span class="badge badge-' + p.status + '">' + esc(H.statusLabel(p.status)) + "</span>" +
+            '<span class="pp-price">' + (p.status === "sold" ? "Sold" : esc(H.price(p.price))) + "</span>" +
+          "</div>"
+        : "";
+
+      function rooms(title, rows) {
+        if (!rows || !rows.length) return "";
+        return '<div class="panel-rooms"><p class="pr-title">' + esc(title) + "</p><dl>" +
+          rows.map(function (r) {
+            return "<div><dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1] || "—") + "</dd></div>";
+          }).join("") + "</dl></div>";
+      }
+
+      var availList = avail.length
+        ? '<ul class="panel-avail">' + avail.map(function (q) {
+            return '<li><button type="button" data-pick="' + esc(q.plot) + '"' + (p && p.plot === q.plot ? ' aria-current="true"' : "") + ">" +
+              '<span class="pa-no">Plot ' + esc(q.plot) + "</span>" +
+              '<span class="pa-price">' + esc(H.price(q.price)) + "</span>" +
+              ARROW + "</button></li>";
+          }).join("") + "</ul>"
+        : '<p class="panel-none">No ' + esc(t.name) + " homes are available right now. Please get in touch to register your interest.</p>";
+
+      var otherText = others.length
+        ? '<p class="panel-others">' + others.map(function (q) {
+            return "Plot " + esc(q.plot) + " — " + esc(H.statusLabel(q.status).toLowerCase());
+          }).join(" · ") + "</p>"
+        : "";
+
+      return (
+        media +
+        '<div class="panel-body">' +
+          '<div class="panel-head">' +
+            '<p class="eyebrow">House type</p>' +
+            '<button type="button" class="panel-clear" data-clear aria-label="Clear selection">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
+          "</div>" +
+          '<p class="panel-title">' + esc(t.name) + "</p>" +
+          '<p class="panel-style">' + esc(t.style) + "</p>" +
+          '<p class="panel-area">' + esc(area) + "</p>" +
+          plotStrip +
+          '<p class="pr-title pr-avail">Available ' + esc(t.name) + " homes</p>" +
+          availList + otherText +
+          '<div class="panel-floors">' + rooms("Ground floor", t.ground) + rooms("First floor", t.first) + "</div>" +
+          '<p class="panel-text">' + esc(t.summary) + "</p>" +
+          '<a class="btn btn-navy btn-sm btn-block" href="' +
+            mailto("Enquiry: " + t.name + (p ? ", plot " + p.plot : "") + " at " + d.name) + '">Enquire about ' +
+            esc(p ? "plot " + p.plot : t.name) + "</a>" +
+        "</div>"
+      );
+    }
+
+    function typeCard(k) {
+      var t = types[k];
+      var list = plotsOfType(k);
+      var media = t.image
+        ? '<img src="' + H.img(t.image) + '" alt="' + esc(t.name + " — computer generated image") + '" loading="lazy">'
+        : '<span class="type-card-empty"><span>' + esc(t.name) + "</span><small>Images to follow</small></span>";
+      return (
+        '<article class="type-card" data-reveal>' +
+          '<div class="type-card-media">' + media + "</div>" +
+          '<div class="type-card-body">' +
+            '<p class="type-card-name">' + esc(t.name) + "</p>" +
+            '<p class="type-card-style">' + esc(t.style) + "</p>" +
+            '<p class="type-card-area">' + esc(t.sqm ? "Approx. " + t.sqm + " m² · " + H.sqft(t.sqft) + " sq ft" : "Floor area to be confirmed") + "</p>" +
+            (t.highlights && t.highlights.length
+              ? '<ul class="type-card-list">' + t.highlights.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>"
+              : '<p class="type-card-text">' + esc(t.summary) + "</p>") +
+            '<ul class="type-card-plots" aria-label="Plots">' + list.map(function (p) {
+              return '<li class="is-' + p.status + '" title="' + esc(H.statusLabel(p.status)) + '">' +
+                '<span class="tcp-dot" aria-hidden="true"></span>Plot ' + esc(p.plot) +
+                '<span class="sr-only"> — ' + esc(H.statusLabel(p.status)) + "</span></li>";
+            }).join("") + "</ul>" +
+            '<button type="button" class="link-arrow draw" data-show-type="' + esc(k) + '">Show on plan ' + ARROW + "</button>" +
+          "</div>" +
+        "</article>"
+      );
+    }
+
+    // Start on the house type in the URL (?type=C), else the overview
+    var startType = (H.param("type") || "").toUpperCase();
+    pin(types[startType] ? { type: startType, plot: null } : null);
+
     H.reveal();
     H.counters();
   }
@@ -344,4 +668,5 @@
   var page = document.body.getAttribute("data-page");
   if (page === "home") home();
   else if (page === "development") development();
+  else if (page === "plots") plots();
 })();

@@ -120,7 +120,7 @@
         '<div class="home-card__body">' +
           '<p class="home-card__dev">' + esc(d.name) + "</p>" +
           "<h3>" + esc(p.type) + "</h3>" +
-          '<p class="meta"><span>' + I.bed + p.beds + " bed</span><span>" + I.area + p.sqft.toLocaleString("en-GB") + " sq ft</span></p>" +
+          '<p class="meta"><span>' + I.bed + p.beds + " bed</span><span>" + I.area + H.sqft(p.sqft) + " sq ft</span></p>" +
           '<p class="home-card__price">' + H.price(p.price) + "<span>View" + I.arrow + "</span></p>" +
         "</div></a>";
     }
@@ -365,7 +365,7 @@
             pill(p.status) + '<span class="home-card__plot">Plot ' + esc(p.plot) + "</span></div>" +
           '<div class="plot-card__body"><h3>' + esc(p.type) + "</h3>" +
             '<div class="specs"><div>' + I.bed + "<strong>" + p.beds + "</strong><span>Bedrooms</span></div>" +
-              "<div>" + I.area + "<strong>" + p.sqft.toLocaleString("en-GB") + "</strong><span>Sq ft</span></div>" +
+              "<div>" + I.area + "<strong>" + H.sqft(p.sqft) + "</strong><span>Sq ft</span></div>" +
               "<div>" + I.tag + "<strong>" + esc(p.plot) + "</strong><span>Plot</span></div></div>" +
             '<div class="plot-card__foot"><div class="plot-card__price"><small>' + (p.status === "coming-soon" ? "Guide price" : "Price") + "</small><strong>" + H.price(p.price) + "</strong></div>" +
             '<a class="btn btn--primary btn--sm" href="' + mailto(subj, body) + '">' + I.mail + "Enquire</a></div>" +
@@ -395,8 +395,8 @@
         '<th scope="col" class="col-sqft">Sq ft</th><th scope="col">Price</th><th scope="col" class="col-status">Status</th></tr></thead><tbody>' +
         dev.plots.slice().sort(function (a, b) { return a.plot - b.plot; }).map(function (p) {
           var sold = p.status === "sold";
-          return '<tr class="' + (sold ? "is-sold" : "") + '"><td class="num">' + esc(p.plot) + "</td><td>" + esc(p.type) + '<small class="ptable__sub">' + p.beds + " bed · " + p.sqft.toLocaleString("en-GB") + " sq ft</small>" + '</td><td class="num col-beds">' + p.beds +
-            '</td><td class="num col-sqft">' + p.sqft.toLocaleString("en-GB") + '</td><td class="price num">' +
+          return '<tr class="' + (sold ? "is-sold" : "") + '"><td class="num">' + esc(p.plot) + "</td><td>" + esc(p.type) + '<small class="ptable__sub">' + p.beds + " bed · " + H.sqft(p.sqft) + " sq ft</small>" + '</td><td class="num col-beds">' + p.beds +
+            '</td><td class="num col-sqft">' + H.sqft(p.sqft) + '</td><td class="price num">' +
             (sold ? '<s aria-label="Sold">' + H.price(p.price) + "</s>" : H.price(p.price)) +
             '<span class="ptable__mstatus" aria-hidden="true">' + pill(p.status) + '</span></td><td class="col-status">' + pill(p.status) + "</td></tr>";
         }).join("") + "</tbody></table>";
@@ -422,7 +422,7 @@
     lightbox(photos, gal, dev.name);
 
     // Location
-    var maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(dev.postcode);
+    var maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(H.mapQuery(dev));
     $("loc-title").textContent = dev.name + ", " + dev.location;
     $("loc-text").textContent = done
       ? dev.name + " sits in " + dev.location + ". Pop the postcode into your sat-nav to see the finished homes."

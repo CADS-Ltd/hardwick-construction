@@ -12,6 +12,9 @@
  *  • Add a new development     → copy an existing { ... } block, paste it,
  *    and change the details. The "slug" must be unique (lower-case, hyphens).
  *  • Photos live in /assets/img — use just the file name here.
+ *  • Interactive plots page: a development with "houseTypes" and "sitePlan"
+ *    (see Brunt Lane) gets a hover-able site plan. Give each plot a
+ *    houseType letter that matches one of its houseTypes.
  *
  *  NOTE: all developments, plots and prices below are SAMPLE CONTENT for the
  *  draft templates and will be replaced with Hardwick's real details.
@@ -44,6 +47,190 @@ window.HARDWICK = {
   },
 
   developments: [
+    /* ------------------------------------------------------------------ */
+    {
+      slug: "brunt-lane",
+      name: "Brunt Lane",
+      location: "Woodville, Swadlincote",
+      postcode: "TBC",
+      mapQuery: "Brunt Lane, Woodville, Swadlincote",
+      stage: "current",
+      headline: "Thirteen four-bedroom homes around a private cul-de-sac",
+      summary:
+        "A collection of five four-bedroom house types set around a landscaped " +
+        "cul-de-sac off Brunt Lane, with an area of biodiversity to the north.",
+      description: [
+        "Land off Brunt Lane is a small development of four-bedroom family homes, " +
+          "arranged around a private, landscaped cul-de-sac with off-road parking to every home.",
+        "There are five house types to choose from, ranging from the Type A detached home " +
+          "to the larger Type C and Type E, each with an en-suite principal bedroom and an " +
+          "open-plan kitchen, dining and living space opening onto the rear garden."
+      ],
+      hero: "brunt-lane-type-c.webp",
+      gallery: ["brunt-lane-siteplan.webp", "brunt-lane-type-a.webp", "brunt-lane-type-b.webp", "brunt-lane-type-e.webp"],
+      features: [
+        "Five four-bedroom house types",
+        "En-suite to every principal bedroom",
+        "Open-plan kitchen, dining & living spaces",
+        "Integral garages to Types B & C",
+        "Area of biodiversity & native planting"
+      ],
+
+      /*
+       * House types for this development, keyed by the letter used on the site plan.
+       * Room sizes are approximate, taken from the architect's drawings (S G Design Studio).
+       */
+      houseTypes: {
+        A: {
+          name: "Type A",
+          style: "4 bedroom detached house",
+          beds: 4, sqm: 99, sqft: 1066,
+          image: "brunt-lane-type-a.webp",
+          drawing: "226-35-TP-A-10",
+          summary: "A well-proportioned detached home with a kitchen and dining room across the rear, a separate utility and pantry, and a principal bedroom with en-suite.",
+          ground: [
+            ["Lounge", "3.00 × 4.41 m"],
+            ["Kitchen / dining", "5.59 × 3.40 m"],
+            ["Utility", "2.06 × 1.10 m"],
+            ["Pantry", ""],
+            ["Cloakroom / WC", ""]
+          ],
+          first: [
+            ["Bedroom 1", "3.00 × 3.57 m"],
+            ["En-suite", "2.06 × 1.51 m"],
+            ["Bedroom 2", "3.07 × 2.57 m"],
+            ["Bedroom 3", "2.45 × 3.44 m"],
+            ["Bedroom 4", "2.24 × 2.56 m"],
+            ["Bathroom", "2.06 × 2.00 m"]
+          ],
+          highlights: ["French doors from the dining area to the garden", "Separate utility & walk-in pantry", "Fitted wardrobes to bedroom 1"]
+        },
+        B: {
+          name: "Type B",
+          style: "4 bedroom detached house with integral garage",
+          beds: 4, sqm: 111, sqft: 1191,
+          image: "brunt-lane-type-b.webp",
+          drawing: "226-35-TP-B-10",
+          summary: "A spacious detached home with an open-plan kitchen, dining and living room across the full width of the rear, a separate lounge and an integral garage.",
+          ground: [
+            ["Kitchen / dining / living", "7.72 × 3.46 m"],
+            ["Lounge", "3.46 × 4.05 m"],
+            ["Integral garage", "2.95 × 5.76 m"],
+            ["Cloakroom / WC", ""]
+          ],
+          first: [
+            ["Bedroom 1", "3.50 × 3.70 m"],
+            ["En-suite", "2.18 × 1.64 m"],
+            ["Bedroom 2", "2.64 × 3.70 m"],
+            ["Bedroom 3", "2.74 × 3.22 m"],
+            ["Bedroom 4", "2.63 × 3.84 m"],
+            ["Bathroom", "2.20 × 2.17 m"]
+          ],
+          highlights: ["Full-width open-plan kitchen, dining & living", "Integral single garage", "Fitted wardrobes to bedroom 1"]
+        },
+        C: {
+          name: "Type C",
+          style: "4 bedroom detached house with integral garage",
+          beds: 4, sqm: 117, sqft: 1258,
+          image: "brunt-lane-type-c.webp",
+          drawing: "226-35-TP-C-10",
+          summary: "Our widest-fronted home, with an 8.3 metre open-plan living, dining and kitchen space, a separate lounge, an integral garage and a principal suite with dressing area.",
+          ground: [
+            ["Living / dining / kitchen", "8.29 × 3.46 m"],
+            ["Lounge", "3.10 × 4.05 m"],
+            ["Integral garage", "2.95 × 5.76 m"],
+            ["Cloakroom / WC", ""]
+          ],
+          first: [
+            ["Bedroom 1", "3.20 × 3.70 m"],
+            ["Dressing area", "Fitted wardrobes"],
+            ["En-suite", "2.10 × 1.64 m"],
+            ["Bedroom 2", "2.74 × 4.32 m"],
+            ["Bedroom 3", "3.20 × 3.22 m"],
+            ["Bedroom 4", "2.74 × 2.17 m"],
+            ["Bathroom", "2.20 × 2.17 m"]
+          ],
+          highlights: ["8.3 m open-plan living, dining & kitchen", "Integral single garage", "Principal suite with dressing area"]
+        },
+        D: {
+          name: "Type D",
+          style: "4 bedroom house",
+          beds: 4, sqm: null, sqft: null,
+          image: null,
+          drawing: null,
+          summary: "Floor plans and images for the Type D house are to follow. Please get in touch for details.",
+          ground: [],
+          first: [],
+          highlights: []
+        },
+        E: {
+          name: "Type E",
+          style: "4 bedroom detached house with study",
+          beds: 4, sqm: 119, sqft: 1284,
+          image: "brunt-lane-type-e.webp",
+          drawing: "226-35-TP-E-10",
+          summary: "A classic double-fronted home with a gabled entrance porch, a ground-floor study and utility, and an open-plan kitchen, dining and living room across the rear.",
+          ground: [
+            ["Kitchen / dining / living", "7.72 × 3.46 m"],
+            ["Lounge", "3.46 × 3.94 m"],
+            ["Study", "2.35 × 2.24 m"],
+            ["Utility", "2.35 × 1.60 m"],
+            ["Cloakroom / WC", ""]
+          ],
+          first: [
+            ["Bedroom 1", "2.74 × 3.59 m"],
+            ["En-suite", "2.10 × 1.54 m"],
+            ["Bedroom 2", "2.73 × 3.59 m"],
+            ["Bedroom 3", "2.74 × 3.22 m"],
+            ["Bedroom 4", "2.63 × 3.22 m"],
+            ["Bathroom", "2.20 × 2.17 m"]
+          ],
+          highlights: ["Ground-floor study & separate utility", "Gabled entrance porch", "Fitted wardrobes to bedroom 1"]
+        }
+      },
+
+      /*
+       * Interactive site plan. Each hotspot outlines one house on the image
+       * (coordinates are pixels on the 1306 × 1204 image). The house type,
+       * price and status come from the matching plot below.
+       */
+      sitePlan: {
+        image: "brunt-lane-siteplan.webp",
+        width: 1306,
+        height: 1204,
+        hotspots: [
+          { plot: 1,  points: "802,1002 856,878 948,932 892,1040" },
+          { plot: 2,  points: "703,915 752,816 848,872 796,970" },
+          { plot: 3,  points: "598,846 648,745 744,800 690,900" },
+          { plot: 4,  points: "500,792 550,680 640,730 588,836" },
+          { plot: 5,  points: "135,655 196,557 296,622 232,722" },
+          { plot: 6,  points: "212,543 276,446 380,512 314,612" },
+          { plot: 7,  points: "292,428 355,330 458,395 392,495" },
+          { plot: 8,  points: "374,318 440,218 540,285 470,385" },
+          { plot: 9,  points: "476,190 530,122 632,182 574,282" },
+          { plot: 10, points: "764,414 812,320 920,384 866,500" },
+          { plot: 11, points: "872,492 915,400 1035,463 980,575" },
+          { plot: 12, points: "985,582 1030,487 1150,560 1098,665" },
+          { plot: 13, points: "322,802 374,722 460,776 408,860" }
+        ]
+      },
+
+      plots: [
+        { plot: 1,  houseType: "A", type: "Type A", beds: 4, sqft: 1066, price: 339995, status: "available" },
+        { plot: 2,  houseType: "A", type: "Type A", beds: 4, sqft: 1066, price: 339995, status: "reserved" },
+        { plot: 3,  houseType: "B", type: "Type B", beds: 4, sqft: 1191, price: 379995, status: "available" },
+        { plot: 4,  houseType: "B", type: "Type B", beds: 4, sqft: 1191, price: 379995, status: "sold" },
+        { plot: 5,  houseType: "E", type: "Type E", beds: 4, sqft: 1284, price: 409995, status: "available" },
+        { plot: 6,  houseType: "C", type: "Type C", beds: 4, sqft: 1258, price: 399995, status: "sold" },
+        { plot: 7,  houseType: "C", type: "Type C", beds: 4, sqft: 1258, price: 399995, status: "available" },
+        { plot: 8,  houseType: "C", type: "Type C", beds: 4, sqft: 1258, price: 402995, status: "available" },
+        { plot: 9,  houseType: "E", type: "Type E", beds: 4, sqft: 1284, price: 414995, status: "reserved" },
+        { plot: 10, houseType: "C", type: "Type C", beds: 4, sqft: 1258, price: 404995, status: "coming-soon" },
+        { plot: 11, houseType: "C", type: "Type C", beds: 4, sqft: 1258, price: 404995, status: "coming-soon" },
+        { plot: 12, houseType: "D", type: "Type D", beds: 4, sqft: null, price: 394995, status: "coming-soon" },
+        { plot: 13, houseType: "E", type: "Type E", beds: 4, sqft: 1284, price: 409995, status: "available" }
+      ]
+    },
     /* ------------------------------------------------------------------ */
     {
       slug: "oaktree-meadow",

@@ -8,7 +8,7 @@ showing what is for sale, and separate current and completed developments.
 
 | # | Template | Concept |
 |---|----------|---------|
-| 01 | [Heritage](templates/01-heritage/) | Editorial, with ivory, navy and antique gold and serif headings |
+| 01 | [Heritage](templates/01-heritage/) | Editorial, with ivory, navy and antique gold and serif headings. Includes the interactive [Plots page](templates/01-heritage/plots.html) |
 | 02 | [Minimal](templates/02-minimal/) | Swiss minimalism, with a crisp blue and a tiny yellow accent |
 | 03 | [Blueprint](templates/03-blueprint/) | Dark architectural grid, amber highlights and a plot site plan |
 | 04 | [Portfolio](templates/04-portfolio/) | Current and previous projects, in the style of Alexander Bruce |
@@ -26,6 +26,10 @@ Every template reads from a single file, [`assets/data/developments.js`](assets/
 - **Finish a development:** change `stage: "current"` to `stage: "completed"` and add `completed: <year>`.
 - **Add a development:** copy an existing block, give it a unique `slug` and update the details.
 - **Photos:** put them in `assets/img/` and refer to them by file name.
+- **Interactive plots page (Heritage):** a development with `houseTypes` and `sitePlan`
+  (see Brunt Lane) gets a hover-able site plan at `plots.html?site=<slug>`. Each plot's
+  `houseType` letter links it to its house type, and `sitePlan.hotspots` outlines each
+  house on the plan image in pixel coordinates.
 
 All developments, plots, prices and photos are **sample content**. The photos are from
 [Unsplash](https://unsplash.com/license) and will be replaced with Hardwick's own.

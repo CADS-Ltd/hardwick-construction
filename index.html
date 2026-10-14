@@ -148,8 +148,8 @@
   <script>
     var templates = [
       { n: "01", slug: "01-heritage", name: "Heritage",
-        text: "Timeless and editorial. Ivory, deep navy and antique gold, with elegant serif headings. Feels like an upmarket boutique housebuilder.",
-        sw: ["#f7f4ee", "#0f1f4b", "#c8a24a"] },
+        text: "Timeless and editorial. Ivory, deep navy and antique gold, with elegant serif headings. Now includes a Plots page: an interactive site plan where hovering each home shows its house type, room sizes and availability.",
+        sw: ["#f7f4ee", "#0f1f4b", "#c8a24a"], extra: { href: "plots.html", label: "Plots page" } },
       { n: "02", slug: "02-minimal", name: "Minimal",
         text: "Swiss-style minimalism. White space, big type and a single crisp blue, with yellow kept to a tiny accent. Availability can be filtered on each development.",
         sw: ["#ffffff", "#111111", "#2a44c9", "#f5c400"] },
@@ -180,6 +180,7 @@
           '<div class="links">' +
             '<a class="btn primary" href="' + base + 'index.html">View home page ' + arrow + '</a>' +
             '<a class="btn" href="' + base + 'development.html?site=oaktree-meadow">Development page</a>' +
+            (t.extra ? '<a class="btn" href="' + base + t.extra.href + '">' + t.extra.label + '</a>' : '') +
           '</div>' +
         '</div></article>';
     }).join("");

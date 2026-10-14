@@ -69,6 +69,16 @@
       return n == null ? "" : "£" + n.toLocaleString("en-GB");
     },
 
+    // Floor area in sq ft, or "TBC" when not yet known.
+    sqft: function (n) {
+      return n == null ? "TBC" : n.toLocaleString("en-GB");
+    },
+
+    // What to search Google Maps for: an explicit mapQuery, else the postcode.
+    mapQuery: function (dev) {
+      return dev.mapQuery || dev.postcode;
+    },
+
     esc: function (s) {
       return String(s).replace(/[&<>"']/g, function (c) {
         return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];

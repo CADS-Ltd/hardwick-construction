@@ -206,7 +206,7 @@
             '<div class="plot-top"><span class="plot-no"><small>Plot</small>' + no + "</span>" +
               '<span class="badge badge--' + p.status + '">' + H.esc(H.statusLabel(p.status)) + "</span></div>" +
             '<h3 class="plot-type">' + H.esc(p.type) + "</h3>" +
-            '<p class="plot-spec">' + p.beds + " bedrooms · " + p.sqft.toLocaleString("en-GB") + " sq ft</p>" +
+            '<p class="plot-spec">' + p.beds + " bedrooms · " + H.sqft(p.sqft) + " sq ft</p>" +
             price + action +
           "</li>";
         }).join("") + "</ul>";
@@ -223,7 +223,7 @@
     // Location
     setText("#location-text", d.name + " is in " + d.location + ". Use postcode " + d.postcode +
       " for sat-nav — or give us a call and we'll arrange a time to show you round.");
-    $("#map-link").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(d.postcode);
+    $("#map-link").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(H.mapQuery(d));
 
     // Enquire
     $("#enquire-email").href = mailto("Enquiry: " + d.name);

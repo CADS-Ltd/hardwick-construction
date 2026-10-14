@@ -475,7 +475,7 @@
       ? "Every home at " + dev.name + " has been sold, but we have new homes available now. Call James or drop us an email and we'll talk you through what's coming up."
       : "Call James to arrange a viewing, reserve a plot or ask about part-exchange — or send us an email and we'll get straight back to you.";
     $("#cta-loc").textContent = dev.location + ", " + dev.postcode;
-    $("#cta-map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(dev.postcode);
+    $("#cta-map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(H.mapQuery(dev));
     $("#cta-map").setAttribute("aria-label", "View " + dev.postcode + " on Google Maps (opens in a new tab)");
     $("#cta-email").href = enquireHref;
 
@@ -540,7 +540,7 @@
               '<td class="c-plot"><span class="plot-word">Plot </span>' + p.plot + "</td>" +
               '<td class="c-type">' + H.esc(p.type) + "</td>" +
               '<td class="c-beds" data-label="Bedrooms">' + p.beds + " bed</td>" +
-              '<td class="c-size" data-label="Size">' + p.sqft.toLocaleString("en-GB") + " sq ft</td>" +
+              '<td class="c-size" data-label="Size">' + H.sqft(p.sqft) + " sq ft</td>" +
               '<td class="c-price" data-label="Price">' + price + "</td>" +
               '<td class="c-status"><span class="badge badge-' + p.status + '">' + H.statusLabel(p.status) + "</span></td>" +
               '<td class="c-act">' + act + "</td>" +
