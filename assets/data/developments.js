@@ -1,6 +1,6 @@
 /*
  * ===========================================================================
- *  HARDWICK CONSTRUCTION — SITE CONTENT
+ *  PREMIER PROPERTY (CENTRAL) — SITE CONTENT
  * ===========================================================================
  *  This is the ONLY file that needs editing to keep the website up to date.
  *  Every template reads from it.
@@ -17,12 +17,12 @@
  *    houseType letter that matches one of its houseTypes.
  *
  *  NOTE: all developments, plots and prices below are SAMPLE CONTENT for the
- *  draft templates and will be replaced with Hardwick's real details.
+ *  draft templates and will be replaced with Premier Property's real details.
  * ===========================================================================
  */
 window.HARDWICK = {
   company: {
-    name: "Hardwick Construction",
+    name: "Premier Property (Central)",
     strapline: "Quality new homes, built locally in South Derbyshire",
     phone: "01283 212304",
     mobile: "07595 081891",
@@ -35,7 +35,7 @@ window.HARDWICK = {
       "DE11 9DJ"
     ],
     about:
-      "Hardwick Construction is a family-run housebuilder based in Swadlincote. " +
+      "Premier Property (Central) is a family-run housebuilder based in Swadlincote. " +
       "We build small, carefully planned developments of quality homes across " +
       "South Derbyshire and the surrounding villages — each one finished to a " +
       "standard we would be happy to live in ourselves.",

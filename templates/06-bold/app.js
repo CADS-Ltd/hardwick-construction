@@ -1,4 +1,4 @@
-/* Hardwick Construction — Template 06 "Bold Brand" */
+/* Premier Property (Central) — Template 06 "Bold Brand" */
 (function () {
   "use strict";
   document.documentElement.classList.add("js");
@@ -118,7 +118,7 @@
     var isDone = d.stage === "completed" || !d.plots.length;
     var from = H.priceFrom(d);
 
-    document.title = d.name + ", " + d.location + " — Hardwick Construction";
+    document.title = d.name + ", " + d.location + " — Premier Property (Central)";
 
     setText("#dev-location", d.location);
     setText("#dev-name", d.name);
@@ -229,7 +229,7 @@
     $("#enquire-email").href = mailto("Enquiry: " + d.name);
     if (isDone) {
       $("#enquire-title").textContent = "Looking for a home like " + d.name + "?";
-      $("#enquire-title").nextElementSibling.textContent = "We have new homes selling now nearby. Speak to James and the team about what's available.";
+      $("#enquire-title").nextElementSibling.textContent = "We have new homes selling now nearby. Speak to the team about what's available.";
     }
 
     // More developments

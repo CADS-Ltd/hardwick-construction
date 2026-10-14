@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Hardwick Construction — Template 06 "Bold Brand"
+   Premier Property (Central) — Template 06 "Bold Brand"
    Deep royal blue colour blocks + a disciplined warm-gold accent.
    ========================================================================== */
 
@@ -321,7 +321,7 @@ svg { flex: none; }
 /* Footer */
 .site-footer { background: #fff; border-top: 8px solid var(--gold); padding-top: clamp(56px, 7vw, 84px); font-size: 15px; color: var(--muted); }
 .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1.3fr 1fr; gap: 40px; padding-bottom: 48px; }
-.footer-logo { width: 92px; height: auto; margin-bottom: 18px; }
+.footer-logo { margin-bottom: 22px; }
 .footer-brand p { max-width: 28ch; }
 .footer-h { font-size: 12.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); margin: 0 0 14px; }
 .site-footer a { color: var(--ink); text-decoration: none; font-weight: 600; }

@@ -1,4 +1,4 @@
-/* Hardwick Construction — Template 02 "Minimal" */
+/* Premier Property (Central) — Template 02 "Minimal" */
 (function () {
   "use strict";
   var H = window.H;
@@ -141,7 +141,7 @@
     var list = isCurrent ? H.current() : H.completed();
     var idx = list.indexOf(d);
 
-    document.title = d.name + ", " + d.location + " — Hardwick Construction";
+    document.title = d.name + ", " + d.location + " — Premier Property (Central)";
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute("content", d.summary);
 
@@ -202,7 +202,7 @@
       "mailto:" + H.company.email + "?subject=" + encodeURIComponent(subject);
     if (!isCurrent) document.getElementById("enquire-title").textContent = "Get in touch";
     document.getElementById("enquire-lead").textContent = isCurrent
-      ? "Interested in a home at " + d.name + "? Speak to James Hardwick directly to arrange a viewing."
+      ? "Interested in a home at " + d.name + "? Speak to the team directly to arrange a viewing."
       : d.name + " is complete, but we would be glad to tell you about our current and upcoming developments.";
 
     // Next development

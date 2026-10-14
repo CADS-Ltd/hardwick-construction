@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Hardwick Construction — Template 04 "Portfolio"
-   Warm stone, Hardwick navy, restrained ochre. DM Serif Display + DM Sans.
+   Premier Property (Central) — Template 04 "Portfolio"
+   Warm stone, brand navy, restrained ochre. DM Serif Display + DM Sans.
    ========================================================================== */
 
 :root {
@@ -313,7 +313,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .stat dd { margin: 0; font-family: var(--serif); font-size: clamp(2.3rem, 4vw, 3.2rem); line-height: 1; color: var(--navy); }
 .stat dt { font-size: 14px; color: var(--ink-2); line-height: 1.35; }
 
-/* ---------- Why Hardwick ---------- */
+/* ---------- Why Premier Property ---------- */
 .why { background: var(--navy); color: rgba(239, 235, 228, .82); padding: clamp(80px, 10vw, 120px) 0; }
 .why-head { max-width: 760px; margin-bottom: clamp(44px, 6vw, 72px); }
 .why-head .section-title { color: var(--white); }

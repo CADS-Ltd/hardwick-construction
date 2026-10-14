@@ -1,7 +1,7 @@
-# Hardwick Construction — website templates
+# Premier Property (Central) — website templates
 
-Six draft website templates for Hardwick Construction, published with GitHub Pages.
-They follow James Hardwick's brief: a few clean pages, a page for every development
+Six draft website templates for Premier Property (Central), published with GitHub Pages.
+They follow the client's brief: a few clean pages, a page for every development
 showing what is for sale, and separate current and completed developments.
 
 **Live gallery:** https://cads-ltd.github.io/hardwick-construction/
@@ -32,7 +32,7 @@ Every template reads from a single file, [`assets/data/developments.js`](assets/
   house on the plan image in pixel coordinates.
 
 All developments, plots, prices and photos are **sample content**. The photos are from
-[Unsplash](https://unsplash.com/license) and will be replaced with Hardwick's own.
+[Unsplash](https://unsplash.com/license) and will be replaced with Premier Property's own.
 
 ## Running locally
 
@@ -43,5 +43,5 @@ npx http-server -p 8000
 
 ## Deployment
 
-GitHub Pages serves the `gh-pages` branch. `.github/workflows/pages.yml` syncs that branch
-with every push, so the live site updates within a minute or two.
+GitHub Pages serves the `gh-pages` branch. `.github/workflows/pages.yml` copies `main` to
+`gh-pages` on every push to `main`, so the live site updates within a minute or two.

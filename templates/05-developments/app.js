@@ -1,4 +1,4 @@
-/* Hardwick Construction — Template 05 "Find your home"
+/* Premier Property (Central) — Template 05 "Find your home"
  * All content comes from /assets/data/developments.js via window.H helpers.
  */
 (function () {
@@ -223,7 +223,7 @@
       fGo.removeAttribute("target");
       if (!now.length && !soon.length) {
         fGo.textContent = "Register your interest";
-        fGo.href = mailto("Register interest — new homes", "Hi James,\n\nPlease let me know when a home matching this becomes available: " +
+        fGo.href = mailto("Register interest — new homes", "Hi,\n\nPlease let me know when a home matching this becomes available: " +
           (f.dev !== "any" ? H.get(f.dev).name + ", " : "") + (describe(f) || "any home") + ".\n\nThanks");
         fGo.dataset.mode = "mail";
       } else if (devs.length === 1) {
@@ -285,7 +285,7 @@
     var done = dev.stage === "completed";
     var $ = function (id) { return document.getElementById(id); };
 
-    document.title = dev.name + ", " + dev.location + " | Hardwick Construction";
+    document.title = dev.name + ", " + dev.location + " | Premier Property (Central)";
 
     // Hero
     var heroImg = $("d-hero-img");
@@ -305,7 +305,7 @@
         pill("coming-soon", H.bedRange(dev) + " homes");
 
     // Enquiry links
-    var generalMail = mailto("Enquiry — " + dev.name, "Hi James,\n\nI'm interested in " + dev.name + " (" + dev.location + "). Please could you get in touch.\n\nThanks");
+    var generalMail = mailto("Enquiry — " + dev.name, "Hi,\n\nI'm interested in " + dev.name + " (" + dev.location + "). Please could you get in touch.\n\nThanks");
     ["tabs-cta", "cta-email", "mobile-email"].forEach(function (id) { $(id).href = generalMail; });
 
     // Overview
@@ -359,7 +359,7 @@
 
       var plotCard = function (p) {
         var subj = "Enquiry: Plot " + p.plot + ", " + p.type + " — " + dev.name;
-        var body = "Hi James,\n\nI'd like to find out more about Plot " + p.plot + " (" + p.type + ", " + p.beds + " bed, " + H.price(p.price) + ") at " + dev.name + ".\n\nThanks";
+        var body = "Hi,\n\nI'd like to find out more about Plot " + p.plot + " (" + p.type + ", " + p.beds + " bed, " + H.price(p.price) + ") at " + dev.name + ".\n\nThanks";
         return '<article class="plot-card" data-reveal>' +
           '<div class="plot-card__media"><img src="' + plotImg(p, dev) + '" alt="' + esc(p.type) + ' house type" loading="lazy">' +
             pill(p.status) + '<span class="home-card__plot">Plot ' + esc(p.plot) + "</span></div>" +

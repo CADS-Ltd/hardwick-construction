@@ -1,4 +1,4 @@
-/* Hardwick Construction — Template 01 "Heritage" */
+/* Premier Property (Central) — Template 01 "Heritage" */
 (function () {
   var H = window.H;
   if (!H) return;
@@ -19,7 +19,7 @@
     H.navToggle();
     H.stickyHeader(".site-header", 40);
     document.querySelectorAll("[data-mailto]").forEach(function (a) {
-      a.href = mailto("Enquiry from the Hardwick website");
+      a.href = mailto("Enquiry from the Premier Property website");
     });
     // Close the mobile menu with Escape
     document.addEventListener("keydown", function (e) {
@@ -117,7 +117,7 @@
     var c = H.counts(d);
     var from = H.priceFrom(d);
 
-    document.title = d.name + ", " + d.location + " — Hardwick Construction";
+    document.title = d.name + ", " + d.location + " — Premier Property (Central)";
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute("content", d.summary);
 
@@ -171,7 +171,7 @@
       var fb = document.querySelector(".facts .btn");
       if (fb) fb.textContent = "Ask about new homes";
       setText("enquire-title-pre", "Looking for a home like ");
-      setText("enq-lead", "Every home here is now sold, but new Hardwick developments are always in the pipeline. Call or email to hear about them first.");
+      setText("enq-lead", "Every home here is now sold, but new Premier Property developments are always in the pipeline. Call or email to hear about them first.");
       setText("loc-note", "All homes are now privately owned — please respect residents' privacy.");
       body.innerHTML =
         '<div class="sold-out" data-reveal>' +
@@ -300,7 +300,7 @@
     var c = H.counts(d);
     var from = H.priceFrom(d);
 
-    document.title = "Plots at " + d.name + ", " + d.location + " — Hardwick Construction";
+    document.title = "Plots at " + d.name + ", " + d.location + " — Premier Property (Central)";
 
     // Hero
     document.getElementById("plots-hero-img").src = H.img(plan.image);

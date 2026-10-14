@@ -1,10 +1,10 @@
 name: Publish templates to GitHub Pages
 
 # GitHub Pages serves the gh-pages branch. This keeps it in sync with the
-# working branch so every push updates the live site.
+# main branch so every push to main updates the live site.
 on:
   push:
-    branches: [main, claude/eloquent-edison-tc6sa6]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

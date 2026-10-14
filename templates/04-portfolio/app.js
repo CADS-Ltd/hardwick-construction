@@ -1,5 +1,5 @@
 /*
- * Hardwick Construction — Template 04 "Portfolio"
+ * Premier Property (Central) — Template 04 "Portfolio"
  * All content comes from /assets/data/developments.js via the H helpers.
  */
 (function () {
@@ -386,7 +386,7 @@
     var c = H.counts(dev);
     var from = H.priceFrom(dev);
 
-    document.title = dev.name + ", " + dev.location + " — Hardwick Construction";
+    document.title = dev.name + ", " + dev.location + " — Premier Property (Central)";
     var desc = document.querySelector('meta[name="description"]');
     if (desc) desc.setAttribute("content", dev.headline + ". " + (dev.summary || ""));
 
@@ -444,7 +444,7 @@
       $("#dev-bar").hidden = true;
     }
 
-    var enquireHref = mailto("Enquiry — " + dev.name, "Hello James,\n\nI'm interested in " + dev.name + " (" + dev.location + "). Please could you send me more information.\n\nThanks,\n");
+    var enquireHref = mailto("Enquiry — " + dev.name, "Hello,\n\nI'm interested in " + dev.name + " (" + dev.location + "). Please could you send me more information.\n\nThanks,\n");
     $("#dev-actions").innerHTML = done
       ? '<a class="btn btn-navy" href="index.html#current">See current projects ' + ICON.arrow + "</a>" +
         '<a class="btn btn-outline" href="' + mailto("Register interest — future developments") + '">Register your interest</a>'
@@ -472,8 +472,8 @@
     /* Enquiry CTA */
     $("#cta-title").textContent = done ? "Looking for a home like these?" : "Interested in " + dev.name + "?";
     $("#cta-text").textContent = done
-      ? "Every home at " + dev.name + " has been sold, but we have new homes available now. Call James or drop us an email and we'll talk you through what's coming up."
-      : "Call James to arrange a viewing, reserve a plot or ask about part-exchange — or send us an email and we'll get straight back to you.";
+      ? "Every home at " + dev.name + " has been sold, but we have new homes available now. Call us or drop us an email and we'll talk you through what's coming up."
+      : "Call us to arrange a viewing, reserve a plot or ask about part-exchange — or send us an email and we'll get straight back to you.";
     $("#cta-loc").textContent = dev.location + ", " + dev.postcode;
     $("#cta-map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(H.mapQuery(dev));
     $("#cta-map").setAttribute("aria-label", "View " + dev.postcode + " on Google Maps (opens in a new tab)");
@@ -533,7 +533,7 @@
               ? '<s><span class="sr-only">Sold, was </span>' + H.price(p.price) + "</s>"
               : H.price(p.price);
             var act = (p.status === "available" || p.status === "coming-soon" || p.status === "reserved")
-              ? '<a class="enq-link" href="' + mailto("Plot " + p.plot + ", " + dev.name, "Hello James,\n\nI'm interested in plot " + p.plot + " (" + p.type + ") at " + dev.name + ". Please could you send me more information.\n\nThanks,\n") + '">' +
+              ? '<a class="enq-link" href="' + mailto("Plot " + p.plot + ", " + dev.name, "Hello,\n\nI'm interested in plot " + p.plot + " (" + p.type + ") at " + dev.name + ". Please could you send me more information.\n\nThanks,\n") + '">' +
                   (p.status === "reserved" ? "Join waiting list" : "Enquire") + "</a>"
               : "";
             return '<tr class="is-' + p.status + '">' +

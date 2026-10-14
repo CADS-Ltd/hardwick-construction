@@ -1,5 +1,5 @@
 /*
- * Hardwick Construction — template 03 "Blueprint"
+ * Premier Property (Central) — template 03 "Blueprint"
  * All content comes from /assets/data/developments.js via the shared H helpers.
  */
 (function () {
@@ -176,7 +176,7 @@
     var from = H.priceFrom(d);
     var mail = "mailto:" + H.company.email + "?subject=" + encodeURIComponent("Enquiry — " + d.name);
 
-    document.title = d.name + ", " + d.location + " — Hardwick Construction";
+    document.title = d.name + ", " + d.location + " — Premier Property (Central)";
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute("content", d.name + " — " + d.summary);
 
@@ -243,7 +243,7 @@
           '<div class="asbuilt-text">' +
             '<p class="mono-label">Status: Completed ' + esc(d.completed || "") + "</p>" +
             "<h3>" + (others.length ? "Homes available now nearby" : "All homes at " + esc(d.name) + " are sold") + "</h3>" +
-            "<p>Thank you to everyone who chose a Hardwick home here. " + (others.length ? "Take a look at our current developments below, or" : "To hear about future homes nearby,") + " get in touch and we'll keep you informed about new releases.</p>" +
+            "<p>Thank you to everyone who chose a Premier Property home here. " + (others.length ? "Take a look at our current developments below, or" : "To hear about future homes nearby,") + " get in touch and we'll keep you informed about new releases.</p>" +
             (others.length ? '<ul class="asbuilt-links">' + others.map(function (o) {
               var oc = chipFor(o);
               return '<li><a href="development.html?site=' + encodeURIComponent(o.slug) + '"><span>' + esc(o.name) +
@@ -286,7 +286,7 @@
     // Enquire
     setText("enquire-title", isDone ? "Looking for a new home nearby?" : "Interested in a home at " + d.name + "?");
     setText("enquire-copy", isDone
-      ? "Speak to James about our current developments, or ask to be told when new homes are released."
+      ? "Speak to us about our current developments, or ask to be told when new homes are released."
       : "Call or email to arrange a viewing, ask about a plot or reserve your new home.");
     document.getElementById("enquire-email").href = mail;
   }
