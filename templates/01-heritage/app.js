@@ -680,6 +680,22 @@
 
     // Floor plans
     var images = [];
+
+    // Full picture of the house under the hero, so the whole home is visible
+    if (t.image) {
+      var shot = document.getElementById("showcase-btn");
+      shot.setAttribute("data-index", images.push(t.image) - 1);
+      var simg = document.getElementById("showcase-img");
+      simg.addEventListener("load", function () {
+        var frame = simg.closest(".showcase-frame");
+        if (simg.naturalHeight) frame.style.setProperty("--ar", (simg.naturalWidth / simg.naturalHeight).toFixed(4));
+      });
+      simg.src = H.img(t.image);
+      simg.alt = t.name + " at " + d.name + " — computer generated image of the front of the house";
+      setText("showcase-name", t.name + " · " + t.style);
+      document.getElementById("type-showcase").hidden = false;
+    }
+
     function planFigure(file, label, rows) {
       var i = images.push(file) - 1;
       return (
@@ -704,7 +720,6 @@
           planFigure(t.plans.first, "First floor", t.first) +
         "</div>" +
         (t.plans.elevations ? '<div class="plan-elevations">' + planFigure(t.plans.elevations, "Elevations — front, sides and rear") + "</div>" : "");
-      lightbox(images, t.name + " — " + d.name);
     } else {
       var pi = document.querySelector("#floor-plans .section-intro");
       if (pi) pi.textContent = "Floor plans for the " + t.name + " will be published here as soon as they are ready.";
@@ -716,6 +731,8 @@
           '<a class="btn btn-navy" href="#enquire">Ask for the floor plans</a>' +
         "</div>";
     }
+
+    if (images.length) lightbox(images, t.name + " — " + d.name);
 
     // Availability
     setText("homes-intro", list.length
