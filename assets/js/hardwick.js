@@ -21,6 +21,7 @@
     company: data.company,
 
     img: function (file) { return assetBase + "img/" + file; },
+    doc: function (file) { return assetBase + "docs/" + file; },
 
     all: function () { return data.developments.slice(); },
     current: function () {

@@ -30,6 +30,10 @@ Every template reads from a single file, [`assets/data/developments.js`](assets/
   (see Brunt Lane) gets a hover-able site plan at `plots.html?site=<slug>`. Each plot's
   `houseType` letter links it to its house type, and `sitePlan.hotspots` outlines each
   house on the plan image in pixel coordinates.
+- **House type pages (Heritage):** `house-type.html?site=<slug>&type=<letter>` shows a house
+  type's details, floor plan images, room sizes, availability and a PDF download. Clicking a
+  home on the plots page opens it. Floor plan images go in `assets/img/` and PDFs in
+  `assets/docs/`, referenced from the house type's `plans` and `pdf` fields.
 
 All developments, plots, prices and photos are **sample content**. The photos are from
 [Unsplash](https://unsplash.com/license) and will be replaced with Premier Property's own.

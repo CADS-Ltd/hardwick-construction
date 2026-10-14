@@ -1094,6 +1094,82 @@ body.lb-open { overflow: hidden; }
 }
 
 /* ==========================================================================
+   House type page
+   ========================================================================== */
+.hero-type { min-height: 72vh; min-height: 72svh; }
+.hero-type .hero-media img { object-position: 50% 35%; }
+.btn-ghost { color: var(--navy); border-color: var(--line); background: transparent; }
+.btn-ghost:hover { border-color: var(--navy); }
+.btn-icon { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; flex: none; }
+.facts-actions { display: grid; gap: 10px; }
+.facts .panel-plot { margin: 4px 0 14px; }
+.plan-tip small { margin-top: 4px; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-navy-muted); }
+
+/* Floor plan sheets */
+.plan-sheets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.plan-sheet { margin: 0; display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--line); }
+.g-item.plan-shot {
+  display: block; width: 100%; padding: clamp(14px, 2vw, 26px); background: #fff;
+  border-bottom: 1px solid var(--line); cursor: zoom-in;
+}
+.g-item.plan-shot img { width: 100%; height: auto; object-fit: contain; transition: transform 1.2s var(--ease); }
+.g-item.plan-shot:hover img { transform: scale(1.025); }
+.plan-sheet figcaption { padding: 22px clamp(18px, 2.4vw, 30px) 26px; }
+.room-list > div { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.room-list > div:last-child { border-bottom: 0; }
+.room-list dt { color: var(--navy); }
+.room-list dd { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.plan-elevations { margin-top: clamp(20px, 3vw, 40px); }
+.plan-elevations figcaption { padding-bottom: 20px; }
+
+.type-plan-link { margin: 28px 0 0; }
+.plot.is-selected { background: rgba(200, 162, 74, .14); box-shadow: inset 3px 0 0 var(--gold); }
+
+/* Download card */
+.download-card {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(18px, 3vw, 36px);
+  padding: clamp(22px, 3vw, 34px); background: var(--paper); border: 1px solid var(--line); position: relative;
+  transition: box-shadow .6s var(--ease), transform .6s var(--ease);
+}
+.download-card::before { content: ""; position: absolute; left: 34px; right: 34px; top: -1px; height: 2px; background: var(--gold); }
+.download-card:hover { transform: translateY(-3px); box-shadow: 0 26px 50px -34px rgba(10, 22, 56, .45); }
+.download-icon {
+  position: relative; width: 74px; height: 88px; display: grid; place-items: center; color: var(--navy);
+}
+.download-icon svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: .9; }
+.download-icon span {
+  position: relative; margin-top: 18px; padding: 2px 6px; background: var(--gold); color: var(--navy);
+  font-size: 11px; font-weight: 500; letter-spacing: .16em;
+}
+.download-title { margin: 0; font-family: var(--serif); font-size: clamp(24px, 2.4vw, 30px); line-height: 1.15; color: var(--navy); }
+.download-meta { margin: 6px 0 8px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+.download-text { margin: 0; color: var(--muted); font-size: 15.5px; }
+.download-actions { display: grid; gap: 10px; min-width: 200px; }
+
+/* Linked type cards */
+.type-card-link { color: inherit; }
+.type-card-link .type-card-body { gap: 4px; }
+.type-card-link .type-card-name, .type-card-link .type-card-style, .type-card-link .type-card-area { display: block; }
+.type-card-link .link-arrow { margin-top: auto; padding-top: 14px; }
+.type-card-link:hover .link-arrow svg { transform: translateX(5px); }
+.type-card-name a { color: inherit; }
+.type-card-name a:hover { color: var(--gold-ink); }
+.type-card-media { display: block; }
+.type-card-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 26px; margin: auto 0 0; }
+.type-card-links button.link-arrow { padding: 0; background-color: transparent; border: 0; cursor: pointer; color: var(--muted); }
+.type-card-body > .type-card-links { margin-top: auto; }
+
+@media (max-width: 860px) {
+  .plan-sheets { grid-template-columns: 1fr; }
+  .download-card { grid-template-columns: auto 1fr; }
+  .download-actions { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; min-width: 0; }
+}
+@media (max-width: 480px) {
+  .download-actions { grid-template-columns: 1fr; }
+  .download-icon { width: 56px; height: 66px; }
+}
+
+/* ==========================================================================
    Reduced motion
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
@@ -1104,6 +1180,7 @@ body.lb-open { overflow: hidden; }
   .js [data-reveal] { opacity: 1; transform: none; }
   .dev-row:hover .dev-row-media img, .g-item:hover img, .done-card:hover .done-media img { transform: none; }
   .hs.is-available polygon, .plan-panel.is-swap > * { animation: none; }
-  .type-card:hover, .plan-cta:hover { transform: none; }
+  .type-card:hover, .plan-cta:hover, .download-card:hover { transform: none; }
+  .g-item.plan-shot:hover img { transform: none; }
   .type-card:hover .type-card-media img, .plan-cta:hover .plan-cta-media img { transform: none; }
 }

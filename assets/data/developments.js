@@ -15,6 +15,8 @@
  *  • Interactive plots page: a development with "houseTypes" and "sitePlan"
  *    (see Brunt Lane) gets a hover-able site plan. Give each plot a
  *    houseType letter that matches one of its houseTypes.
+ *  • House type pages: each house type gets its own page. Floor plan
+ *    images live in /assets/img and the downloadable PDF in /assets/docs.
  *
  *  NOTE: all developments, plots and prices below are SAMPLE CONTENT for the
  *  draft templates and will be replaced with Premier Property's real details.
@@ -86,6 +88,13 @@ window.HARDWICK = {
           style: "4 bedroom detached house",
           beds: 4, sqm: 99, sqft: 1066,
           image: "brunt-lane-type-a.webp",
+          pdf: "brunt-lane-type-a-floor-plans.pdf",
+          pdfSize: "706 KB",
+          plans: {
+            ground: "brunt-lane-type-a-ground.webp",
+            first: "brunt-lane-type-a-first.webp",
+            elevations: "brunt-lane-type-a-elevations.webp"
+          },
           drawing: "226-35-TP-A-10",
           summary: "A well-proportioned detached home with a kitchen and dining room across the rear, a separate utility and pantry, and a principal bedroom with en-suite.",
           ground: [
@@ -110,6 +119,13 @@ window.HARDWICK = {
           style: "4 bedroom detached house with integral garage",
           beds: 4, sqm: 111, sqft: 1191,
           image: "brunt-lane-type-b.webp",
+          pdf: "brunt-lane-type-b-floor-plans.pdf",
+          pdfSize: "763 KB",
+          plans: {
+            ground: "brunt-lane-type-b-ground.webp",
+            first: "brunt-lane-type-b-first.webp",
+            elevations: "brunt-lane-type-b-elevations.webp"
+          },
           drawing: "226-35-TP-B-10",
           summary: "A spacious detached home with an open-plan kitchen, dining and living room across the full width of the rear, a separate lounge and an integral garage.",
           ground: [
@@ -133,6 +149,13 @@ window.HARDWICK = {
           style: "4 bedroom detached house with integral garage",
           beds: 4, sqm: 117, sqft: 1258,
           image: "brunt-lane-type-c.webp",
+          pdf: "brunt-lane-type-c-floor-plans.pdf",
+          pdfSize: "795 KB",
+          plans: {
+            ground: "brunt-lane-type-c-ground.webp",
+            first: "brunt-lane-type-c-first.webp",
+            elevations: "brunt-lane-type-c-elevations.webp"
+          },
           drawing: "226-35-TP-C-10",
           summary: "Our widest-fronted home, with an 8.3 metre open-plan living, dining and kitchen space, a separate lounge, an integral garage and a principal suite with dressing area.",
           ground: [
@@ -157,6 +180,8 @@ window.HARDWICK = {
           style: "4 bedroom house",
           beds: 4, sqm: null, sqft: null,
           image: null,
+          pdf: null,
+          plans: null,
           drawing: null,
           summary: "Floor plans and images for the Type D house are to follow. Please get in touch for details.",
           ground: [],
@@ -168,6 +193,13 @@ window.HARDWICK = {
           style: "4 bedroom detached house with study",
           beds: 4, sqm: 119, sqft: 1284,
           image: "brunt-lane-type-e.webp",
+          pdf: "brunt-lane-type-e-floor-plans.pdf",
+          pdfSize: "729 KB",
+          plans: {
+            ground: "brunt-lane-type-e-ground.webp",
+            first: "brunt-lane-type-e-first.webp",
+            elevations: "brunt-lane-type-e-elevations.webp"
+          },
           drawing: "226-35-TP-E-10",
           summary: "A classic double-fronted home with a gabled entrance porch, a ground-floor study and utility, and an open-plan kitchen, dining and living room across the rear.",
           ground: [
