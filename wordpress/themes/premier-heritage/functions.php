@@ -43,12 +43,23 @@ add_action( 'wp_enqueue_scripts', function () {
 add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
 
 // WP Rocket "Delay JavaScript execution": the theme's small scripts (menu, animations,
-// site plan) run straight away, so content never waits for a first scroll or tap to appear
+// site plan) and the form's anti-spam field run straight away, so nothing waits for a first scroll or tap
 add_filter( 'rocket_delay_js_exclusions', function ( $exclusions ) {
 	return array_merge( (array) $exclusions, array(
 		'premier-heritage/assets/js/theme.js',
 		'premier-developments/assets/',
 		'documentElement.className',
+		// WPForms hides its anti-spam field with a small inline script
+		'wpforms-conversational-form-page',
+	) );
+} );
+
+// WP Rocket "Remove unused CSS": keep the theme's stylesheets whole, as the menu, animations,
+// lightbox and site plan add their classes with JavaScript after the page loads
+add_filter( 'rocket_rucss_safelist', function ( $safelist ) {
+	return array_merge( (array) $safelist, array(
+		'/wp-content/themes/premier-heritage/assets/css/(.*).css',
+		'.wpforms-(.*)',
 	) );
 } );
 
