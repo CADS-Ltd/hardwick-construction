@@ -55,6 +55,16 @@ All of this is done from the WordPress admin:
 | House type | `/house-types/brunt-lane-type-c/?plot=7` | Theme template (or an Elementor Pro *Single* template) |
 | All developments | `/developments/` | Theme template |
 
+## Site pages and the enquiry form
+
+**Tools › Premier demo content › Create site pages** creates any of these that are missing (existing ones are never overwritten):
+
+- **Current developments** (`/current-developments/`), **Completed developments** (`/completed-developments/`), **About us** (`/about-us/`) and **Contact us** (`/contact-us/`), built with Elementor and editable there.
+- A **WPForms** form, *Website enquiry*, on the Contact us page. It emails the address in **Company details**. Edit its fields, recipients and thank-you message under **WPForms › All Forms**.
+- The **footer menu** links to these pages. The main menu keeps scrolling the home page.
+
+On the home page each section (Current, Completed, About, Contact) has a link to its full page. Turn it off or change its wording in each widget's *Link to the full page* setting. A development's **Send an enquiry** button opens the Contact us page with that development already chosen in the form.
+
 ## Heritage A or B
 
 The site plan's position is a theme setting, under **Appearance › Customise › Developments › Interactive site plan**:

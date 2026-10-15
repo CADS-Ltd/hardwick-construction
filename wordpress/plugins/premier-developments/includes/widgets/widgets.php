@@ -93,15 +93,51 @@ abstract class Premier_Widget_Base extends Widget_Base {
 		return '<section class="section' . $bg . ( $extra_class ? ' ' . esc_attr( $extra_class ) : '' ) . '"' . $id . '>';
 	}
 
-	protected function section_head( $s, $split = false ) {
+	protected function section_head( $s, $split = false, $link = '' ) {
 		$light = ( $s['background'] ?? '' ) === 'navy' ? ' eyebrow-light' : '';
 		$head  = ( $s['eyebrow'] ? '<p class="eyebrow' . $light . '">' . esc_html( $s['eyebrow'] ) . '</p>' : '' )
 			. ( $s['heading'] ? '<h2 class="display">' . $this->heading_html( $s['heading'] ) . '</h2>' : '' );
 		$intro = ! empty( $s['intro'] ) ? '<p class="section-intro">' . esc_html( $s['intro'] ) . '</p>' : '';
+		if ( $link ) {
+			// Heading on the left; introduction and the link to the full page on the right
+			return '<header class="section-head section-head-split" data-reveal><div>' . $head . '</div>'
+				. '<div class="section-head-aside">' . $intro . $link . '</div></header>';
+		}
 		if ( $split && $intro ) {
 			return '<header class="section-head section-head-split" data-reveal><div>' . $head . '</div>' . $intro . '</header>';
 		}
 		return '<header class="section-head" data-reveal>' . $head . $intro . '</header>';
+	}
+
+	/**
+	 * "View all …" link from a home page section to its full page
+	 * (current / completed developments, about, contact).
+	 */
+	protected function page_link_controls( $default_text ) {
+		$this->add_control( 'page_link', array(
+			'label'       => 'Link to the full page',
+			'type'        => Controls_Manager::SWITCHER,
+			'default'     => 'yes',
+			'separator'   => 'before',
+			'description' => 'Shown when the page exists (Tools › Premier demo content › Create site pages) and this is not that page.',
+		) );
+		$this->add_control( 'page_link_text', array(
+			'label'     => 'Link text',
+			'type'      => Controls_Manager::TEXT,
+			'default'   => $default_text,
+			'condition' => array( 'page_link' => 'yes' ),
+		) );
+	}
+
+	protected function page_link_html( $s, $role, $class = 'link-arrow draw' ) {
+		if ( ( $s['page_link'] ?? '' ) !== 'yes' ) {
+			return '';
+		}
+		$url = Premier_Data::page_url( $role );
+		if ( ! $url || Premier_Data::page_id( $role ) === (int) get_the_ID() ) {
+			return '';
+		}
+		return '<a class="' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $s['page_link_text'] ) . ' ' . Premier_Render::ARROW . '</a>';
 	}
 }
 
@@ -147,6 +183,37 @@ class Premier_Widget_Hero extends Premier_Widget_Base {
 			. '</div></div>'
 			. ( $sell ? '<div class="hero-foot hero-fade" style="--d:1.3s"><div class="wrap hero-foot-inner"><span class="hero-foot-label">Now selling</span><ul class="hero-foot-list">' . $sell . '</ul></div></div>' : '' ) // phpcs:ignore WordPress.Security.EscapeOutput
 			. '</section>';
+	}
+}
+
+class Premier_Widget_Page_Header extends Premier_Widget_Base {
+	public function get_name() { return 'premier-page-header'; }
+	public function get_title() { return 'Page header'; }
+	public function get_icon() { return 'eicon-header'; }
+
+	protected function register_controls() {
+		$this->start_controls_section( 'content', array( 'label' => 'Page header' ) );
+		$this->add_control( 'image', array( 'label' => 'Background photo', 'type' => Controls_Manager::MEDIA ) );
+		$this->add_control( 'eyebrow', array( 'label' => 'Small label', 'type' => Controls_Manager::TEXT, 'default' => '', 'label_block' => true ) );
+		$this->add_control( 'title', array( 'label' => 'Heading', 'type' => Controls_Manager::TEXTAREA, 'rows' => 2, 'default' => 'Page title', 'description' => 'Wrap a word in &lt;em&gt;…&lt;/em&gt; to set it in italic gold.' ) );
+		$this->add_control( 'lede', array( 'label' => 'Text under the heading', 'type' => Controls_Manager::TEXTAREA, 'rows' => 2, 'default' => '' ) );
+		$this->add_control( 'back', array( 'label' => 'Show “Home” link', 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' ) );
+		$this->end_controls_section();
+	}
+
+	protected function render() {
+		$s   = $this->get_settings_for_display();
+		$img = ! empty( $s['image']['id'] ) ? Premier_Render::img( $s['image']['id'], 'full', array( 'alt' => '', 'loading' => 'eager', 'fetchpriority' => 'high' ) )
+			: ( ! empty( $s['image']['url'] ) ? '<img src="' . esc_url( $s['image']['url'] ) . '" alt="">' : '' );
+		echo '<section class="hero hero-dev hero-page">'
+			. '<div class="hero-media" aria-hidden="true">' . $img . '</div>' // phpcs:ignore WordPress.Security.EscapeOutput
+			. '<div class="hero-shade" aria-hidden="true"></div>'
+			. '<div class="wrap hero-content">'
+			. ( 'yes' === $s['back'] ? '<a class="back-link hero-fade" style="--d:.1s" href="' . esc_url( home_url( '/' ) ) . '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m5-5-5 5 5 5"/></svg><span>Home</span></a>' : '' )
+			. ( $s['eyebrow'] ? '<p class="eyebrow eyebrow-light hero-fade" style="--d:.25s">' . esc_html( $s['eyebrow'] ) . '</p>' : '' )
+			. '<h1 class="hero-title hero-fade" style="--d:.45s">' . $this->heading_html( $s['title'] ) . '</h1>' // phpcs:ignore WordPress.Security.EscapeOutput
+			. ( $s['lede'] ? '<p class="hero-lede hero-fade" style="--d:.7s">' . esc_html( $s['lede'] ) . '</p>' : '' )
+			. '</div></section>';
 	}
 }
 
@@ -203,7 +270,15 @@ class Premier_Widget_Developments extends Premier_Widget_Base {
 			'default' => 'rows',
 		) );
 		$this->section_controls( array( 'eyebrow' => 'Now selling', 'heading' => 'Current developments', 'intro' => 'Each of our developments is deliberately small — a considered collection of homes, rather than an estate. Explore what is available today.' ) );
+		$this->add_control( 'limit', array(
+			'label'       => 'How many to show',
+			'type'        => Controls_Manager::NUMBER,
+			'min'         => 0,
+			'default'     => 0,
+			'description' => '0 shows them all.',
+		) );
 		$this->background_control( 'alt' );
+		$this->page_link_controls( '' );
 		$this->end_controls_section();
 	}
 
@@ -211,8 +286,15 @@ class Premier_Widget_Developments extends Premier_Widget_Base {
 		$s     = $this->get_settings_for_display();
 		$stage = 'all' === $s['stage'] ? '' : $s['stage'];
 		$list  = Premier_Data::developments( $stage );
-		$body  = 'grid' === $s['layout'] ? Premier_Render::development_grid( $list ) : Premier_Render::development_rows( $list );
-		echo $this->section_open( $s ) . '<div class="wrap">' . $this->section_head( $s, 'grid' === $s['layout'] ) . $body . '</div></section>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		if ( (int) $s['limit'] > 0 ) {
+			$list = array_slice( $list, 0, (int) $s['limit'] );
+		}
+		$role = 'completed' === $stage ? 'completed' : 'current';
+		if ( '' === trim( (string) $s['page_link_text'] ) ) {
+			$s['page_link_text'] = 'completed' === $role ? 'View all completed developments' : 'View all current developments';
+		}
+		$body = 'grid' === $s['layout'] ? Premier_Render::development_grid( $list ) : Premier_Render::development_rows( $list );
+		echo $this->section_open( $s ) . '<div class="wrap">' . $this->section_head( $s, 'grid' === $s['layout'], $this->page_link_html( $s, $role ) ) . $body . '</div></section>'; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 }
 
@@ -241,12 +323,14 @@ class Premier_Widget_About extends Premier_Widget_Base {
 			),
 		) );
 		$this->background_control( 'plain' );
+		$this->page_link_controls( 'More about us' );
 		$this->end_controls_section();
 	}
 
 	protected function render() {
 		$s     = $this->get_settings_for_display();
 		$img   = ! empty( $s['image']['id'] ) ? Premier_Render::img( $s['image']['id'], 'large', array( 'alt' => '' ) ) : ( ! empty( $s['image']['url'] ) ? '<img src="' . esc_url( $s['image']['url'] ) . '" alt="">' : '' );
+		$link  = $this->page_link_html( $s, 'about' );
 		$roman = array( 'I', 'II', 'III', 'IV', 'V', 'VI' );
 		$items = '';
 		foreach ( (array) $s['principles'] as $i => $p ) {
@@ -259,6 +343,7 @@ class Premier_Widget_About extends Premier_Widget_Base {
 			. '<h2 class="display" data-reveal>' . $this->heading_html( $s['heading'] ) . '</h2>' // phpcs:ignore WordPress.Security.EscapeOutput
 			. ( $s['text'] ? '<p data-reveal>' . esc_html( $s['text'] ) . '</p>' : '' )
 			. ( $items ? '<ol class="principles" data-stagger>' . $items . '</ol>' : '' ) // phpcs:ignore WordPress.Security.EscapeOutput
+			. ( $link ? '<p class="section-page-link" data-reveal>' . $link . '</p>' : '' ) // phpcs:ignore WordPress.Security.EscapeOutput
 			. '</div></div></section>';
 	}
 }
@@ -272,15 +357,36 @@ class Premier_Widget_Contact extends Premier_Widget_Base {
 		$this->start_controls_section( 'content', array( 'label' => 'Contact' ) );
 		$this->section_controls( array( 'eyebrow' => 'Contact', 'heading' => 'Arrange a viewing, or simply ask a question' ) );
 		$this->add_control( 'lead', array( 'label' => 'Text', 'type' => Controls_Manager::TEXTAREA, 'rows' => 3, 'default' => 'Speak to the team directly. We are always happy to talk you through a development, a house type or what is coming next.' ) );
-		$this->add_control( 'button', array( 'label' => 'Email button', 'type' => Controls_Manager::TEXT, 'default' => 'Email the team' ) );
+		$this->add_control( 'button', array( 'label' => 'Email button', 'type' => Controls_Manager::TEXT, 'default' => 'Email the team', 'description' => 'Hidden when the enquiry form is shown.' ) );
+		$this->add_control( 'show_form', array(
+			'label'       => 'Show the enquiry form (WPForms)',
+			'type'        => Controls_Manager::SWITCHER,
+			'default'     => '',
+			'description' => 'Use on the Contact us page.',
+		) );
+		$forms = array( '' => '— The site’s enquiry form —' );
+		foreach ( get_posts( array( 'post_type' => 'wpforms', 'numberposts' => -1, 'post_status' => 'publish' ) ) as $f ) {
+			$forms[ (string) $f->ID ] = $f->post_title;
+		}
+		$this->add_control( 'form_id', array(
+			'label'     => 'Form',
+			'type'      => Controls_Manager::SELECT,
+			'options'   => $forms,
+			'default'   => '',
+			'condition' => array( 'show_form' => 'yes' ),
+		) );
 		$this->add_control( 'note', array( 'type' => Controls_Manager::RAW_HTML, 'raw' => 'Phone numbers, email and address come from <strong>Company details</strong> in the WordPress menu.', 'content_classes' => 'elementor-descriptor' ) );
 		$this->background_control( 'alt' );
+		$this->page_link_controls( 'Go to our contact page' );
 		$this->end_controls_section();
 	}
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
 		$c = Premier_Data::company();
+		$form_id = 'yes' === $s['show_form'] ? ( (int) $s['form_id'] ?: Premier_Data::contact_form_id() ) : 0;
+		$form    = $form_id && function_exists( 'wpforms' ) ? do_shortcode( '[wpforms id="' . $form_id . '" title="false" description="false"]' ) : '';
+		$link    = $this->page_link_html( $s, 'contact' );
 		$rows = '';
 		if ( $c['phone'] ) {
 			$rows .= '<div data-reveal><dt>Office</dt><dd><a class="draw contact-big" href="' . esc_attr( Premier_Data::tel( $c['phone'] ) ) . '">' . esc_html( $c['phone'] ) . '</a></dd></div>';
@@ -292,13 +398,15 @@ class Premier_Widget_Contact extends Premier_Widget_Base {
 			$rows .= '<div data-reveal><dt>Email</dt><dd><a class="draw contact-email" href="mailto:' . esc_attr( $c['email'] ) . '">' . esc_html( $c['email'] ) . '</a></dd></div>';
 		}
 		if ( $c['address'] ) {
-			$rows .= '<div data-reveal><dt>Address</dt><dd><address>' . implode( '<br>', array_map( 'esc_html', $c['address'] ) ) . '</address></dd></div>';
+			$map   = $form ? '<a class="link-arrow draw contact-map" href="' . esc_url( 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( implode( ', ', $c['address'] ) ) ) . '" target="_blank" rel="noopener">Get directions ' . Premier_Render::ARROW . '</a>' : '';
+			$rows .= '<div data-reveal><dt>Address</dt><dd><address>' . implode( '<br>', array_map( 'esc_html', $c['address'] ) ) . '</address>' . $map . '</dd></div>';
 		}
 		echo $this->section_open( $s, 'contact' ) . '<div class="wrap contact-grid">' // phpcs:ignore WordPress.Security.EscapeOutput
 			. '<div data-reveal>' . ( $s['eyebrow'] ? '<p class="eyebrow">' . esc_html( $s['eyebrow'] ) . '</p>' : '' )
 			. '<h2 class="display">' . $this->heading_html( $s['heading'] ) . '</h2>' // phpcs:ignore WordPress.Security.EscapeOutput
 			. ( $s['lead'] ? '<p class="lead">' . esc_html( $s['lead'] ) . '</p>' : '' )
-			. ( $s['button'] ? '<a class="btn btn-navy" href="' . esc_attr( Premier_Data::mailto( 'Enquiry from the website' ) ) . '">' . esc_html( $s['button'] ) . '</a>' : '' )
+			. ( $form ? '<div class="premier-form" id="enquiry-form">' . $form . '</div>' // phpcs:ignore WordPress.Security.EscapeOutput
+				: ( $s['button'] ? '<p class="contact-actions"><a class="btn btn-navy" href="' . esc_attr( Premier_Data::mailto( 'Enquiry from the website' ) ) . '">' . esc_html( $s['button'] ) . '</a>' . $link . '</p>' : ( $link ? '<p class="contact-actions">' . $link . '</p>' : '' ) ) ) // phpcs:ignore WordPress.Security.EscapeOutput
 			. '</div><dl class="contact-list" data-stagger>' . $rows . '</dl></div></section>'; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 }

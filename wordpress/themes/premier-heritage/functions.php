@@ -53,7 +53,11 @@ function premier_has_hero() {
 		if ( $id && get_post_meta( $id, '_elementor_edit_mode', true ) === 'builder' ) {
 			$data = (string) get_post_meta( $id, '_elementor_data', true );
 			$pos  = strpos( $data, '"widgetType"' );
-			return false !== $pos && str_starts_with( substr( $data, $pos, 40 ), '"widgetType":"premier-hero"' );
+			if ( false === $pos ) {
+				return false;
+			}
+			$first = substr( $data, $pos, 48 );
+			return str_starts_with( $first, '"widgetType":"premier-hero"' ) || str_starts_with( $first, '"widgetType":"premier-page-header"' );
 		}
 	}
 	return false;
@@ -109,7 +113,13 @@ function premier_enquire_url() {
 	if ( is_singular( array( 'development', 'house_type' ) ) ) {
 		return '#enquire';
 	}
-	return home_url( '/#contact' );
+	$contact = function_exists( 'premier_page_url' ) ? premier_page_url( 'contact' ) : '';
+	return $contact ? $contact : home_url( '/#contact' );
+}
+
+/** URL of one of the site's main pages (current, completed, about, contact), or ''. */
+function premier_page_url( $role ) {
+	return class_exists( 'Premier_Data' ) ? Premier_Data::page_url( $role ) : '';
 }
 
 /**

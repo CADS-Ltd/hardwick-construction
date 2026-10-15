@@ -41,6 +41,43 @@ class Premier_Data {
 		return (bool) apply_filters( 'premier_plots_inline', false );
 	}
 
+	/**
+	 * The site's main pages, set up by Tools › Premier demo content › Create site pages.
+	 * $role: current | completed | about | contact. Returns '' if the page does not exist.
+	 */
+	public static function page_url( $role ) {
+		$id = (int) get_option( 'premier_page_' . $role );
+		return $id && get_post_status( $id ) === 'publish' ? get_permalink( $id ) : '';
+	}
+
+	public static function page_id( $role ) {
+		$id = (int) get_option( 'premier_page_' . $role );
+		return $id && get_post_status( $id ) === 'publish' ? $id : 0;
+	}
+
+	/** The WPForms enquiry form used on the Contact us page (0 when there is none). */
+	public static function contact_form_id() {
+		$id = (int) get_option( 'premier_contact_form' );
+		return $id && function_exists( 'wpforms' ) && get_post_status( $id ) === 'publish' ? $id : 0;
+	}
+
+	/**
+	 * Link to the Contact us page with the enquiry form's Development field
+	 * filled in, or a mailto link when there is no contact page or form.
+	 */
+	public static function enquiry_url( $development = '', $subject = '' ) {
+		$url  = self::page_url( 'contact' );
+		$form = self::contact_form_id();
+		$field = (int) get_option( 'premier_contact_form_dev_field' );
+		if ( $url && $form ) {
+			if ( $development && $field ) {
+				$url = add_query_arg( 'wpf' . $form . '_' . $field, rawurlencode( $development ), $url );
+			}
+			return $url . '#enquiry-form';
+		}
+		return self::mailto( $subject );
+	}
+
 	public static function status_label( $status ) {
 		return self::STATUSES[ $status ] ?? ucfirst( (string) $status );
 	}

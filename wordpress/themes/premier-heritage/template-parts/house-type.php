@@ -238,5 +238,5 @@ endif;
 	</section>
 	<?php endif; ?>
 
-	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => 'Interested in ' . ( $the_name === $t['name'] ? '' : 'the ' ) . '<em>' . esc_html( $t['name'] ) . '</em>?', 'lead' => 'Call the team or send us an email to arrange a viewing or reserve your home.', 'subject' => 'Enquiry: ' . $t['name'] . ( $sel ? ', plot ' . $sel['plot'] : '' ) . ( $d ? ' at ' . $d['name'] : '' ) ) ); ?>
+	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => 'Interested in ' . ( $the_name === $t['name'] ? '' : 'the ' ) . '<em>' . esc_html( $t['name'] ) . '</em>?', 'lead' => 'Call the team or send us an email to arrange a viewing or reserve your home.', 'subject' => 'Enquiry: ' . $t['name'] . ( $sel ? ', plot ' . $sel['plot'] : '' ) . ( $d ? ' at ' . $d['name'] : '' ), 'development' => $d && 'current' === $d['stage'] ? $d['name'] : '' ) ); ?>
 </main>

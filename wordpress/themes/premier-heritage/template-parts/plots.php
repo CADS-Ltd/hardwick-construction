@@ -71,5 +71,5 @@ $types  = count( $d['house_types'] );
 		</div>
 	</section>
 
-	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => 'Found the right <em>plot</em>?', 'lead' => 'Call the team or send us an email to arrange a viewing or reserve your home.', 'subject' => 'Plot enquiry: ' . $d['name'] ) ); ?>
+	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => 'Found the right <em>plot</em>?', 'lead' => 'Call the team or send us an email to arrange a viewing or reserve your home.', 'subject' => 'Plot enquiry: ' . $d['name'], 'development' => $d['name'] ) ); ?>
 </main>

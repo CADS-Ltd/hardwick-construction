@@ -25,6 +25,7 @@ class Premier_Elementor {
 		require_once PREMIER_DEV_DIR . 'includes/widgets/widgets.php';
 		foreach ( array(
 			'Premier_Widget_Hero',
+			'Premier_Widget_Page_Header',
 			'Premier_Widget_Intro',
 			'Premier_Widget_Developments',
 			'Premier_Widget_About',

@@ -23,8 +23,10 @@ class Premier_Demo {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
 		add_action( 'admin_post_premier_demo', array( __CLASS__, 'handle' ) );
+		add_action( 'admin_post_premier_pages', array( __CLASS__, 'handle_pages' ) );
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'premier demo', array( __CLASS__, 'cli' ) );
+			WP_CLI::add_command( 'premier pages', array( __CLASS__, 'cli_pages' ) );
 		}
 	}
 
@@ -48,6 +50,17 @@ class Premier_Demo {
 				<p><label>Download files from<br><input type="url" class="regular-text" name="source" value="<?php echo esc_attr( self::DEFAULT_SOURCE ); ?>"></label></p>
 				<?php submit_button( 'Import demo content' ); ?>
 			</form>
+			<hr>
+			<h2>Site pages</h2>
+			<?php if ( isset( $_GET['pages'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification ?>
+				<div class="notice notice-success inline"><p>Site pages checked. <?php echo esc_html( implode( ' ', self::$log ? self::$log : (array) get_transient( 'premier_pages_log' ) ) ); ?></p></div>
+			<?php endif; ?>
+			<p>Creates any of these that are missing: the <strong>Current developments</strong>, <strong>Completed developments</strong>, <strong>About us</strong> and <strong>Contact us</strong> pages (built with Elementor), the <strong>WPForms enquiry form</strong>, and the footer menu links to them. Pages and forms that already exist are left as they are.</p>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<?php wp_nonce_field( 'premier_pages' ); ?>
+				<input type="hidden" name="action" value="premier_pages">
+				<?php submit_button( 'Create site pages', 'secondary' ); ?>
+			</form>
 		</div>
 		<?php
 	}
@@ -61,6 +74,28 @@ class Premier_Demo {
 		self::run( isset( $_POST['source'] ) ? esc_url_raw( wp_unslash( $_POST['source'] ) ) : '' );
 		wp_safe_redirect( admin_url( 'tools.php?page=premier-demo&done=1' ) );
 		exit;
+	}
+
+	public static function handle_pages() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'Not allowed.' );
+		}
+		check_admin_referer( 'premier_pages' );
+		self::pages();
+		set_transient( 'premier_pages_log', self::$log, 60 );
+		wp_safe_redirect( admin_url( 'tools.php?page=premier-demo&pages=1' ) );
+		exit;
+	}
+
+	/**
+	 * Create the site pages (current, completed, about, contact), the enquiry form and footer links.
+	 */
+	public static function cli_pages() {
+		self::pages();
+		foreach ( self::$log as $line ) {
+			WP_CLI::log( $line );
+		}
+		WP_CLI::success( 'Site pages checked.' );
 	}
 
 	/**
@@ -100,6 +135,7 @@ class Premier_Demo {
 		}
 		$home = self::home_page();
 		self::menus( $dev_ids );
+		self::pages();
 
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $home );
@@ -350,6 +386,255 @@ class Premier_Demo {
 		delete_post_meta( $id, '_elementor_css' );
 		self::$log[] = 'Home page built with Elementor.';
 		return $id;
+	}
+
+	/* ------------------------------------------------------------------
+	 * Site pages and the enquiry form
+	 * ------------------------------------------------------------------ */
+
+	public static function pages() {
+		// WPForms only lets administrators create forms; WP-CLI runs with no user
+		if ( ! get_current_user_id() ) {
+			$admins = get_users( array( 'role' => 'administrator', 'number' => 1, 'fields' => 'ID' ) );
+			if ( $admins ) {
+				wp_set_current_user( (int) $admins[0] );
+			}
+		}
+		$form = self::enquiry_form();
+		$link = fn( $url ) => array( 'url' => $url, 'is_external' => '', 'nofollow' => '' );
+		$cta  = array(
+			'eyebrow'    => 'Get in touch',
+			'heading'    => 'Interested in one of our homes?',
+			'lead'       => 'Speak to the team about any of our developments, arrange a viewing or register your interest in what is coming next.',
+			'button'     => 'Email the team',
+			'background' => 'alt',
+			'page_link'  => 'yes',
+			'page_link_text' => 'Send us an enquiry',
+		);
+
+		$pages = array(
+			'current'   => array( 'current-developments', 'Current developments', array(
+				self::el_section( 'premier-page-header', array(
+					'image'   => self::media_setting( 'img/ext-brick-row.jpg' ),
+					'eyebrow' => 'Now selling',
+					'title'   => 'Current <em>developments</em>',
+					'lede'    => 'Every development where we have homes for sale or coming soon.',
+				) ),
+				self::el_section( 'premier-developments', array(
+					'stage'      => 'current',
+					'layout'     => 'rows',
+					'eyebrow'    => 'Homes for sale',
+					'heading'    => 'Find your new home',
+					'intro'      => 'Choose a development to see its site plan, house types and every plot available.',
+					'background' => 'plain',
+					'page_link'  => '',
+				) ),
+				self::el_section( 'premier-contact', $cta ),
+			) ),
+			'completed' => array( 'completed-developments', 'Completed developments', array(
+				self::el_section( 'premier-page-header', array(
+					'image'   => self::media_setting( 'img/ext-brick-street.jpg' ),
+					'eyebrow' => 'Our portfolio',
+					'title'   => 'Completed <em>developments</em>',
+					'lede'    => 'The communities we have built — every home now sold and lived in.',
+				) ),
+				self::el_section( 'premier-developments', array(
+					'stage'      => 'completed',
+					'layout'     => 'grid',
+					'eyebrow'    => 'Homes we have built',
+					'heading'    => 'Completed developments',
+					'intro'      => 'A selection of the developments we have completed across South Derbyshire.',
+					'background' => 'plain',
+					'page_link'  => '',
+				) ),
+				self::el_section( 'premier-developments', array(
+					'stage'          => 'current',
+					'layout'         => 'grid',
+					'eyebrow'        => 'Now selling',
+					'heading'        => 'Looking for a new home?',
+					'intro'          => '',
+					'limit'          => 3,
+					'background'     => 'navy',
+					'page_link'      => 'yes',
+					'page_link_text' => 'View all current developments',
+				) ),
+			) ),
+			'about'     => array( 'about-us', 'About us', array(
+				self::el_section( 'premier-page-header', array(
+					'image'   => self::media_setting( 'img/build-site.jpg' ),
+					'eyebrow' => 'About us',
+					'title'   => 'A local name on every <em>home</em> we build',
+				) ),
+				self::el_section( 'premier-intro', array(
+					'eyebrow'    => 'Who we are',
+					'heading'    => 'Premier Property Central',
+					'text'       => 'Placeholder — replace with the client’s About us text.',
+					'link_text'  => '',
+					'show_stats' => 'yes',
+					'background' => 'plain',
+				) ),
+				self::el_section( 'premier-about', array(
+					'image'      => self::media_setting( 'img/build-plans.jpg' ),
+					'eyebrow'    => 'How we work',
+					'heading'    => 'What we stand for',
+					'text'       => '',
+					'background' => 'alt',
+					'page_link'  => '',
+				) ),
+				self::el_section( 'premier-contact', array_merge( $cta, array( 'background' => 'plain' ) ) ),
+			) ),
+			'contact'   => array( 'contact-us', 'Contact us', array(
+				self::el_section( 'premier-page-header', array(
+					'image'   => self::media_setting( 'img/int-living.jpg' ),
+					'eyebrow' => 'Contact us',
+					'title'   => 'We would love to <em>hear</em> from you',
+					'lede'    => 'Ask about a development, arrange a viewing or register your interest in new homes.',
+				) ),
+				self::el_section( 'premier-contact', array(
+					'eyebrow'    => 'Send an enquiry',
+					'heading'    => 'How can we help?',
+					'lead'       => 'Fill in the form and a member of the team will be in touch, or call or email us directly.',
+					'button'     => '',
+					'show_form'  => 'yes',
+					'background' => 'plain',
+					'anchor'     => 'enquiry',
+				) ),
+			) ),
+		);
+
+		foreach ( $pages as $role => $p ) {
+			$existing = get_page_by_path( $p[0], OBJECT, 'page' );
+			if ( $existing ) {
+				update_option( 'premier_page_' . $role, $existing->ID );
+				self::$log[] = $p[1] . ' page already exists (left as it is).';
+				continue;
+			}
+			$id = wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'publish', 'post_title' => $p[1], 'post_name' => $p[0] ) );
+			update_post_meta( $id, '_elementor_edit_mode', 'builder' );
+			update_post_meta( $id, '_elementor_template_type', 'wp-page' );
+			update_post_meta( $id, '_elementor_version', defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : '3.0.0' );
+			update_post_meta( $id, '_wp_page_template', 'elementor_header_footer' );
+			update_post_meta( $id, '_elementor_data', wp_slash( wp_json_encode( $p[2] ) ) );
+			update_option( 'premier_page_' . $role, $id );
+			self::$log[] = $p[1] . ' page created.';
+		}
+
+		self::footer_menu();
+		if ( ! $form && ! function_exists( 'wpforms' ) ) {
+			self::$log[] = 'WPForms is not active, so the Contact us page shows an email button instead of a form.';
+		}
+	}
+
+	/** The WPForms enquiry form. Created once; later edits in WPForms are kept. */
+	private static function enquiry_form() {
+		if ( ! function_exists( 'wpforms' ) ) {
+			return 0;
+		}
+		$existing = (int) get_option( 'premier_contact_form' );
+		if ( $existing && get_post_status( $existing ) === 'publish' ) {
+			return $existing;
+		}
+		$handler = method_exists( wpforms(), 'obj' ) ? wpforms()->obj( 'form' ) : wpforms()->form;
+		if ( ! $handler ) {
+			return 0;
+		}
+		$id = $handler->add( 'Website enquiry', array(), array( 'template' => 'blank', 'builder' => false ) );
+		if ( ! $id ) {
+			self::$log[] = 'Could not create the WPForms enquiry form.';
+			return 0;
+		}
+
+		$choices = array();
+		$n       = 1;
+		foreach ( Premier_Data::developments( 'current' ) as $d ) {
+			$choices[ $n++ ] = array( 'label' => $d['name'], 'value' => '', 'image' => '' );
+		}
+		$choices[ $n ] = array( 'label' => 'General enquiry', 'value' => '', 'image' => '' );
+
+		$is_pro = method_exists( wpforms(), 'is_pro' ) && wpforms()->is_pro();
+		$c      = Premier_Data::company();
+		$data   = array(
+			'id'       => $id,
+			'field_id' => 6,
+			'fields'   => array(
+				'1' => array( 'id' => '1', 'type' => 'name', 'label' => 'Your name', 'format' => 'simple', 'required' => '1', 'size' => 'large' ),
+				'2' => array( 'id' => '2', 'type' => 'email', 'label' => 'Email', 'required' => '1', 'size' => 'large', 'css' => 'wpforms-one-half wpforms-first' ),
+				'3' => $is_pro
+					? array( 'id' => '3', 'type' => 'phone', 'label' => 'Phone', 'format' => 'smart', 'size' => 'large', 'css' => 'wpforms-one-half' )
+					: array( 'id' => '3', 'type' => 'text', 'label' => 'Phone', 'size' => 'large', 'css' => 'wpforms-one-half' ),
+				'4' => array( 'id' => '4', 'type' => 'select', 'label' => 'Which development are you interested in?', 'choices' => $choices, 'placeholder' => 'Choose a development', 'size' => 'large' ),
+				'5' => array( 'id' => '5', 'type' => 'textarea', 'label' => 'Your message', 'required' => '1', 'size' => 'medium' ),
+			),
+			'settings' => array(
+				'form_title'             => 'Website enquiry',
+				'form_desc'              => '',
+				'submit_text'            => 'Send enquiry',
+				'submit_text_processing' => 'Sending…',
+				'antispam'               => '1',
+				'antispam_v3'            => '1',
+				'dynamic_population'     => '1',
+				'ajax_submit'            => '1',
+				'notification_enable'    => '1',
+				'notifications'          => array(
+					'1' => array(
+						'notification_name' => 'Enquiry to the team',
+						'email'             => $c['email'] ? $c['email'] : '{admin_email}',
+						'subject'           => 'Website enquiry from {field_id="1"}',
+						'sender_name'       => $c['name'],
+						'sender_address'    => '{admin_email}',
+						'replyto'           => '{field_id="2"}',
+						'message'           => '{all_fields}',
+					),
+				),
+				'confirmations'          => array(
+					'1' => array(
+						'name'           => 'Thank you',
+						'type'           => 'message',
+						'message'        => '<p>Thank you for your enquiry. A member of the team will be in touch shortly.</p>',
+						'message_scroll' => '1',
+					),
+				),
+			),
+			'meta'     => array( 'template' => 'blank' ),
+		);
+		$handler->update( $id, $data );
+		update_option( 'premier_contact_form', $id );
+		update_option( 'premier_contact_form_dev_field', 4 );
+		self::$log[] = 'WPForms enquiry form created (sends to ' . ( $c['email'] ? $c['email'] : 'the admin email' ) . ').';
+		return (int) $id;
+	}
+
+	/** Footer "Explore" links go to the full pages; the main menu keeps scrolling the home page. */
+	private static function footer_menu() {
+		$items = array();
+		foreach ( array( 'current' => 'Current developments', 'completed' => 'Completed developments', 'about' => 'About us', 'contact' => 'Contact us' ) as $role => $title ) {
+			$id = Premier_Data::page_id( $role );
+			if ( $id ) {
+				$items[] = array( $title, $id );
+			}
+		}
+		if ( ! $items ) {
+			return;
+		}
+		$menu = wp_get_nav_menu_object( 'Footer menu' );
+		$menu_id = $menu ? $menu->term_id : wp_create_nav_menu( 'Footer menu' );
+		foreach ( (array) wp_get_nav_menu_items( $menu_id ) as $old ) {
+			wp_delete_post( $old->ID, true );
+		}
+		foreach ( $items as $i => $item ) {
+			wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'     => $item[0],
+				'menu-item-object'    => 'page',
+				'menu-item-object-id' => $item[1],
+				'menu-item-type'      => 'post_type',
+				'menu-item-status'    => 'publish',
+				'menu-item-position'  => $i + 1,
+			) );
+		}
+		$locations           = get_theme_mod( 'nav_menu_locations', array() );
+		$locations['footer'] = $menu_id;
+		set_theme_mod( 'nav_menu_locations', $locations );
+		self::$log[] = 'Footer menu links to the full pages.';
 	}
 
 	private static function menus( $dev_ids ) {

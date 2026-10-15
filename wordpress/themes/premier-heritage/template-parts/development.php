@@ -13,6 +13,9 @@ $done  = 'completed' === $d['stage'] || ! $d['plots'];
 $arrow = Premier_Render::ARROW;
 $plural = fn( $n, $one, $many ) => $n . ' ' . ( 1 === (int) $n ? $one : $many );
 $home  = home_url( '/' );
+// "All developments" goes to the full Current / Completed page when it exists
+$list_url = premier_page_url( 'completed' === $d['stage'] ? 'completed' : 'current' ) ?: $home . ( 'completed' === $d['stage'] ? '#completed' : '#current' );
+$current_url = premier_page_url( 'current' ) ?: $home . '#current';
 
 $facts = array( array( 'Location', $d['location'] ) );
 if ( $done ) {
@@ -37,7 +40,7 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 		<div class="hero-media" aria-hidden="true"><?php echo Premier_Render::img( $d['hero'], 'full', array( 'alt' => '', 'loading' => 'eager', 'fetchpriority' => 'high' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 		<div class="hero-shade" aria-hidden="true"></div>
 		<div class="wrap hero-content">
-			<a class="back-link hero-fade" style="--d:.1s" href="<?php echo esc_url( $home . ( $done ? '#completed' : '#current' ) ); ?>">
+			<a class="back-link hero-fade" style="--d:.1s" href="<?php echo esc_url( $list_url ); ?>">
 				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m5-5-5 5 5 5"/></svg><span>All developments</span>
 			</a>
 			<p class="eyebrow eyebrow-light hero-fade" style="--d:.25s"><?php echo esc_html( $d['location'] ); ?></p>
@@ -108,7 +111,7 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 					<p class="eyebrow"><?php echo esc_html( $d['name'] ); ?></p>
 					<p class="sold-out-title"><?php echo esc_html( trim( 'Completed ' . $d['completed'] ) . ' — all homes sold' ); ?></p>
 					<p>Thank you to everyone who chose a home at <?php echo esc_html( $d['name'] ); ?>. Take a look at our current developments to find homes available now.</p>
-					<a class="btn btn-navy" href="<?php echo esc_url( $home . '#current' ); ?>">View current developments</a>
+					<a class="btn btn-navy" href="<?php echo esc_url( $current_url ); ?>">View current developments</a>
 				</div>
 			<?php elseif ( $inline ) : ?>
 				<?php echo Premier_Render::site_plan( $d ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -165,7 +168,7 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 		</div>
 	</section>
 
-	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => $done ? 'Looking for a home like <em>' . esc_html( $d['name'] ) . '</em>?' : 'Interested in <em>' . esc_html( $d['name'] ) . '</em>?', 'lead' => $done ? 'Every home here is now sold, but new developments are always in the pipeline. Call or email to hear about them first.' : 'Call the team or send us an email to arrange a viewing or reserve a plot.', 'subject' => 'Enquiry: ' . $d['name'] ) ); ?>
+	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => $done ? 'Looking for a home like <em>' . esc_html( $d['name'] ) . '</em>?' : 'Interested in <em>' . esc_html( $d['name'] ) . '</em>?', 'lead' => $done ? 'Every home here is now sold, but new developments are always in the pipeline. Call or email to hear about them first.' : 'Call the team or send us an email to arrange a viewing or reserve a plot.', 'subject' => 'Enquiry: ' . $d['name'], 'development' => $done ? '' : $d['name'] ) ); ?>
 
 	<?php if ( $others ) : ?>
 	<section class="section others" aria-labelledby="others-title">
@@ -175,7 +178,7 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 					<p class="eyebrow">Also by <?php echo esc_html( preg_replace( '/\s*\(.*\)$/', '', premier_company()['name'] ) ); ?></p>
 					<h2 id="others-title" class="display">Other developments</h2>
 				</div>
-				<a class="link-arrow draw" href="<?php echo esc_url( $home . '#current' ); ?>">View all developments <?php echo $arrow; // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+				<a class="link-arrow draw" href="<?php echo esc_url( $current_url ); ?>">View all developments <?php echo $arrow; // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
 			</header>
 			<?php echo Premier_Render::development_grid( $others, 'others-grid' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		</div>
