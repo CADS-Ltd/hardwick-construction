@@ -65,6 +65,17 @@ All of this is done from the WordPress admin:
 
 On the home page each section (Current, Completed, About, Contact) has a link to its full page. Turn it off or change its wording in each widget's *Link to the full page* setting. A development's **Send an enquiry** button opens the Contact us page with that development already chosen in the form.
 
+## SEO (Rank Math)
+
+**Tools › Premier demo content › Apply SEO settings** (or `wp premier seo`) sets up Rank Math:
+
+- **Business details and local SEO.** The site is a *Home & Construction Business*, with the address, phone, email and logo. Rank Math adds these to search results and its structured data.
+- **Titles and descriptions for developments and house types** are written from their details, using the variables `%premier_seo_title%`, `%premier_seo_description%` and `%premier_location%`. For example *Brunt Lane, Woodville – New 4 Bed Homes for Sale*. New developments get them automatically. A title or description written in a development's Rank Math box takes priority.
+- **Main pages** (home, current, completed, about, contact) get titles, descriptions, focus keywords and share images. Ones already written are kept.
+- **Sitemap** lists pages, developments and house types. House types with no picture, floor plans or PDF (for example Type D) are left out and marked *noindex* until their details are added.
+- **Structured data:** developments are marked up as `Residence` and house types as `SingleFamilyResidence` (bedrooms, floor area, development). The current and completed pages get an `ItemList`, and every page gets breadcrumbs.
+- **Focus keyword and share image** are filled in for each development and house type when left empty.
+
 ## Heritage A or B
 
 The site plan's position is a theme setting, under **Appearance › Customise › Developments › Interactive site plan**:

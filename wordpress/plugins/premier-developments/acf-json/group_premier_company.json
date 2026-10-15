@@ -15,7 +15,7 @@
         "class": "",
         "id": ""
       },
-      "default_value": "Premier Property (Central)"
+      "default_value": "Premier Property Central"
     },
     {
       "key": "field_premier_co_strapline",
@@ -189,5 +189,5 @@
   "active": true,
   "description": "",
   "show_in_rest": 0,
-  "modified": 1792000000
+  "modified": 1792000001
 }

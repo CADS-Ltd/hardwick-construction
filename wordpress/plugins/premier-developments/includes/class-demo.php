@@ -61,6 +61,17 @@ class Premier_Demo {
 				<input type="hidden" name="action" value="premier_pages">
 				<?php submit_button( 'Create site pages', 'secondary' ); ?>
 			</form>
+			<hr>
+			<h2>SEO (Rank Math)</h2>
+			<?php if ( isset( $_GET['seo'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification ?>
+				<div class="notice notice-success inline"><p><?php echo esc_html( implode( ' ', (array) get_transient( 'premier_seo_log' ) ) ); ?></p></div>
+			<?php endif; ?>
+			<p>Sets up Rank Math for Premier Property Central: business details and local SEO, title and description templates for developments and house types, sitemaps, social sharing defaults, and the titles and descriptions of the main pages. Titles and descriptions already written for a page are kept.</p>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<?php wp_nonce_field( 'premier_seo' ); ?>
+				<input type="hidden" name="action" value="premier_seo">
+				<?php submit_button( 'Apply SEO settings', 'secondary' ); ?>
+			</form>
 		</div>
 		<?php
 	}

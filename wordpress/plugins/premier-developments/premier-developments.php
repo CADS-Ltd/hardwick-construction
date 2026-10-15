@@ -24,6 +24,7 @@ require_once PREMIER_DEV_DIR . 'includes/class-shortcodes.php';
 require_once PREMIER_DEV_DIR . 'includes/class-outliner.php';
 require_once PREMIER_DEV_DIR . 'includes/class-elementor.php';
 require_once PREMIER_DEV_DIR . 'includes/class-demo.php';
+require_once PREMIER_DEV_DIR . 'includes/class-seo.php';
 
 Premier_Post_Types::init();
 Premier_Fields::init();
@@ -31,6 +32,7 @@ Premier_Shortcodes::init();
 Premier_Outliner::init();
 Premier_Elementor::init();
 Premier_Demo::init();
+Premier_SEO::init();
 
 /**
  * Front-end script for the interactive site plan, plot links and lightbox.
