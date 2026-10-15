@@ -27,8 +27,8 @@ window.HARDWICK = {
     name: "Premier Property (Central)",
     strapline: "Quality new homes, built locally in South Derbyshire",
     phone: "01283 212304",
-    mobile: "07595 081891",
-    email: "james.hardwick@hardwickconstruction.co.uk",
+    mobile: "",
+    email: "james@premierpropertycentral.co.uk",
     address: [
       "Unit 1 Oaktree Business Park",
       "Cadley Hill Road",

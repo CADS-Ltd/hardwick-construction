@@ -17,6 +17,7 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script', 'navigation-widgets' ) );
 	add_theme_support( 'responsive-embeds' );
+	add_theme_support( 'custom-logo', array( 'height' => 85, 'width' => 485, 'flex-height' => true, 'flex-width' => true ) );
 	register_nav_menus( array(
 		'primary' => 'Main menu',
 		'footer'  => 'Footer menu',
@@ -111,16 +112,35 @@ function premier_enquire_url() {
 	return home_url( '/#contact' );
 }
 
-/** The wordmark used in the header and footer. */
+/**
+ * The logo in the header and footer. A light version is used over the photo
+ * hero and in the navy footer; the dark one once the header turns ivory.
+ * Both can be replaced under Appearance › Customise › Site Identity.
+ */
 function premier_wordmark( $light = false ) {
-	$name  = premier_company()['name'];
-	$parts = preg_match( '/^(.*?)\s*\((.*)\)\s*$/', $name, $m ) ? array( $m[1], $m[2] ) : array( $name, '' );
-	return '<a class="wordmark' . ( $light ? ' wordmark-light' : '' ) . '" href="' . esc_url( home_url( '/' ) ) . '" aria-label="' . esc_attr( $name . ' — home' ) . '">'
-		. '<span class="wordmark-mono" aria-hidden="true">' . esc_html( mb_substr( $parts[0], 0, 1 ) ) . '</span>'
-		. '<span class="wordmark-text"><span class="wordmark-name">' . esc_html( $parts[0] ) . '</span>'
-		. ( $parts[1] ? '<span class="wordmark-sub">' . esc_html( $parts[1] ) . '</span>' : '' )
-		. '</span></a>';
+	$theme    = get_template_directory_uri() . '/assets/img/';
+	$dark_id  = (int) get_theme_mod( 'custom_logo' );
+	$light_id = (int) get_theme_mod( 'premier_logo_light' );
+	$dark     = $dark_id ? wp_get_attachment_image_url( $dark_id, 'full' ) : $theme . 'logo.png';
+	$lightsrc = $light_id ? wp_get_attachment_image_url( $light_id, 'full' ) : ( $dark_id ? $dark : $theme . 'logo-light.png' );
+	$name     = premier_company()['name'];
+	return '<a class="brand-logo' . ( $light ? ' is-light' : '' ) . '" href="' . esc_url( home_url( '/' ) ) . '" aria-label="' . esc_attr( $name . ' — home' ) . '">'
+		. '<img class="logo-dark" src="' . esc_url( $dark ) . '" alt="' . esc_attr( $name ) . '" width="485" height="85">'
+		. '<img class="logo-light" src="' . esc_url( $lightsrc ) . '" alt="" width="485" height="85">'
+		. '</a>';
 }
+
+/** Customiser: a second logo for dark backgrounds. */
+add_action( 'customize_register', function ( $wp_customize ) {
+	$wp_customize->add_setting( 'premier_logo_light', array( 'sanitize_callback' => 'absint' ) );
+	$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'premier_logo_light', array(
+		'label'       => 'Logo for dark backgrounds',
+		'description' => 'Shown over the photo at the top of pages and in the footer. Use a version with light text.',
+		'section'     => 'title_tagline',
+		'mime_type'   => 'image',
+		'priority'    => 9,
+	) ) );
+} );
 
 /** Template part with the plugin's data; shows a notice if the plugin is missing. */
 function premier_requires_plugin() {

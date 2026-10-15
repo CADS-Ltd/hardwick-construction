@@ -1192,6 +1192,24 @@ body.lb-open { overflow: hidden; }
 }
 
 /* ==========================================================================
+   Logo (replaces the text wordmark)
+   ========================================================================== */
+.brand-logo { position: relative; z-index: 2; display: inline-flex; align-items: center; flex: none; line-height: 0; }
+.brand-logo img { display: block; height: 44px; width: auto; max-width: none; transition: opacity .45s var(--ease); }
+.brand-logo .logo-light { position: absolute; left: 0; top: 50%; transform: translateY(-50%); opacity: 0; }
+/* Over the photo hero the header is transparent, so show the light logo until it scrolls */
+.site-header:not(.is-scrolled) .brand-logo .logo-dark { opacity: 0; }
+.site-header:not(.is-scrolled) .brand-logo .logo-light { opacity: 1; }
+.nav-open .site-header .brand-logo .logo-dark, .no-hero .site-header .brand-logo .logo-dark { opacity: 1; }
+.nav-open .site-header .brand-logo .logo-light, .no-hero .site-header .brand-logo .logo-light { opacity: 0; }
+/* Footer (navy) */
+.brand-logo.is-light .logo-dark { display: none; }
+.brand-logo.is-light .logo-light { position: static; transform: none; opacity: 1; }
+.site-footer .brand-logo img { height: 48px; }
+@media (max-width: 720px) { .brand-logo img { height: 36px; } }
+@media (max-width: 400px) { .brand-logo img { height: 31px; } }
+
+/* ==========================================================================
    Reduced motion
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
