@@ -47,7 +47,7 @@
     h1 em { color: var(--navy); }
     .lede { max-width: 62ch; color: var(--muted); font-size: 18px; margin: 0; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; padding-bottom: 96px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; padding-bottom: 96px; }
     .card {
       background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
       display: flex; flex-direction: column;
@@ -107,7 +107,7 @@
 
   <main>
     <section class="intro wrap">
-      <div class="eyebrow" data-reveal>Seven directions · October 2026</div>
+      <div class="eyebrow" data-reveal>Two directions · October 2026</div>
       <h1 data-reveal style="--i:1">A new home for <em>Premier Property</em> online.</h1>
       <p class="lede" data-reveal style="--i:2">
         Draft templates, each with a home page and a page for every development showing exactly
@@ -152,22 +152,7 @@
         sw: ["#f7f4ee", "#0f1f4b", "#c8a24a"], extra: { href: "plots.html", label: "Plots page" } },
       { n: "01B", slug: "01b-heritage-b", name: "Heritage B",
         text: "Heritage with the plots built into each development page. Brunt Lane's page shows the interactive site plan, the house types and every plot together, so buyers never have to leave the page to see what is available.",
-        sw: ["#f7f4ee", "#0f1f4b", "#c8a24a"], dev: "brunt-lane", preview: "01b" },
-      { n: "02", slug: "02-minimal", name: "Minimal",
-        text: "Swiss-style minimalism. White space, big type and a single crisp blue, with yellow kept to a tiny accent. Availability can be filtered on each development.",
-        sw: ["#ffffff", "#111111", "#2a44c9", "#f5c400"] },
-      { n: "03", slug: "03-blueprint", name: "Blueprint",
-        text: "Architectural and technical, a nod to the build itself. Dark navy blueprint grid, amber highlights and an interactive plot-by-plot site plan.",
-        sw: ["#0b1430", "#eef1f8", "#f2c94c"] },
-      { n: "04", slug: "04-portfolio", name: "Portfolio",
-        text: "Built around Current and Previous projects, as on Alexander Bruce. Warm stone tones, a hero slideshow and a gallery lightbox.",
-        sw: ["#efebe4", "#1b2a52", "#d9a521"] },
-      { n: "05", slug: "05-developments", name: "Find Your Home",
-        text: "A page per development, as on Cameron Homes. A home finder on the front page, a list of every available home, and sticky tabs on each development.",
-        sw: ["#f4f6fa", "#1a2f7a", "#ffc93c"] },
-      { n: "06", slug: "06-bold", name: "Bold Brand",
-        text: "Confident and modern. Big royal blue colour blocks, a golden yellow accent and bold type, used with discipline so it still looks premium.",
-        sw: ["#14248a", "#ffffff", "#ffd23f"] }
+        sw: ["#f7f4ee", "#0f1f4b", "#c8a24a"], dev: "brunt-lane", preview: "01b" }
     ];
     var arrow = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     document.getElementById("templates").innerHTML = templates.map(function (t) {

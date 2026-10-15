@@ -10,6 +10,12 @@ showing what is for sale, and separate current and completed developments.
 |---|----------|---------|
 | 01 | [Heritage](templates/01-heritage/) | Editorial, with ivory, navy and antique gold and serif headings. Includes the interactive [Plots page](templates/01-heritage/plots.html) |
 | 01B | [Heritage B](templates/01b-heritage-b/) | Heritage with the interactive site plan, house types and plot table on each development page instead of a separate Plots page |
+
+The concept hub shows the two Heritage templates. The earlier concepts are no longer
+listed there but remain in `templates/` for reference:
+
+| # | Template | Concept |
+|---|----------|---------|
 | 02 | [Minimal](templates/02-minimal/) | Swiss minimalism, with a crisp blue and a tiny yellow accent |
 | 03 | [Blueprint](templates/03-blueprint/) | Dark architectural grid, amber highlights and a plot site plan |
 | 04 | [Portfolio](templates/04-portfolio/) | Current and previous projects, in the style of Alexander Bruce |
