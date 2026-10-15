@@ -34,16 +34,34 @@ add_action( 'wp_enqueue_scripts', function () {
 	$dir = get_template_directory();
 	// Version each file by when it last changed, so caches (WP Rocket, Cloudflare) pick up updates
 	$ver = fn( $file ) => PREMIER_THEME_VERSION . '.' . (int) @filemtime( $dir . $file );
-	wp_enqueue_style( 'premier-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap', array(), null );
 	wp_enqueue_style( 'premier-heritage', $uri . '/assets/css/heritage.css', array(), $ver( '/assets/css/heritage.css' ) );
 	wp_enqueue_style( 'premier-wordpress', $uri . '/assets/css/wordpress.css', array( 'premier-heritage' ), $ver( '/assets/css/wordpress.css' ) );
 	wp_enqueue_script( 'premier-theme', $uri . '/assets/js/theme.js', array(), $ver( '/assets/js/theme.js' ), true );
 } );
 
+// The design uses its own self-hosted fonts, so Elementor's default Google Fonts (Roboto) aren't loaded
+add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
+
+// WP Rocket "Delay JavaScript execution": the theme's small scripts (menu, animations,
+// site plan) run straight away, so content never waits for a first scroll or tap to appear
+add_filter( 'rocket_delay_js_exclusions', function ( $exclusions ) {
+	return array_merge( (array) $exclusions, array(
+		'premier-heritage/assets/js/theme.js',
+		'premier-developments/assets/',
+		'documentElement.className',
+	) );
+} );
+
 add_action( 'wp_head', function () {
 	// Lets the scroll animations hide content only when JavaScript is running
 	echo "<script>document.documentElement.className += ' js';</script>\n";
-	echo '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+	// Self-hosted fonts: inlined so they don't block rendering, with the two used above the fold preloaded
+	$fonts = get_template_directory_uri() . '/assets/fonts/';
+	foreach ( array( 'cormorant-garamond', 'jost' ) as $font ) {
+		echo '<link rel="preload" href="' . esc_url( $fonts . $font . '.woff2' ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+	}
+	$css = (string) @file_get_contents( get_template_directory() . '/assets/css/fonts.css' );
+	echo '<style id="premier-fonts">' . str_replace( '../fonts/', esc_url( $fonts ), $css ) . "</style>\n"; // phpcs:ignore WordPress.Security.EscapeOutput
 }, 1 );
 
 /** Pages whose first section is a full-height photo get the transparent header. */
@@ -134,12 +152,14 @@ function premier_wordmark( $light = false ) {
 	$theme    = get_template_directory_uri() . '/assets/img/';
 	$dark_id  = (int) get_theme_mod( 'custom_logo' );
 	$light_id = (int) get_theme_mod( 'premier_logo_light' );
-	$dark     = $dark_id ? wp_get_attachment_image_url( $dark_id, 'full' ) : $theme . 'logo.png';
-	$lightsrc = $light_id ? wp_get_attachment_image_url( $light_id, 'full' ) : ( $dark_id ? $dark : $theme . 'logo-light.png' );
+	$dark     = $dark_id ? wp_get_attachment_image_url( $dark_id, 'full' ) : $theme . 'logo.webp';
+	$lightsrc = $light_id ? wp_get_attachment_image_url( $light_id, 'full' ) : ( $dark_id ? $dark : $theme . 'logo-light.webp' );
 	$name     = premier_company()['name'];
+	// The footer logo ($light) sits below the fold, so it loads lazily
+	$load     = ( $light ? ' loading="lazy"' : '' ) . ' decoding="async"';
 	return '<a class="brand-logo' . ( $light ? ' is-light' : '' ) . '" href="' . esc_url( home_url( '/' ) ) . '" aria-label="' . esc_attr( $name . ' — home' ) . '">'
-		. '<img class="logo-dark" src="' . esc_url( $dark ) . '" alt="' . esc_attr( $name ) . '" width="485" height="85">'
-		. '<img class="logo-light" src="' . esc_url( $lightsrc ) . '" alt="" width="485" height="85">'
+		. '<img class="logo-dark" src="' . esc_url( $dark ) . '" alt="' . esc_attr( $name ) . '" width="485" height="85"' . $load . '>'
+		. '<img class="logo-light" src="' . esc_url( $lightsrc ) . '" alt="" width="485" height="85"' . $load . '>'
 		. '</a>';
 }
 

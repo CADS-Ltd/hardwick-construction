@@ -16,6 +16,7 @@ class Premier_Post_Types {
 		add_action( 'manage_house_type_posts_custom_column', array( __CLASS__, 'house_type_column' ), 10, 2 );
 		add_action( 'restrict_manage_posts', array( __CLASS__, 'house_type_filter' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'plots_without_plan' ) );
+		add_action( 'template_redirect', array( __CLASS__, 'archive_to_page' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'house_type_filter_query' ) );
 	}
 
@@ -80,6 +81,21 @@ class Premier_Post_Types {
 		}
 		if ( ! Premier_Data::field( 'site_plan', $id ) ) {
 			wp_safe_redirect( get_permalink( $id ), 302 );
+			exit;
+		}
+	}
+
+	/**
+	 * Once there is a Current developments page, the /developments/ archive
+	 * would only duplicate it, so it points there instead.
+	 */
+	public static function archive_to_page() {
+		if ( ! is_post_type_archive( 'development' ) || is_feed() ) {
+			return;
+		}
+		$page = Premier_Data::page_url( 'current' );
+		if ( $page ) {
+			wp_safe_redirect( $page, 301 );
 			exit;
 		}
 	}

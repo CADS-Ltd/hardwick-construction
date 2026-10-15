@@ -7,6 +7,14 @@
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* "Skip to content" always has a target, including pages laid out by Elementor's own templates */
+  if (!document.getElementById("main")) {
+    var target = document.querySelector("main, [data-elementor-type='wp-page'], .elementor, .site-header ~ *:not(script)");
+    if (target) target.id = "main";
+  }
+  var mainEl = document.getElementById("main");
+  if (mainEl && !mainEl.hasAttribute("tabindex")) mainEl.setAttribute("tabindex", "-1");
+
   /* Header turns solid once the page scrolls */
   var header = document.querySelector(".site-header");
   if (header) {

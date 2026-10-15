@@ -473,12 +473,13 @@ class Premier_Demo {
 			'about'     => array( 'about-us', 'About us', array(
 				self::el_section( 'premier-page-header', array(
 					'image'   => self::media_setting( 'img/build-site.jpg' ),
-					'eyebrow' => 'About us',
-					'title'   => 'A local name on every <em>home</em> we build',
+					'eyebrow' => 'Housebuilders · Swadlincote',
+					'title'   => 'About Premier Property <em>Central</em>',
+					'lede'    => 'A local housebuilder in Swadlincote, building quality new homes across South Derbyshire.',
 				) ),
 				self::el_section( 'premier-intro', array(
 					'eyebrow'    => 'Who we are',
-					'heading'    => 'Premier Property Central',
+					'heading'    => 'A local name on every home we build',
 					'text'       => 'Placeholder — replace with the client’s About us text.',
 					'link_text'  => '',
 					'show_stats' => 'yes',
@@ -497,9 +498,9 @@ class Premier_Demo {
 			'contact'   => array( 'contact-us', 'Contact us', array(
 				self::el_section( 'premier-page-header', array(
 					'image'   => self::media_setting( 'img/int-living.jpg' ),
-					'eyebrow' => 'Contact us',
-					'title'   => 'We would love to <em>hear</em> from you',
-					'lede'    => 'Ask about a development, arrange a viewing or register your interest in new homes.',
+					'eyebrow' => 'Get in touch',
+					'title'   => 'Contact <em>us</em>',
+					'lede'    => 'We would love to hear from you. Ask about a development, arrange a viewing or register your interest in new homes.',
 				) ),
 				self::el_section( 'premier-contact', array(
 					'eyebrow'    => 'Send an enquiry',

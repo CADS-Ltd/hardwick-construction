@@ -53,7 +53,7 @@ All of this is done from the WordPress admin:
 | Development | `/developments/brunt-lane/` | Theme template (or an Elementor Pro *Single* template) |
 | Plots (interactive site plan) | In the **Plots** section of the development page | Theme template. Shown when the development has a site plan image. |
 | House type | `/house-types/brunt-lane-type-c/?plot=7` | Theme template (or an Elementor Pro *Single* template) |
-| All developments | `/developments/` | Theme template |
+| All developments | `/developments/` | Theme template. Redirects to the **Current developments** page once that page exists. |
 
 ## Site pages and the enquiry form
 
@@ -70,11 +70,18 @@ On the home page each section (Current, Completed, About, Contact) has a link to
 **Tools › Premier demo content › Apply SEO settings** (or `wp premier seo`) sets up Rank Math:
 
 - **Business details and local SEO.** The site is a *Home & Construction Business*, with the address, phone, email and logo. Rank Math adds these to search results and its structured data.
-- **Titles and descriptions for developments and house types** are written from their details, using the variables `%premier_seo_title%`, `%premier_seo_description%` and `%premier_location%`. For example *Brunt Lane, Woodville – New 4 Bed Homes for Sale*. New developments get them automatically. A title or description written in a development's Rank Math box takes priority.
-- **Main pages** (home, current, completed, about, contact) get titles, descriptions, focus keywords and share images. Ones already written are kept.
+- **Titles and descriptions for developments and house types** are written from their details, using the variables `%premier_seo_title%`, `%premier_seo_description%` and `%premier_location%`. For example *Brunt Lane, Woodville – New 4 Bed Homes for Sale*. Titles are kept to 60 characters, and the site name is added only when it fits. New developments get them automatically. A title or description written in a development's Rank Math box takes priority.
+- **Main pages** (home, current, completed, about, contact) get titles (up to 60 characters), descriptions, focus keywords and share images. Ones already written are kept. It also gives the About us and Contact us pages clearer headings if they still have the original ones.
 - **Sitemap** lists pages, developments and house types. House types with no picture, floor plans or PDF (for example Type D) are left out and marked *noindex* until their details are added.
 - **Structured data:** developments are marked up as `Residence` and house types as `SingleFamilyResidence` (bedrooms, floor area, development). The current and completed pages get an `ItemList`, and every page gets breadcrumbs.
 - **Focus keyword and share image** are filled in for each development and house type when left empty.
+
+## Speed (WP Rocket)
+
+- **Fonts** (Cormorant Garamond and Jost) are self-hosted in the theme and preloaded, so no request goes to Google Fonts. Elementor's own Google Fonts are switched off.
+- **Logos** are WebP. The footer logo loads lazily.
+- Recommended **WP Rocket › File Optimization** settings: *Minify CSS*, *Optimize CSS delivery*, *Minify JavaScript*, *Load JavaScript deferred* and *Delay JavaScript execution*. The theme's scripts and the site plan are excluded from the delay automatically, so the menu, animations and plan work straight away.
+- After changing the theme or plugin, clear the WP Rocket cache, and purge Cloudflare if it caches CSS.
 
 ## Heritage A or B
 

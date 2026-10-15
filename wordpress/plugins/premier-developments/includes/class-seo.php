@@ -23,6 +23,8 @@ class Premier_SEO {
 		add_filter( 'rank_math/json_ld', array( __CLASS__, 'json_ld' ), 99, 2 );
 		add_filter( 'rank_math/frontend/robots', array( __CLASS__, 'robots' ) );
 		add_filter( 'rank_math/sitemap/entry', array( __CLASS__, 'sitemap_entry' ), 10, 3 );
+		add_filter( 'rank_math/sitemap/post_type_archive_link', array( __CLASS__, 'sitemap_archive' ), 10, 2 );
+		add_filter( 'rank_math/frontend/breadcrumb/items', array( __CLASS__, 'breadcrumbs' ) );
 		add_action( 'acf/save_post', array( __CLASS__, 'fill_post_meta' ), 30 );
 		add_action( 'admin_post_premier_seo', array( __CLASS__, 'handle' ) );
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -72,25 +74,49 @@ class Premier_SEO {
 		return rtrim( mb_substr( $cut, 0, (int) mb_strrpos( $cut, ' ' ) ), ' ,.;:–-' ) . '…';
 	}
 
-	public static function seo_title( $id ) {
-		$type = get_post_type( $id );
+	/** Titles stay within the 60 characters search results show. */
+	const TITLE_MAX = 60;
+
+	/** The shortest of the candidates that fits is used when none of the longer ones do. */
+	private static function fit( $candidates ) {
+		foreach ( $candidates as $title ) {
+			if ( mb_strlen( $title ) <= self::TITLE_MAX ) {
+				return $title;
+			}
+		}
+		return end( $candidates );
+	}
+
+	/**
+	 * "Brunt Lane, Woodville – New 4 Bed Homes for Sale". With $brand the
+	 * company name is added after the separator when the whole title still fits.
+	 */
+	public static function seo_title( $id, $brand = false ) {
+		$type  = get_post_type( $id );
+		$title = get_the_title( $id );
 		if ( 'development' === $type ) {
 			$d = Premier_Data::development( $id );
-			if ( ! $d ) {
-				return get_the_title( $id );
+			if ( $d ) {
+				$where = self::town( $d['location'] );
+				$beds  = $d['bed_range'] ? ucwords( $d['bed_range'] ) . ' ' : '';
+				$title = 'completed' === $d['stage']
+					? self::fit( array( $d['name'] . ', ' . $where . ' – Completed Development', $d['name'] . ', ' . $where . ' – Completed', $d['name'] . ' – Completed' ) )
+					: self::fit( array( $d['name'] . ', ' . $where . ' – New ' . $beds . 'Homes for Sale', $d['name'] . ', ' . $where . ' – New ' . $beds . 'Homes', $d['name'] . ' – New Homes for Sale' ) );
 			}
-			$where = self::town( $d['location'] );
-			if ( 'completed' === $d['stage'] ) {
-				return $d['name'] . ', ' . $where . ' – Completed Development';
-			}
-			return $d['name'] . ', ' . $where . ' – New ' . ( $d['bed_range'] ? ucwords( $d['bed_range'] ) . ' ' : '' ) . 'Homes for Sale';
-		}
-		if ( 'house_type' === $type ) {
+		} elseif ( 'house_type' === $type ) {
 			$t = Premier_Data::house_type( $id );
 			$d = self::dev_for( $id );
-			return $t['name'] . ( $d ? ', ' . $d['name'] : '' ) . ' – ' . ( $t['beds'] ? $t['beds'] . ' Bedroom ' : '' ) . 'New Home';
+			$kind  = ( $t['beds'] ? $t['beds'] . ' Bedroom ' : '' ) . 'New Home';
+			$title = self::fit( array( $t['name'] . ( $d ? ', ' . $d['name'] : '' ) . ' – ' . $kind, $t['name'] . ' – ' . $kind ) );
 		}
-		return get_the_title( $id );
+		if ( $brand ) {
+			$sep  = function_exists( 'rank_math_get_settings' ) ? (string) rank_math_get_settings( 'titles.title_separator', '|' ) : '|';
+			$full = $title . ' ' . $sep . ' ' . get_bloginfo( 'name' );
+			if ( mb_strlen( $full ) <= self::TITLE_MAX ) {
+				$title = $full;
+			}
+		}
+		return $title;
 	}
 
 	public static function seo_description( $id ) {
@@ -146,10 +172,10 @@ class Premier_SEO {
 		}
 		rank_math_register_var_replacement( 'premier_seo_title', array(
 			'name'        => 'Premier: SEO title',
-			'description' => 'Development or house type title with its location, bedrooms and status.',
+			'description' => 'Development or house type title with its location, bedrooms and status, plus the site name when it fits in 60 characters.',
 			'variable'    => 'premier_seo_title',
-			'example'     => 'Brunt Lane, Woodville – New 4 bed Homes for Sale',
-		), fn( $var_args, $args = null ) => self::seo_title( self::post_from( $args ) ) );
+			'example'     => 'Brunt Lane, Woodville – New 4 Bed Homes for Sale',
+		), fn( $var_args, $args = null ) => self::seo_title( self::post_from( $args ), true ) );
 		rank_math_register_var_replacement( 'premier_seo_description', array(
 			'name'        => 'Premier: SEO description',
 			'description' => 'Written from the development or house type details.',
@@ -222,6 +248,26 @@ class Premier_SEO {
 			return false;
 		}
 		return $url;
+	}
+
+	/** The developments archive redirects to the Current developments page, so it is left out. */
+	public static function sitemap_archive( $link, $post_type ) {
+		return 'development' === $post_type && Premier_Data::page_url( 'current' ) ? false : $link;
+	}
+
+	/** Breadcrumbs lead to the Current or Completed developments page rather than the archive. */
+	public static function breadcrumbs( $crumbs ) {
+		$archive = get_post_type_archive_link( 'development' );
+		$d       = is_singular( array( 'development', 'house_type' ) ) ? self::dev_for( get_queried_object_id() ) : null;
+		$role    = $d && 'completed' === $d['stage'] ? 'completed' : 'current';
+		$page    = Premier_Data::page_id( $role );
+		foreach ( (array) $crumbs as $i => $crumb ) {
+			if ( $page && $archive && isset( $crumb[1] ) && untrailingslashit( $crumb[1] ) === untrailingslashit( $archive ) ) {
+				$crumbs[ $i ][0] = get_the_title( $page );
+				$crumbs[ $i ][1] = get_permalink( $page );
+			}
+		}
+		return $crumbs;
 	}
 
 	/* ------------------------------------------------------------------
@@ -343,6 +389,14 @@ class Premier_SEO {
 		update_option( $name, array_merge( is_array( $current ) ? $current : array(), $values ) );
 	}
 
+	/** Page titles set by earlier versions (over 60 characters once the site name is added). */
+	const OLD_TITLES = array(
+		'',
+		'New Homes in Swadlincote & South Derbyshire %sep% %sitename%',
+		'New Homes for Sale in South Derbyshire %sep% %sitename%',
+		'About Us – Housebuilder in Swadlincote %sep% %sitename%',
+	);
+
 	public static function setup() {
 		$log = array();
 		if ( ! self::active() ) {
@@ -397,13 +451,13 @@ class Premier_SEO {
 			'local_seo_contact_page'       => Premier_Data::page_id( 'contact' ),
 			'twitter_card_type'            => 'summary_large_image',
 			// Developments and house types: titles and descriptions written from their details
-			'pt_development_title'               => '%premier_seo_title% %sep% %sitename%',
+			'pt_development_title'               => '%premier_seo_title%',
 			'pt_development_description'         => '%premier_seo_description%',
-			'pt_development_archive_title'       => 'New Homes in South Derbyshire – Our Developments %page% %sep% %sitename%',
+			'pt_development_archive_title'       => 'Our Developments %page% %sep% %sitename%',
 			'pt_development_archive_description' => 'Browse every development by ' . $name . ': new homes for sale in Swadlincote and South Derbyshire, and the developments we have completed.',
 			'pt_development_default_rich_snippet' => 'off',
 			'pt_development_robots'              => array( 'index' ),
-			'pt_house_type_title'                => '%premier_seo_title% %sep% %sitename%',
+			'pt_house_type_title'                => '%premier_seo_title%',
 			'pt_house_type_description'          => '%premier_seo_description%',
 			'pt_house_type_default_rich_snippet' => 'off',
 			'pt_house_type_robots'               => array( 'index' ),
@@ -452,12 +506,12 @@ class Premier_SEO {
 		// Main pages: titles, descriptions, keywords and share images (only where empty)
 		$pages = array(
 			$home => array(
-				'New Homes in Swadlincote & South Derbyshire %sep% %sitename%',
+				'%sitename% %sep% New Homes in South Derbyshire',
 				$name . ' builds quality new homes in Swadlincote and South Derbyshire. Explore our developments, site plans, house types and homes for sale.',
 				'new homes south derbyshire,new homes swadlincote,new build homes derbyshire',
 			),
 			Premier_Data::page_id( 'current' ) => array(
-				'New Homes for Sale in South Derbyshire %sep% %sitename%',
+				'Current Developments %sep% New Homes in South Derbyshire',
 				'Current developments by ' . $name . ': new homes for sale in Swadlincote and South Derbyshire, with site plans, prices and availability.',
 				'new homes for sale south derbyshire,new build homes swadlincote',
 			),
@@ -467,12 +521,12 @@ class Premier_SEO {
 				'completed developments south derbyshire',
 			),
 			Premier_Data::page_id( 'about' ) => array(
-				'About Us – Housebuilder in Swadlincote %sep% %sitename%',
+				'About %sitename% %sep% Swadlincote Housebuilder',
 				$name . ' is a housebuilder based in Swadlincote, Derbyshire, building quality new homes across South Derbyshire.',
 				'housebuilder swadlincote,premier property central',
 			),
 			Premier_Data::page_id( 'contact' ) => array(
-				'Contact Us %sep% %sitename%',
+				'Contact Us %sep% %sitename%, Swadlincote',
 				'Contact ' . $name . ' in Swadlincote' . ( $c['phone'] ? ': call ' . $c['phone'] : '' ) . ', email ' . $c['email'] . ' or send an enquiry about our new homes.',
 				'contact premier property central',
 			),
@@ -483,7 +537,8 @@ class Premier_SEO {
 				continue;
 			}
 			$n++;
-			if ( ! get_post_meta( $id, 'rank_math_title', true ) ) {
+			// Replace an empty title, or one of the longer titles earlier versions set
+			if ( in_array( (string) get_post_meta( $id, 'rank_math_title', true ), self::OLD_TITLES, true ) ) {
 				update_post_meta( $id, 'rank_math_title', $meta[0] );
 			}
 			if ( ! get_post_meta( $id, 'rank_math_description', true ) ) {
@@ -500,7 +555,12 @@ class Premier_SEO {
 				}
 			}
 		}
-		$log[] = $n . ' main pages given titles, descriptions, focus keywords and share images (existing ones kept).';
+		$log[] = $n . ' main pages given titles (up to 60 characters), descriptions, focus keywords and share images (your own edits kept).';
+
+		$changed = self::update_headings();
+		if ( $changed ) {
+			$log[] = 'Clearer main headings on ' . $changed . ' page(s) (About us, Contact us).';
+		}
 
 		// Developments and house types: keywords and share images
 		$count = 0;
@@ -520,6 +580,67 @@ class Premier_SEO {
 			$log[] = 'Note: Settings › Reading › “Discourage search engines” is on, so nothing will be indexed until it is turned off.';
 		}
 		return $log;
+	}
+
+	/**
+	 * Earlier versions gave the About and Contact pages headings that didn't
+	 * say what the page was. Update them, unless they have been edited since.
+	 */
+	private static function update_headings() {
+		$updates = array(
+			'about'   => array(
+				'premier-page-header' => array(
+					'eyebrow' => array( 'About us', 'Housebuilders · Swadlincote' ),
+					'title'   => array( 'A local name on every <em>home</em> we build', 'About Premier Property <em>Central</em>' ),
+					'lede'    => array( '', 'A local housebuilder in Swadlincote, building quality new homes across South Derbyshire.' ),
+				),
+				'premier-intro'       => array(
+					'heading' => array( 'Premier Property Central', 'A local name on every home we build' ),
+				),
+			),
+			'contact' => array(
+				'premier-page-header' => array(
+					'eyebrow' => array( 'Contact us', 'Get in touch' ),
+					'title'   => array( 'We would love to <em>hear</em> from you', 'Contact <em>us</em>' ),
+					'lede'    => array( 'Ask about a development, arrange a viewing or register your interest in new homes.', 'We would love to hear from you. Ask about a development, arrange a viewing or register your interest in new homes.' ),
+				),
+			),
+		);
+		$pages = 0;
+		foreach ( $updates as $role => $widgets ) {
+			$id   = Premier_Data::page_id( $role );
+			$data = $id ? json_decode( (string) get_post_meta( $id, '_elementor_data', true ), true ) : null;
+			if ( ! is_array( $data ) ) {
+				continue;
+			}
+			$changed = false;
+			$walk    = function ( &$els ) use ( &$walk, $widgets, &$changed ) {
+				foreach ( $els as &$el ) {
+					$fields = $widgets[ $el['widgetType'] ?? '' ] ?? null;
+					$guard  = isset( $fields['title'] ) ? 'title' : 'heading';
+					// Only a widget still showing the old heading is touched
+					if ( $fields && ( $el['settings'][ $guard ] ?? '' ) === $fields[ $guard ][0] ) {
+						foreach ( $fields as $key => list( $old, $new ) ) {
+							if ( ( $el['settings'][ $key ] ?? '' ) === $old ) {
+								$el['settings'][ $key ] = $new;
+								$changed                = true;
+							}
+						}
+					}
+					if ( ! empty( $el['elements'] ) ) {
+						$walk( $el['elements'] );
+					}
+				}
+			};
+			$walk( $data );
+			if ( $changed ) {
+				update_post_meta( $id, '_elementor_data', wp_slash( wp_json_encode( $data ) ) );
+				delete_post_meta( $id, '_elementor_element_cache' );
+				delete_post_meta( $id, '_elementor_css' );
+				$pages++;
+			}
+		}
+		return $pages;
 	}
 
 	/** Background image of the first Page header / hero widget on an Elementor page. */

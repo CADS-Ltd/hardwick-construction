@@ -181,3 +181,10 @@
 .section:not(.section-navy) .done-meta { color: var(--gold-ink); }
 .section:not(.section-navy) .done-name { color: var(--navy); }
 .section:not(.section-navy) .done-loc { color: var(--muted); }
+
+/* Comfortable tap targets for the text links (at least 44px tall) */
+.link-arrow, .back-link { min-height: 44px; }
+.back-link { margin-bottom: 26px; }
+.type-card-body > .link-arrow, .type-card-links button.link-arrow { min-height: 44px; }
+.footer-links li { margin-bottom: 0; }
+.footer-links a, .footer-base a { display: inline-block; padding: 9px 0; }
