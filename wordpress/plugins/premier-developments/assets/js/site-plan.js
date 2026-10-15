@@ -61,6 +61,7 @@
 
     var pinned = null;
     var shown = null;
+    var hoverLockUntil = 0; // ignore hovers while the page scrolls the plan under the pointer
 
     function paint(state) {
       var k = state && state.type;
@@ -104,7 +105,10 @@
 
     hotspots.forEach(function (g) {
       var wasSelected = false;
-      g.addEventListener("mouseenter", function () { pin(stateFor(g)); showTip(g); });
+      g.addEventListener("mouseenter", function () {
+        if (Date.now() < hoverLockUntil) return;
+        pin(stateFor(g)); showTip(g);
+      });
       g.addEventListener("mouseleave", hideTip);
       g.addEventListener("focus", function () { pin(stateFor(g)); });
       g.addEventListener("pointerdown", function () {
@@ -146,6 +150,7 @@
     document.querySelectorAll("[data-show-type]").forEach(function (b) {
       b.addEventListener("click", function () {
         pin({ type: b.getAttribute("data-show-type"), plot: null });
+        hoverLockUntil = Date.now() + 1500;
         root.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
       });
     });

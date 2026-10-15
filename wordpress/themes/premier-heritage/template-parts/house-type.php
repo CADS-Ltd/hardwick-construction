@@ -64,7 +64,7 @@ endif;
 		<div class="hero-shade" aria-hidden="true"></div>
 		<div class="wrap hero-content">
 			<a class="back-link hero-fade" style="--d:.1s" href="<?php echo esc_url( $plans_url ); ?>">
-				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m5-5-5 5 5 5"/></svg><span><?php echo $d && $d['plots_url'] ? 'Back to the plots' : 'Back to the development'; ?></span>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m5-5-5 5 5 5"/></svg><span><?php echo esc_html( $d ? ( $d['plots_url'] && ! Premier_Data::plots_inline() ? 'Back to the plots' : 'Back to ' . $d['name'] ) : 'Back to the home page' ); ?></span>
 			</a>
 			<?php if ( $d ) : ?><p class="eyebrow eyebrow-light hero-fade" style="--d:.25s"><?php echo esc_html( $d['name'] . ' · ' . $d['location'] ); ?></p><?php endif; ?>
 			<h1 class="hero-title hero-fade" style="--d:.45s" id="type-name"><?php echo esc_html( $t['name'] ); ?></h1>

@@ -354,7 +354,8 @@ class Premier_Demo {
 
 	private static function menus( $dev_ids ) {
 		$home  = home_url( '/' );
-		$plots = isset( $dev_ids['brunt-lane'] ) ? trailingslashit( get_permalink( $dev_ids['brunt-lane'] ) ) . 'plots/' : '';
+		// A "Plots" menu link only when the site plan has its own page (Heritage A)
+		$plots = isset( $dev_ids['brunt-lane'] ) && ! Premier_Data::plots_inline() ? trailingslashit( get_permalink( $dev_ids['brunt-lane'] ) ) . 'plots/' : '';
 		$items = array(
 			array( 'Current developments', $home . '#current' ),
 			array( 'Completed developments', $home . '#completed' ),

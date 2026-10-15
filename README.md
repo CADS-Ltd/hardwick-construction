@@ -24,9 +24,9 @@ listed there but remain in `templates/` for reference:
 
 Each template has an `index.html` home page and a `development.html?site=<slug>` page.
 
-## WordPress build (Heritage A)
+## WordPress build (Heritage B)
 
-Heritage A is being built for WordPress with Elementor and ACF Pro, so the client can add and
+Heritage B is being built for WordPress with Elementor and ACF Pro, so the client can add and
 update developments, house types and plots from the WordPress admin. See
 [`wordpress/README.md`](wordpress/README.md) for installation and the client guide. The
 uploadable zips are in [`wordpress/dist/`](wordpress/dist/).

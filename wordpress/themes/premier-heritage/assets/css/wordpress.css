@@ -84,3 +84,23 @@
 .site-footer .brand-logo img { height: 48px; }
 @media (max-width: 720px) { .brand-logo img { height: 36px; } }
 @media (max-width: 400px) { .brand-logo img { height: 31px; } }
+
+/* ==========================================================================
+   Heritage B: site plan, house types and plots inside the development page
+   ========================================================================== */
+#homes { scroll-margin-top: 60px; }
+#homes .plan-block { margin-bottom: 0; }
+/* Sit below the sticky header and the development sub-nav */
+#homes .plan-panel { top: 156px; max-height: calc(100vh - 176px); }
+.admin-bar #homes .plan-panel { top: 188px; max-height: calc(100vh - 208px); }
+.homes-sub { margin-top: clamp(64px, 8vw, 110px); }
+.homes-sub-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px 40px;
+  padding-bottom: 20px; margin-bottom: 30px; border-bottom: 1px solid var(--line);
+}
+.minor-display { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 3.2vw, 42px); line-height: 1.1; color: var(--navy); }
+.homes-sub-head p { margin: 0; max-width: 56ch; color: var(--muted); font-size: 16px; }
+#homes .plan-canvas, #homes .plan-panel, #homes .type-card { background-color: var(--paper); }
+@media (max-width: 960px) {
+  #homes .plan-panel, .admin-bar #homes .plan-panel { top: 0; max-height: none; scroll-margin-top: 150px; }
+}

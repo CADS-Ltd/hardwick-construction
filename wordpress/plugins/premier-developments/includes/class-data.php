@@ -31,6 +31,16 @@ class Premier_Data {
 		return get_post_meta( $post_id ? $post_id : get_the_ID(), $name, true );
 	}
 
+	/**
+	 * Where a development's site plan lives:
+	 *  - false: on its own page, /developments/<name>/plots/ (Heritage A)
+	 *  - true:  in the Homes section of the development page itself (Heritage B)
+	 * The theme chooses through the 'premier_plots_inline' filter.
+	 */
+	public static function plots_inline() {
+		return (bool) apply_filters( 'premier_plots_inline', false );
+	}
+
 	public static function status_label( $status ) {
 		return self::STATUSES[ $status ] ?? ucfirst( (string) $status );
 	}
@@ -167,7 +177,7 @@ class Premier_Data {
 			'slug'        => get_post_field( 'post_name', $id ),
 			'name'        => get_the_title( $id ),
 			'url'         => get_permalink( $id ),
-			'plots_url'   => $site_plan ? trailingslashit( get_permalink( $id ) ) . 'plots/' : '',
+			'plots_url'   => $site_plan ? ( self::plots_inline() ? get_permalink( $id ) . '#homes' : trailingslashit( get_permalink( $id ) ) . 'plots/' ) : '',
 			'stage'       => $stage,
 			'completed'   => (string) self::field( 'completed_year', $id ),
 			'location'    => (string) self::field( 'location', $id ),

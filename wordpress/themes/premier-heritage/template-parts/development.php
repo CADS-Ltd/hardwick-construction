@@ -29,6 +29,8 @@ if ( $d['postcode'] ) {
 $others = array_values( array_filter( array_merge( Premier_Data::developments( 'current' ), Premier_Data::developments( 'completed' ) ), fn( $o ) => $o['id'] !== $d['id'] ) );
 $others = array_slice( $others, 0, 3 );
 $images = array_values( array_filter( array_merge( array( $d['hero'] ), $d['gallery'] ) ) );
+// Heritage B: the site plan, house types and plot table all sit in the Homes section
+$inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 ?>
 <main id="main">
 	<section class="hero hero-dev" aria-labelledby="dev-name">
@@ -56,7 +58,7 @@ $images = array_values( array_filter( array_merge( array( $d['hero'] ), $d['gall
 			<span class="subnav-name" aria-hidden="true"><?php echo esc_html( $d['name'] ); ?></span>
 			<ul class="subnav-links">
 				<li><a href="#overview" data-sub>Overview</a></li>
-				<li><a href="#homes" data-sub>Homes</a></li>
+				<li><a href="#homes" data-sub><?php echo $inline ? 'Plots' : 'Homes'; ?></a></li>
 				<?php if ( $images ) : ?><li><a href="#gallery" data-sub>Gallery</a></li><?php endif; ?>
 				<li><a href="#location" data-sub>Location</a></li>
 			</ul>
@@ -87,10 +89,18 @@ $images = array_values( array_filter( array_merge( array( $d['hero'] ), $d['gall
 		<div class="wrap">
 			<header class="section-head section-head-split" data-reveal>
 				<div>
-					<p class="eyebrow"><?php echo $done ? 'The homes' : 'Homes for sale'; ?></p>
-					<h2 id="homes-title" class="display">Availability</h2>
+					<p class="eyebrow"><?php echo $done ? 'The homes' : ( $inline ? 'Plots &amp; homes for sale' : 'Homes for sale' ); ?></p>
+					<h2 id="homes-title" class="display"><?php echo $inline ? 'Choose your plot' : 'Availability'; ?></h2>
 				</div>
-				<p class="section-intro"><?php echo esc_html( $done ? 'This development has been completed and every home is now sold.' : 'Every plot at ' . $d['name'] . ', updated as homes are reserved and sold. Contact us to arrange a viewing or reserve a home.' ); ?></p>
+				<p class="section-intro"><?php
+					if ( $done ) {
+						echo 'This development has been completed and every home is now sold.';
+					} elseif ( $inline ) {
+						echo 'Hover over a home on the plan, or tap it on a phone, to see its house type, room sizes and every plot of that type available now. Click a home to open its full details and floor plans.';
+					} else {
+						echo esc_html( 'Every plot at ' . $d['name'] . ', updated as homes are reserved and sold. Contact us to arrange a viewing or reserve a home.' );
+					}
+				?></p>
 			</header>
 			<?php if ( $done ) : ?>
 				<div class="sold-out" data-reveal>
@@ -99,6 +109,24 @@ $images = array_values( array_filter( array_merge( array( $d['hero'] ), $d['gall
 					<p class="sold-out-title"><?php echo esc_html( trim( 'Completed ' . $d['completed'] ) . ' — all homes sold' ); ?></p>
 					<p>Thank you to everyone who chose a home at <?php echo esc_html( $d['name'] ); ?>. Take a look at our current developments to find homes available now.</p>
 					<a class="btn btn-navy" href="<?php echo esc_url( $home . '#current' ); ?>">View current developments</a>
+				</div>
+			<?php elseif ( $inline ) : ?>
+				<?php echo Premier_Render::site_plan( $d ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php if ( $d['house_types'] ) : ?>
+					<div class="homes-sub" id="types">
+						<header class="homes-sub-head" data-reveal>
+							<h3 class="minor-display">House types</h3>
+							<p><?php echo esc_html( 'There ' . ( 1 === count( $d['house_types'] ) ? 'is 1 house type' : 'are ' . count( $d['house_types'] ) . ' house types' ) . ' at ' . $d['name'] . '. Room sizes are approximate and taken from the architect’s drawings.' ); ?></p>
+						</header>
+						<?php echo Premier_Render::house_type_cards( $d, array( 'show_on_plan' => true ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					</div>
+				<?php endif; ?>
+				<div class="homes-sub">
+					<header class="homes-sub-head" data-reveal>
+						<h3 class="minor-display">Every plot</h3>
+						<p>Prices and availability for every home, updated as plots are reserved and sold.</p>
+					</header>
+					<?php echo Premier_Render::availability( $d ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</div>
 			<?php else : ?>
 				<?php echo Premier_Render::plan_cta( $d ); // phpcs:ignore WordPress.Security.EscapeOutput ?>

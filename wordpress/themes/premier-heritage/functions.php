@@ -130,8 +130,37 @@ function premier_wordmark( $light = false ) {
 		. '</a>';
 }
 
-/** Customiser: a second logo for dark backgrounds. */
+/**
+ * Where each development's interactive site plan appears:
+ *  'inline' (default, Heritage B): in the development page's Homes section
+ *  'page'   (Heritage A): on its own /developments/<name>/plots/ page
+ */
+function premier_plots_inline() {
+	return get_theme_mod( 'premier_plots_layout', 'inline' ) !== 'page';
+}
+add_filter( 'premier_plots_inline', 'premier_plots_inline' );
+
+/** Customiser: a second logo for dark backgrounds, and the site plan layout. */
 add_action( 'customize_register', function ( $wp_customize ) {
+	$wp_customize->add_section( 'premier_developments', array(
+		'title'    => 'Developments',
+		'priority' => 30,
+	) );
+	$wp_customize->add_setting( 'premier_plots_layout', array(
+		'default'           => 'inline',
+		'sanitize_callback' => fn( $v ) => 'page' === $v ? 'page' : 'inline',
+	) );
+	$wp_customize->add_control( 'premier_plots_layout', array(
+		'label'       => 'Interactive site plan',
+		'description' => 'Where visitors explore the plots of a development.',
+		'section'     => 'premier_developments',
+		'type'        => 'radio',
+		'choices'     => array(
+			'inline' => 'On the development page (Heritage B)',
+			'page'   => 'On its own Plots page (Heritage A)',
+		),
+	) );
+
 	$wp_customize->add_setting( 'premier_logo_light', array( 'sanitize_callback' => 'absint' ) );
 	$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'premier_logo_light', array(
 		'label'       => 'Logo for dark backgrounds',

@@ -1,6 +1,6 @@
-# Premier Property (Central): WordPress build of Heritage A
+# Premier Property (Central): WordPress build of Heritage B
 
-This is the approved **Heritage** template rebuilt for WordPress. It has two parts:
+This is the approved **Heritage B** template rebuilt for WordPress: each development page shows its interactive site plan, house types and every plot. It has two parts:
 
 | Part | Folder | What it does |
 |------|--------|--------------|
@@ -21,7 +21,7 @@ Content lives in the plugin, so changing the theme later won't lose any developm
 2. Upload the zips from `dist/` (Plugins › Add New › Upload, and Appearance › Themes › Add New › Upload):
    - [`premier-developments.zip`](dist/premier-developments.zip): activate it.
    - [`premier-heritage.zip`](dist/premier-heritage.zip): activate it.
-3. Go to **Settings › Permalinks** and click **Save**. This switches on the `/developments/…/plots/` pages.
+3. Go to **Settings › Permalinks** and click **Save**. This switches on the development and house type URLs.
 4. **Optional:** **Tools › Premier demo content › Import demo content** loads Brunt Lane, the sample developments, the home page and the menus, with images and PDFs taken from the prototype. Run it on a staging site first. It sets the home page, menus and permalinks.
 
 The ACF field groups load automatically from the plugin (`acf-json/`), so nothing needs importing in ACF.
@@ -51,9 +51,16 @@ All of this is done from the WordPress admin:
 |------|-----|---------|
 | Home | `/` | Elementor page using the Premier widgets |
 | Development | `/developments/brunt-lane/` | Theme template (or an Elementor Pro *Single* template) |
-| Plots (interactive site plan) | `/developments/brunt-lane/plots/` | Theme template. Only exists when the development has a site plan image. |
+| Plots (interactive site plan) | In the **Plots** section of the development page | Theme template. Shown when the development has a site plan image. |
 | House type | `/house-types/brunt-lane-type-c/?plot=7` | Theme template (or an Elementor Pro *Single* template) |
 | All developments | `/developments/` | Theme template |
+
+## Heritage A or B
+
+The site plan's position is a theme setting, under **Appearance › Customise › Developments › Interactive site plan**:
+
+- **On the development page (Heritage B)**, the default. The plan, house types and plot table sit in the development page's *Plots* section. Old `/plots/` links redirect there.
+- **On its own Plots page (Heritage A).** The development page shows a banner linking to `/developments/<name>/plots/`. If you switch to this, add a "Plots" menu link yourself.
 
 ## Elementor
 

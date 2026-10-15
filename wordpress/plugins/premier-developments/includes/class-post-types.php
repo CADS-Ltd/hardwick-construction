@@ -65,10 +65,21 @@ class Premier_Post_Types {
 		return is_singular( 'development' ) && isset( $wp_query->query_vars['plots'] );
 	}
 
-	/** A /plots/ page only exists when the development has a site plan; otherwise go to the development. */
+	/**
+	 * A /plots/ page only exists when the development has a site plan and the
+	 * theme shows plots on their own page; otherwise go to the development.
+	 */
 	public static function plots_without_plan() {
-		if ( self::is_plots_page() && ! Premier_Data::field( 'site_plan', get_queried_object_id() ) ) {
-			wp_safe_redirect( get_permalink( get_queried_object_id() ), 302 );
+		if ( ! self::is_plots_page() ) {
+			return;
+		}
+		$id = get_queried_object_id();
+		if ( Premier_Data::plots_inline() && Premier_Data::field( 'site_plan', $id ) ) {
+			wp_safe_redirect( get_permalink( $id ) . '#homes', 301 );
+			exit;
+		}
+		if ( ! Premier_Data::field( 'site_plan', $id ) ) {
+			wp_safe_redirect( get_permalink( $id ), 302 );
 			exit;
 		}
 	}
