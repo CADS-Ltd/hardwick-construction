@@ -23,8 +23,8 @@ class Premier_Outliner {
 		if ( ! $screen || 'development' !== $screen->post_type || ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
 			return;
 		}
-		wp_enqueue_style( 'premier-outliner', PREMIER_DEV_URL . 'assets/admin/outliner.css', array(), PREMIER_DEV_VERSION );
-		wp_enqueue_script( 'premier-outliner', PREMIER_DEV_URL . 'assets/admin/outliner.js', array(), PREMIER_DEV_VERSION, true );
+		wp_enqueue_style( 'premier-outliner', PREMIER_DEV_URL . 'assets/admin/outliner.css', array(), PREMIER_DEV_VERSION . '.' . (int) @filemtime( PREMIER_DEV_DIR . 'assets/admin/outliner.css' ) );
+		wp_enqueue_script( 'premier-outliner', PREMIER_DEV_URL . 'assets/admin/outliner.js', array(), PREMIER_DEV_VERSION . '.' . (int) @filemtime( PREMIER_DEV_DIR . 'assets/admin/outliner.js' ), true );
 	}
 
 	public static function render() {

@@ -31,10 +31,13 @@ add_action( 'elementor/theme/register_locations', function ( $manager ) {
 
 add_action( 'wp_enqueue_scripts', function () {
 	$uri = get_template_directory_uri();
+	$dir = get_template_directory();
+	// Version each file by when it last changed, so caches (WP Rocket, Cloudflare) pick up updates
+	$ver = fn( $file ) => PREMIER_THEME_VERSION . '.' . (int) @filemtime( $dir . $file );
 	wp_enqueue_style( 'premier-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap', array(), null );
-	wp_enqueue_style( 'premier-heritage', $uri . '/assets/css/heritage.css', array(), PREMIER_THEME_VERSION );
-	wp_enqueue_style( 'premier-wordpress', $uri . '/assets/css/wordpress.css', array( 'premier-heritage' ), PREMIER_THEME_VERSION );
-	wp_enqueue_script( 'premier-theme', $uri . '/assets/js/theme.js', array(), PREMIER_THEME_VERSION, true );
+	wp_enqueue_style( 'premier-heritage', $uri . '/assets/css/heritage.css', array(), $ver( '/assets/css/heritage.css' ) );
+	wp_enqueue_style( 'premier-wordpress', $uri . '/assets/css/wordpress.css', array( 'premier-heritage' ), $ver( '/assets/css/wordpress.css' ) );
+	wp_enqueue_script( 'premier-theme', $uri . '/assets/js/theme.js', array(), $ver( '/assets/js/theme.js' ), true );
 } );
 
 add_action( 'wp_head', function () {

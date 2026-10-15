@@ -41,7 +41,7 @@ add_action( 'wp_enqueue_scripts', function () {
 		'premier-site-plan',
 		PREMIER_DEV_URL . 'assets/js/site-plan.js',
 		array(),
-		PREMIER_DEV_VERSION,
+		PREMIER_DEV_VERSION . '.' . (int) @filemtime( PREMIER_DEV_DIR . 'assets/js/site-plan.js' ),
 		true
 	);
 } );
