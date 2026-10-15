@@ -1,0 +1,400 @@
+{
+  "key": "group_premier_development",
+  "title": "Development details",
+  "fields": [
+    {
+      "key": "field_premier_dev_tab_overview",
+      "label": "Overview",
+      "name": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_premier_dev_stage",
+      "label": "Stage",
+      "name": "stage",
+      "type": "button_group",
+      "instructions": "Completed developments move to the Completed developments section automatically.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "choices": {
+        "current": "Current — selling now",
+        "completed": "Completed"
+      },
+      "default_value": "current",
+      "layout": "horizontal",
+      "return_format": "value",
+      "allow_null": 0
+    },
+    {
+      "key": "field_premier_dev_completed_year",
+      "label": "Year completed",
+      "name": "completed_year",
+      "type": "number",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": [
+        [
+          {
+            "field": "field_premier_dev_stage",
+            "operator": "==",
+            "value": "completed"
+          }
+        ]
+      ],
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "min": 1990,
+      "max": 2100,
+      "step": 1
+    },
+    {
+      "key": "field_premier_dev_location",
+      "label": "Location",
+      "name": "location",
+      "type": "text",
+      "instructions": "",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "placeholder": "e.g. Woodville, Swadlincote"
+    },
+    {
+      "key": "field_premier_dev_postcode",
+      "label": "Postcode",
+      "name": "postcode",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 25,
+        "class": "",
+        "id": ""
+      },
+      "placeholder": "e.g. DE11 7AB"
+    },
+    {
+      "key": "field_premier_dev_map_query",
+      "label": "Map search",
+      "name": "map_query",
+      "type": "text",
+      "instructions": "Optional. What to search Google Maps for when there is no postcode yet.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 25,
+        "class": "",
+        "id": ""
+      }
+    },
+    {
+      "key": "field_premier_dev_hero",
+      "label": "Main photo",
+      "name": "hero_image",
+      "type": "image",
+      "instructions": "Shown large at the top of the development page and on the home page.",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_premier_dev_headline",
+      "label": "Headline",
+      "name": "headline",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placeholder": "e.g. Thirteen four-bedroom homes around a private cul-de-sac"
+    },
+    {
+      "key": "field_premier_dev_summary",
+      "label": "Short summary",
+      "name": "summary",
+      "type": "textarea",
+      "instructions": "One or two sentences for the home page and listings.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "rows": 3,
+      "new_lines": ""
+    },
+    {
+      "key": "field_premier_dev_description",
+      "label": "Description",
+      "name": "description",
+      "type": "wysiwyg",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "tabs": "visual",
+      "toolbar": "basic",
+      "media_upload": 0
+    },
+    {
+      "key": "field_premier_dev_features",
+      "label": "Key features",
+      "name": "features",
+      "type": "repeater",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "table",
+      "button_label": "Add feature",
+      "min": 0,
+      "max": 0,
+      "sub_fields": [
+        {
+          "key": "field_premier_dev_feature",
+          "label": "Feature",
+          "name": "feature",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "parent_repeater": "field_premier_dev_features"
+        }
+      ]
+    },
+    {
+      "key": "field_premier_dev_gallery",
+      "label": "Gallery",
+      "name": "gallery",
+      "type": "gallery",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "preview_size": "medium",
+      "insert": "append",
+      "library": "all"
+    },
+    {
+      "key": "field_premier_dev_tab_plots",
+      "label": "Plots & site plan",
+      "name": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_premier_dev_site_plan",
+      "label": "Site plan image",
+      "name": "site_plan",
+      "type": "image",
+      "instructions": "Optional. Upload the site plan to turn on the interactive Plots page. Then use the Site plan outliner below to draw around each house.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "preview_size": "large",
+      "library": "all"
+    },
+    {
+      "key": "field_premier_dev_plots",
+      "label": "Plots",
+      "name": "plots",
+      "type": "repeater",
+      "instructions": "One row per home. Change the status to mark a home as reserved or sold — every page updates automatically.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "table",
+      "button_label": "Add plot",
+      "min": 0,
+      "max": 0,
+      "collapsed": "",
+      "sub_fields": [
+        {
+          "key": "field_premier_plot_number",
+          "label": "Plot",
+          "name": "plot",
+          "type": "text",
+          "instructions": "",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 9,
+            "class": "",
+            "id": ""
+          },
+          "parent_repeater": "field_premier_dev_plots"
+        },
+        {
+          "key": "field_premier_plot_house_type",
+          "label": "House type",
+          "name": "house_type",
+          "type": "post_object",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 24,
+            "class": "",
+            "id": ""
+          },
+          "post_type": [
+            "house_type"
+          ],
+          "return_format": "id",
+          "allow_null": 1,
+          "multiple": 0,
+          "ui": 1,
+          "parent_repeater": "field_premier_dev_plots"
+        },
+        {
+          "key": "field_premier_plot_price",
+          "label": "Price",
+          "name": "price",
+          "type": "number",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 16,
+            "class": "",
+            "id": ""
+          },
+          "prepend": "£",
+          "min": 0,
+          "step": 1,
+          "parent_repeater": "field_premier_dev_plots"
+        },
+        {
+          "key": "field_premier_plot_status",
+          "label": "Status",
+          "name": "status",
+          "type": "select",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 17,
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "available": "Available",
+            "reserved": "Reserved",
+            "coming-soon": "Coming soon",
+            "sold": "Sold"
+          },
+          "default_value": "available",
+          "return_format": "value",
+          "allow_null": 0,
+          "ui": 0,
+          "parent_repeater": "field_premier_dev_plots"
+        },
+        {
+          "key": "field_premier_plot_outline",
+          "label": "Site plan outline",
+          "name": "outline",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 34,
+            "class": "premier-outline",
+            "id": ""
+          },
+          "placeholder": "Draw it with the outliner below",
+          "parent_repeater": "field_premier_dev_plots"
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "development"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "acf_after_title",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "Everything shown on a development page.",
+  "show_in_rest": 0,
+  "modified": 1792000000
+}

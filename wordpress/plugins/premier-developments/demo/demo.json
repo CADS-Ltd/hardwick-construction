@@ -1,0 +1,847 @@
+{
+ "company": {
+  "name": "Premier Property (Central)",
+  "strapline": "Quality new homes, built locally in South Derbyshire",
+  "phone": "01283 212304",
+  "mobile": "07595 081891",
+  "email": "james.hardwick@hardwickconstruction.co.uk",
+  "address": [
+   "Unit 1 Oaktree Business Park",
+   "Cadley Hill Road",
+   "Swadlincote",
+   "Derbyshire",
+   "DE11 9DJ"
+  ],
+  "about": "Premier Property (Central) is a family-run housebuilder based in Swadlincote. We build small, carefully planned developments of quality homes across South Derbyshire and the surrounding villages — each one finished to a standard we would be happy to live in ourselves.",
+  "stats": [
+   {
+    "value": 25,
+    "suffix": "+",
+    "label": "Years building locally"
+   },
+   {
+    "value": 140,
+    "suffix": "+",
+    "label": "Homes completed"
+   },
+   {
+    "value": 10,
+    "suffix": "yr",
+    "label": "New home warranty"
+   }
+  ]
+ },
+ "developments": [
+  {
+   "slug": "brunt-lane",
+   "name": "Brunt Lane",
+   "location": "Woodville, Swadlincote",
+   "postcode": "",
+   "map_query": "Brunt Lane, Woodville, Swadlincote",
+   "stage": "current",
+   "completed": "",
+   "headline": "Thirteen four-bedroom homes around a private cul-de-sac",
+   "summary": "A collection of five four-bedroom house types set around a landscaped cul-de-sac off Brunt Lane, with an area of biodiversity to the north.",
+   "description": [
+    "Land off Brunt Lane is a small development of four-bedroom family homes, arranged around a private, landscaped cul-de-sac with off-road parking to every home.",
+    "There are five house types to choose from, ranging from the Type A detached home to the larger Type C and Type E, each with an en-suite principal bedroom and an open-plan kitchen, dining and living space opening onto the rear garden."
+   ],
+   "hero": "brunt-lane-type-c.webp",
+   "gallery": [
+    "brunt-lane-siteplan.webp",
+    "brunt-lane-type-a.webp",
+    "brunt-lane-type-b.webp",
+    "brunt-lane-type-e.webp"
+   ],
+   "features": [
+    "Five four-bedroom house types",
+    "En-suite to every principal bedroom",
+    "Open-plan kitchen, dining & living spaces",
+    "Integral garages to Types B & C",
+    "Area of biodiversity & native planting"
+   ],
+   "plots": [
+    {
+     "plot": "1",
+     "house_type": "A",
+     "price": 339995,
+     "status": "available",
+     "outline": "61.41,83.22 65.54,72.92 72.59,77.41 68.30,86.38"
+    },
+    {
+     "plot": "2",
+     "house_type": "A",
+     "price": 339995,
+     "status": "reserved",
+     "outline": "53.83,76.00 57.58,67.77 64.93,72.43 60.95,80.56"
+    },
+    {
+     "plot": "3",
+     "house_type": "B",
+     "price": 379995,
+     "status": "available",
+     "outline": "45.79,70.27 49.62,61.88 56.97,66.45 52.83,74.75"
+    },
+    {
+     "plot": "4",
+     "house_type": "B",
+     "price": 379995,
+     "status": "sold",
+     "outline": "38.28,65.78 42.11,56.48 49.00,60.63 45.02,69.44"
+    },
+    {
+     "plot": "5",
+     "house_type": "E",
+     "price": 409995,
+     "status": "available",
+     "outline": "10.34,54.40 15.01,46.26 22.66,51.66 17.76,59.97"
+    },
+    {
+     "plot": "6",
+     "house_type": "C",
+     "price": 399995,
+     "status": "sold",
+     "outline": "16.23,45.10 21.13,37.04 29.10,42.52 24.04,50.83"
+    },
+    {
+     "plot": "7",
+     "house_type": "C",
+     "price": 399995,
+     "status": "available",
+     "outline": "22.36,35.55 27.18,27.41 35.07,32.81 30.02,41.11"
+    },
+    {
+     "plot": "8",
+     "house_type": "C",
+     "price": 402995,
+     "status": "available",
+     "outline": "28.64,26.41 33.69,18.11 41.35,23.67 35.99,31.98"
+    },
+    {
+     "plot": "9",
+     "house_type": "E",
+     "price": 414995,
+     "status": "reserved",
+     "outline": "36.45,15.78 40.58,10.13 48.39,15.12 43.95,23.42"
+    },
+    {
+     "plot": "10",
+     "house_type": "C",
+     "price": 404995,
+     "status": "coming-soon",
+     "outline": "58.50,34.39 62.17,26.58 70.44,31.89 66.31,41.53"
+    },
+    {
+     "plot": "11",
+     "house_type": "C",
+     "price": 404995,
+     "status": "coming-soon",
+     "outline": "66.77,40.86 70.06,33.22 79.25,38.46 75.04,47.76"
+    },
+    {
+     "plot": "12",
+     "house_type": "D",
+     "price": 394995,
+     "status": "coming-soon",
+     "outline": "75.42,48.34 78.87,40.45 88.06,46.51 84.07,55.23"
+    },
+    {
+     "plot": "13",
+     "house_type": "E",
+     "price": 409995,
+     "status": "available",
+     "outline": "24.66,66.61 28.64,59.97 35.22,64.45 31.24,71.43"
+    }
+   ],
+   "site_plan": "brunt-lane-siteplan.webp",
+   "house_types": [
+    {
+     "key": "A",
+     "name": "Type A",
+     "style": "4 bedroom detached house",
+     "beds": 4,
+     "sqm": 99,
+     "sqft": 1066,
+     "summary": "A well-proportioned detached home with a kitchen and dining room across the rear, a separate utility and pantry, and a principal bedroom with en-suite.",
+     "highlights": [
+      "French doors from the dining area to the garden",
+      "Separate utility & walk-in pantry",
+      "Fitted wardrobes to bedroom 1"
+     ],
+     "image": "brunt-lane-type-a.webp",
+     "ground": [
+      [
+       "Lounge",
+       "3.00 × 4.41 m"
+      ],
+      [
+       "Kitchen / dining",
+       "5.59 × 3.40 m"
+      ],
+      [
+       "Utility",
+       "2.06 × 1.10 m"
+      ],
+      [
+       "Pantry",
+       ""
+      ],
+      [
+       "Cloakroom / WC",
+       ""
+      ]
+     ],
+     "first": [
+      [
+       "Bedroom 1",
+       "3.00 × 3.57 m"
+      ],
+      [
+       "En-suite",
+       "2.06 × 1.51 m"
+      ],
+      [
+       "Bedroom 2",
+       "3.07 × 2.57 m"
+      ],
+      [
+       "Bedroom 3",
+       "2.45 × 3.44 m"
+      ],
+      [
+       "Bedroom 4",
+       "2.24 × 2.56 m"
+      ],
+      [
+       "Bathroom",
+       "2.06 × 2.00 m"
+      ]
+     ],
+     "plans": {
+      "ground": "brunt-lane-type-a-ground.webp",
+      "first": "brunt-lane-type-a-first.webp",
+      "elevations": "brunt-lane-type-a-elevations.webp"
+     },
+     "pdf": "brunt-lane-type-a-floor-plans.pdf",
+     "drawing": "226-35-TP-A-10"
+    },
+    {
+     "key": "B",
+     "name": "Type B",
+     "style": "4 bedroom detached house with integral garage",
+     "beds": 4,
+     "sqm": 111,
+     "sqft": 1191,
+     "summary": "A spacious detached home with an open-plan kitchen, dining and living room across the full width of the rear, a separate lounge and an integral garage.",
+     "highlights": [
+      "Full-width open-plan kitchen, dining & living",
+      "Integral single garage",
+      "Fitted wardrobes to bedroom 1"
+     ],
+     "image": "brunt-lane-type-b.webp",
+     "ground": [
+      [
+       "Kitchen / dining / living",
+       "7.72 × 3.46 m"
+      ],
+      [
+       "Lounge",
+       "3.46 × 4.05 m"
+      ],
+      [
+       "Integral garage",
+       "2.95 × 5.76 m"
+      ],
+      [
+       "Cloakroom / WC",
+       ""
+      ]
+     ],
+     "first": [
+      [
+       "Bedroom 1",
+       "3.50 × 3.70 m"
+      ],
+      [
+       "En-suite",
+       "2.18 × 1.64 m"
+      ],
+      [
+       "Bedroom 2",
+       "2.64 × 3.70 m"
+      ],
+      [
+       "Bedroom 3",
+       "2.74 × 3.22 m"
+      ],
+      [
+       "Bedroom 4",
+       "2.63 × 3.84 m"
+      ],
+      [
+       "Bathroom",
+       "2.20 × 2.17 m"
+      ]
+     ],
+     "plans": {
+      "ground": "brunt-lane-type-b-ground.webp",
+      "first": "brunt-lane-type-b-first.webp",
+      "elevations": "brunt-lane-type-b-elevations.webp"
+     },
+     "pdf": "brunt-lane-type-b-floor-plans.pdf",
+     "drawing": "226-35-TP-B-10"
+    },
+    {
+     "key": "C",
+     "name": "Type C",
+     "style": "4 bedroom detached house with integral garage",
+     "beds": 4,
+     "sqm": 117,
+     "sqft": 1258,
+     "summary": "Our widest-fronted home, with an 8.3 metre open-plan living, dining and kitchen space, a separate lounge, an integral garage and a principal suite with dressing area.",
+     "highlights": [
+      "8.3 m open-plan living, dining & kitchen",
+      "Integral single garage",
+      "Principal suite with dressing area"
+     ],
+     "image": "brunt-lane-type-c.webp",
+     "ground": [
+      [
+       "Living / dining / kitchen",
+       "8.29 × 3.46 m"
+      ],
+      [
+       "Lounge",
+       "3.10 × 4.05 m"
+      ],
+      [
+       "Integral garage",
+       "2.95 × 5.76 m"
+      ],
+      [
+       "Cloakroom / WC",
+       ""
+      ]
+     ],
+     "first": [
+      [
+       "Bedroom 1",
+       "3.20 × 3.70 m"
+      ],
+      [
+       "Dressing area",
+       "Fitted wardrobes"
+      ],
+      [
+       "En-suite",
+       "2.10 × 1.64 m"
+      ],
+      [
+       "Bedroom 2",
+       "2.74 × 4.32 m"
+      ],
+      [
+       "Bedroom 3",
+       "3.20 × 3.22 m"
+      ],
+      [
+       "Bedroom 4",
+       "2.74 × 2.17 m"
+      ],
+      [
+       "Bathroom",
+       "2.20 × 2.17 m"
+      ]
+     ],
+     "plans": {
+      "ground": "brunt-lane-type-c-ground.webp",
+      "first": "brunt-lane-type-c-first.webp",
+      "elevations": "brunt-lane-type-c-elevations.webp"
+     },
+     "pdf": "brunt-lane-type-c-floor-plans.pdf",
+     "drawing": "226-35-TP-C-10"
+    },
+    {
+     "key": "D",
+     "name": "Type D",
+     "style": "4 bedroom house",
+     "beds": 4,
+     "sqm": null,
+     "sqft": null,
+     "summary": "Floor plans and images for the Type D house are to follow. Please get in touch for details.",
+     "highlights": [],
+     "image": null,
+     "ground": [],
+     "first": [],
+     "plans": null,
+     "pdf": null,
+     "drawing": null
+    },
+    {
+     "key": "E",
+     "name": "Type E",
+     "style": "4 bedroom detached house with study",
+     "beds": 4,
+     "sqm": 119,
+     "sqft": 1284,
+     "summary": "A classic double-fronted home with a gabled entrance porch, a ground-floor study and utility, and an open-plan kitchen, dining and living room across the rear.",
+     "highlights": [
+      "Ground-floor study & separate utility",
+      "Gabled entrance porch",
+      "Fitted wardrobes to bedroom 1"
+     ],
+     "image": "brunt-lane-type-e.webp",
+     "ground": [
+      [
+       "Kitchen / dining / living",
+       "7.72 × 3.46 m"
+      ],
+      [
+       "Lounge",
+       "3.46 × 3.94 m"
+      ],
+      [
+       "Study",
+       "2.35 × 2.24 m"
+      ],
+      [
+       "Utility",
+       "2.35 × 1.60 m"
+      ],
+      [
+       "Cloakroom / WC",
+       ""
+      ]
+     ],
+     "first": [
+      [
+       "Bedroom 1",
+       "2.74 × 3.59 m"
+      ],
+      [
+       "En-suite",
+       "2.10 × 1.54 m"
+      ],
+      [
+       "Bedroom 2",
+       "2.73 × 3.59 m"
+      ],
+      [
+       "Bedroom 3",
+       "2.74 × 3.22 m"
+      ],
+      [
+       "Bedroom 4",
+       "2.63 × 3.22 m"
+      ],
+      [
+       "Bathroom",
+       "2.20 × 2.17 m"
+      ]
+     ],
+     "plans": {
+      "ground": "brunt-lane-type-e-ground.webp",
+      "first": "brunt-lane-type-e-first.webp",
+      "elevations": "brunt-lane-type-e-elevations.webp"
+     },
+     "pdf": "brunt-lane-type-e-floor-plans.pdf",
+     "drawing": "226-35-TP-E-10"
+    }
+   ]
+  },
+  {
+   "slug": "oaktree-meadow",
+   "name": "Oaktree Meadow",
+   "location": "Church Gresley, Swadlincote",
+   "postcode": "DE11 9PL",
+   "map_query": "",
+   "stage": "current",
+   "completed": "",
+   "headline": "Twelve family homes on the edge of open countryside",
+   "summary": "A collection of 3 and 4 bedroom homes set around a landscaped green, a short walk from Church Gresley village centre.",
+   "description": [
+    "Oaktree Meadow is an exclusive development of twelve 3 and 4 bedroom homes, arranged around a landscaped green with open views to the south.",
+    "Every home is finished with a high specification kitchen, contemporary bathrooms, flooring throughout and a turfed rear garden — ready to move straight into."
+   ],
+   "hero": "ext-brick-row.jpg",
+   "gallery": [
+    "int-kitchen.jpg",
+    "int-living.jpg",
+    "int-bedroom.jpg",
+    "int-bathroom.jpg"
+   ],
+   "features": [
+    "Fitted kitchens with integrated appliances",
+    "Air source heat pump & underfloor heating to ground floor",
+    "EV charging point to every home",
+    "Turfed rear gardens with patio",
+    "10 year new home warranty"
+   ],
+   "plots": [
+    {
+     "plot": "1",
+     "type": "The Melbourne",
+     "beds": 4,
+     "sqft": 1420,
+     "price": 389995,
+     "status": "sold"
+    },
+    {
+     "plot": "2",
+     "type": "The Melbourne",
+     "beds": 4,
+     "sqft": 1420,
+     "price": 389995,
+     "status": "sold"
+    },
+    {
+     "plot": "3",
+     "type": "The Calke",
+     "beds": 3,
+     "sqft": 1105,
+     "price": 314995,
+     "status": "sold"
+    },
+    {
+     "plot": "4",
+     "type": "The Ashby",
+     "beds": 3,
+     "sqft": 960,
+     "price": 269995,
+     "status": "reserved"
+    },
+    {
+     "plot": "5",
+     "type": "The Ashby",
+     "beds": 3,
+     "sqft": 960,
+     "price": 269995,
+     "status": "available"
+    },
+    {
+     "plot": "6",
+     "type": "The Repton",
+     "beds": 4,
+     "sqft": 1560,
+     "price": 424995,
+     "status": "available"
+    },
+    {
+     "plot": "7",
+     "type": "The Repton",
+     "beds": 4,
+     "sqft": 1560,
+     "price": 424995,
+     "status": "reserved"
+    },
+    {
+     "plot": "8",
+     "type": "The Calke",
+     "beds": 3,
+     "sqft": 1105,
+     "price": 314995,
+     "status": "available"
+    },
+    {
+     "plot": "9",
+     "type": "The Calke",
+     "beds": 3,
+     "sqft": 1105,
+     "price": 317995,
+     "status": "available"
+    },
+    {
+     "plot": "10",
+     "type": "The Melbourne",
+     "beds": 4,
+     "sqft": 1420,
+     "price": 394995,
+     "status": "coming-soon"
+    },
+    {
+     "plot": "11",
+     "type": "The Ashby",
+     "beds": 3,
+     "sqft": 960,
+     "price": 272995,
+     "status": "coming-soon"
+    },
+    {
+     "plot": "12",
+     "type": "The Ashby",
+     "beds": 3,
+     "sqft": 960,
+     "price": 272995,
+     "status": "coming-soon"
+    }
+   ],
+   "plot_types": [
+    "The Melbourne",
+    "The Calke",
+    "The Ashby",
+    "The Repton"
+   ]
+  },
+  {
+   "slug": "cadley-view",
+   "name": "Cadley View",
+   "location": "Castle Gresley, Derbyshire",
+   "postcode": "DE11 9HE",
+   "map_query": "",
+   "stage": "current",
+   "completed": "",
+   "headline": "Eight spacious detached homes with double garages",
+   "summary": "Generous 4 and 5 bedroom detached homes on wide plots, with private driveways, double garages and south-facing gardens.",
+   "description": [
+    "Cadley View is a small, private development of eight detached homes, each sitting on a generous plot with a double garage and wide driveway.",
+    "Designed for growing families, the homes combine open-plan kitchen and family rooms with a separate lounge, study and principal suite with dressing area."
+   ],
+   "hero": "ext-detached.jpg",
+   "gallery": [
+    "int-kitchen-2.jpg",
+    "int-living-2.jpg",
+    "int-bedroom.jpg",
+    "int-kitchen-3.jpg"
+   ],
+   "features": [
+    "Double garage & private driveway",
+    "Bi-fold doors to south-facing gardens",
+    "Principal suite with dressing area & en-suite",
+    "Solar PV panels",
+    "10 year new home warranty"
+   ],
+   "plots": [
+    {
+     "plot": "1",
+     "type": "The Bretby",
+     "beds": 5,
+     "sqft": 1980,
+     "price": 549995,
+     "status": "sold"
+    },
+    {
+     "plot": "2",
+     "type": "The Repton",
+     "beds": 4,
+     "sqft": 1560,
+     "price": 449995,
+     "status": "available"
+    },
+    {
+     "plot": "3",
+     "type": "The Repton",
+     "beds": 4,
+     "sqft": 1560,
+     "price": 449995,
+     "status": "reserved"
+    },
+    {
+     "plot": "4",
+     "type": "The Bretby",
+     "beds": 5,
+     "sqft": 1980,
+     "price": 554995,
+     "status": "available"
+    },
+    {
+     "plot": "5",
+     "type": "The Melbourne",
+     "beds": 4,
+     "sqft": 1420,
+     "price": 419995,
+     "status": "available"
+    },
+    {
+     "plot": "6",
+     "type": "The Melbourne",
+     "beds": 4,
+     "sqft": 1420,
+     "price": 419995,
+     "status": "available"
+    },
+    {
+     "plot": "7",
+     "type": "The Bretby",
+     "beds": 5,
+     "sqft": 1980,
+     "price": 559995,
+     "status": "coming-soon"
+    },
+    {
+     "plot": "8",
+     "type": "The Repton",
+     "beds": 4,
+     "sqft": 1560,
+     "price": 454995,
+     "status": "coming-soon"
+    }
+   ],
+   "plot_types": [
+    "The Bretby",
+    "The Repton",
+    "The Melbourne"
+   ]
+  },
+  {
+   "slug": "the-willows",
+   "name": "The Willows",
+   "location": "Linton, South Derbyshire",
+   "postcode": "DE12 6QA",
+   "map_query": "",
+   "stage": "current",
+   "completed": "",
+   "headline": "Six cottage-style homes in a quiet village setting",
+   "summary": "Characterful 3 bedroom homes in the village of Linton, finished with traditional brick detailing and modern, energy-efficient interiors.",
+   "description": [
+    "The Willows is a boutique development of six cottage-style homes in the heart of Linton, close to the village school and the National Forest.",
+    "Traditional brick and tile exteriors give way to bright, modern interiors with a kitchen-diner opening onto the garden."
+   ],
+   "hero": "ext-garden.jpg",
+   "gallery": [
+    "int-living-3.jpg",
+    "int-kitchen.jpg",
+    "int-bedroom.jpg",
+    "int-bathroom.jpg"
+   ],
+   "features": [
+    "Traditional brick & tile exteriors",
+    "Kitchen-diner with French doors",
+    "Close to the National Forest",
+    "Allocated parking for two cars",
+    "10 year new home warranty"
+   ],
+   "plots": [
+    {
+     "plot": "1",
+     "type": "The Calke",
+     "beds": 3,
+     "sqft": 1105,
+     "price": 299995,
+     "status": "available"
+    },
+    {
+     "plot": "2",
+     "type": "The Calke",
+     "beds": 3,
+     "sqft": 1105,
+     "price": 299995,
+     "status": "available"
+    },
+    {
+     "plot": "3",
+     "type": "The Ashby",
+     "beds": 3,
+     "sqft": 960,
+     "price": 264995,
+     "status": "reserved"
+    },
+    {
+     "plot": "4",
+     "type": "The Ashby",
+     "beds": 3,
+     "sqft": 960,
+     "price": 264995,
+     "status": "available"
+    },
+    {
+     "plot": "5",
+     "type": "The Calke",
+     "beds": 3,
+     "sqft": 1105,
+     "price": 304995,
+     "status": "coming-soon"
+    },
+    {
+     "plot": "6",
+     "type": "The Calke",
+     "beds": 3,
+     "sqft": 1105,
+     "price": 304995,
+     "status": "coming-soon"
+    }
+   ],
+   "plot_types": [
+    "The Calke",
+    "The Ashby"
+   ]
+  },
+  {
+   "slug": "hill-top-close",
+   "name": "Hill Top Close",
+   "location": "Woodville, Swadlincote",
+   "postcode": "DE11 7DS",
+   "map_query": "",
+   "stage": "completed",
+   "completed": 2025,
+   "headline": "Eight family homes, all now sold",
+   "summary": "A cul-de-sac of eight 3 and 4 bedroom homes, completed in 2025.",
+   "description": [
+    "Hill Top Close was completed in 2025 and every home is now occupied. The development of eight homes sits in a quiet cul-de-sac with views across Woodville."
+   ],
+   "hero": "ext-brick-street.jpg",
+   "gallery": [
+    "int-kitchen-3.jpg",
+    "int-living.jpg"
+   ],
+   "features": [
+    "8 homes",
+    "3 & 4 bedrooms",
+    "Completed 2025"
+   ],
+   "plots": [],
+   "plot_types": []
+  },
+  {
+   "slug": "maple-court",
+   "name": "Maple Court",
+   "location": "Midway, Swadlincote",
+   "postcode": "DE11 7NR",
+   "map_query": "",
+   "stage": "completed",
+   "completed": 2024,
+   "headline": "Five detached homes in a mature, tree-lined setting",
+   "summary": "Five detached 4 bedroom homes set among mature trees, completed in 2024.",
+   "description": [
+    "Maple Court was a small development of five detached homes, carefully positioned to retain the mature trees on the site. Completed in 2024."
+   ],
+   "hero": "ext-brick-trees.jpg",
+   "gallery": [
+    "int-living-2.jpg",
+    "int-kitchen-2.jpg"
+   ],
+   "features": [
+    "5 homes",
+    "4 bedrooms",
+    "Completed 2024"
+   ],
+   "plots": [],
+   "plot_types": []
+  },
+  {
+   "slug": "church-lane",
+   "name": "Church Lane",
+   "location": "Overseal, South Derbyshire",
+   "postcode": "DE12 6LT",
+   "map_query": "",
+   "stage": "completed",
+   "completed": 2023,
+   "headline": "Four stone-faced village homes",
+   "summary": "A sensitive village infill of four stone-faced homes, completed in 2023.",
+   "description": [
+    "Church Lane saw four characterful stone-faced homes built within the Overseal conservation area, completed in 2023."
+   ],
+   "hero": "ext-cottage.jpg",
+   "gallery": [
+    "int-living-3.jpg",
+    "int-bedroom.jpg"
+   ],
+   "features": [
+    "4 homes",
+    "Conservation area",
+    "Completed 2023"
+   ],
+   "plots": [],
+   "plot_types": []
+  }
+ ]
+}

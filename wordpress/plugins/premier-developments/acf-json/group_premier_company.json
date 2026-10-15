@@ -1,0 +1,193 @@
+{
+  "key": "group_premier_company",
+  "title": "Company details",
+  "fields": [
+    {
+      "key": "field_premier_co_name",
+      "label": "Company name",
+      "name": "company_name",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "default_value": "Premier Property (Central)"
+    },
+    {
+      "key": "field_premier_co_strapline",
+      "label": "Strapline",
+      "name": "strapline",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      }
+    },
+    {
+      "key": "field_premier_co_phone",
+      "label": "Office phone",
+      "name": "phone",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 33,
+        "class": "",
+        "id": ""
+      }
+    },
+    {
+      "key": "field_premier_co_mobile",
+      "label": "Mobile",
+      "name": "mobile",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 33,
+        "class": "",
+        "id": ""
+      }
+    },
+    {
+      "key": "field_premier_co_email",
+      "label": "Email",
+      "name": "email",
+      "type": "email",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 34,
+        "class": "",
+        "id": ""
+      }
+    },
+    {
+      "key": "field_premier_co_address",
+      "label": "Address",
+      "name": "address",
+      "type": "textarea",
+      "instructions": "One line per row.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "rows": 5,
+      "new_lines": ""
+    },
+    {
+      "key": "field_premier_co_about",
+      "label": "About (short)",
+      "name": "about",
+      "type": "textarea",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "rows": 5,
+      "new_lines": ""
+    },
+    {
+      "key": "field_premier_co_stats",
+      "label": "Stats",
+      "name": "stats",
+      "type": "repeater",
+      "instructions": "Shown as count-up figures on the home page.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "table",
+      "button_label": "Add stat",
+      "max": 4,
+      "sub_fields": [
+        {
+          "key": "field_premier_co_stat_value",
+          "label": "Number",
+          "name": "value",
+          "type": "number",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 25,
+            "class": "",
+            "id": ""
+          },
+          "parent_repeater": "field_premier_co_stats"
+        },
+        {
+          "key": "field_premier_co_stat_suffix",
+          "label": "After the number",
+          "name": "suffix",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 25,
+            "class": "",
+            "id": ""
+          },
+          "placeholder": "e.g. + or yr",
+          "parent_repeater": "field_premier_co_stats"
+        },
+        {
+          "key": "field_premier_co_stat_label",
+          "label": "Label",
+          "name": "label",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": 50,
+            "class": "",
+            "id": ""
+          },
+          "parent_repeater": "field_premier_co_stats"
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "options_page",
+        "operator": "==",
+        "value": "premier-company"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "",
+  "show_in_rest": 0,
+  "modified": 1792000000
+}

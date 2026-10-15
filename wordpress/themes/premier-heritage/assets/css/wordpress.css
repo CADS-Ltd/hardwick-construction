@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Premier Heritage — WordPress and Elementor additions to heritage.css
+   ========================================================================== */
+
+/* Logged-in admin bar */
+.admin-bar .site-header { top: 32px; }
+.admin-bar .subnav { top: calc(72px + 32px); }
+.admin-bar .plan-panel { top: calc(var(--header-h) + 52px); }
+@media (max-width: 782px) {
+  .admin-bar .site-header { top: 46px; }
+  .admin-bar .subnav { top: calc(72px + 46px); }
+}
+@media (max-width: 600px) {
+  .admin-bar .site-header { top: 0; }
+  .admin-bar .subnav { top: 72px; }
+}
+
+/* Pages without a photo hero: solid header, content starts below it */
+.no-hero .site-header { background: rgba(247, 244, 238, .97); color: var(--navy); box-shadow: 0 10px 30px -18px rgba(15, 31, 75, .35); }
+.no-hero .site-header::after { opacity: 0; }
+.no-hero .site-header .wordmark-mono { color: var(--gold); border-color: var(--gold); }
+.no-hero .elementor-page-content { padding-top: var(--header-h); }
+
+.page-main { padding: calc(var(--header-h) + clamp(48px, 7vw, 96px)) 0 clamp(80px, 10vw, 140px); }
+.page-wrap { max-width: calc(860px + var(--gutter) * 2); }
+.page-title { margin-bottom: 36px; }
+.page-content > * + * { margin-top: 1.1em; }
+.page-content h2 { font-family: var(--serif); font-size: 34px; line-height: 1.15; color: var(--navy); margin-top: 1.6em; }
+.page-content h3 { font-family: var(--serif); font-size: 26px; color: var(--navy); margin-top: 1.4em; }
+.page-content ul, .page-content ol { padding-left: 1.3em; list-style: revert; color: var(--muted); }
+.page-content a, .prose a { color: var(--navy); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+.page-content img { height: auto; }
+.page-list { display: grid; gap: 12px; font-size: 19px; }
+.prose ul { list-style: disc; padding-left: 1.3em; color: var(--muted); }
+
+/* Lightbox with a single image: no previous / next */
+.lightbox.is-single .lb-prev, .lightbox.is-single .lb-next { visibility: hidden; }
+
+/* Elementor: Premier section widgets run edge to edge with no extra spacing */
+.elementor-widget[class*="elementor-widget-premier-"] { width: 100%; margin-block-end: 0 !important; }
+.elementor-widget[class*="elementor-widget-premier-"] > .elementor-widget-container { margin: 0; padding: 0; }
+.e-con:has(> .elementor-widget-premier-hero), .e-con:has(> .elementor-widget-premier-intro),
+.e-con:has(> .elementor-widget-premier-developments), .e-con:has(> .elementor-widget-premier-about),
+.e-con:has(> .elementor-widget-premier-contact) {
+  --padding-top: 0px; --padding-right: 0px; --padding-bottom: 0px; --padding-left: 0px; --gap: 0px; --row-gap: 0px; --column-gap: 0px;
+}
+.elementor-widget-premier-hero .hero-home { min-height: 100vh; min-height: 100svh; }
+
+/* Inside the Elementor editor everything is shown straight away */
+.elementor-editor-active .js [data-reveal], .elementor-editor-active [data-reveal],
+.elementor-editor-active .hero-fade { opacity: 1 !important; transform: none !important; animation: none !important; }
+
+.premier-placeholder {
+  padding: 28px; text-align: center; font-size: 14px; color: var(--muted);
+  border: 1px dashed var(--line-gold); background: var(--paper);
+}
+
+/* Standard WordPress alignment and caption classes */
+.alignleft { float: left; margin: 0 1.5em 1em 0; }
+.alignright { float: right; margin: 0 0 1em 1.5em; }
+.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.wp-caption-text, figcaption.wp-element-caption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+/* Elementor's "img { height: auto }" would stop Heritage photos filling their frames */
+.elementor .dev-row-media img, .elementor .done-media img, .elementor .about-media img,
+.elementor .g-item:not(.plan-shot):not(.showcase-shot) img, .elementor .panel-media img, .elementor .type-card-media img,
+.elementor .plan-cta-media img, .elementor .hero-media img { height: 100%; max-width: none; width: 100%; }
+.elementor .plan-canvas img { height: 100%; width: 100%; max-width: none; }

@@ -1,0 +1,404 @@
+{
+  "key": "group_premier_house_type",
+  "title": "House type details",
+  "fields": [
+    {
+      "key": "field_premier_ht_tab_details",
+      "label": "Details",
+      "name": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_premier_ht_development",
+      "label": "Development",
+      "name": "development",
+      "type": "post_object",
+      "instructions": "The development this house type is built at.",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "post_type": [
+        "development"
+      ],
+      "return_format": "id",
+      "allow_null": 0,
+      "multiple": 0,
+      "ui": 1
+    },
+    {
+      "key": "field_premier_ht_style",
+      "label": "Description",
+      "name": "style",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "placeholder": "e.g. 4 bedroom detached house with integral garage"
+    },
+    {
+      "key": "field_premier_ht_beds",
+      "label": "Bedrooms",
+      "name": "bedrooms",
+      "type": "number",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 20,
+        "class": "",
+        "id": ""
+      },
+      "default_value": 4,
+      "min": 1,
+      "max": 10
+    },
+    {
+      "key": "field_premier_ht_sqm",
+      "label": "Floor area (m²)",
+      "name": "floor_area_sqm",
+      "type": "number",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 20,
+        "class": "",
+        "id": ""
+      },
+      "min": 0,
+      "step": "any"
+    },
+    {
+      "key": "field_premier_ht_sqft",
+      "label": "Floor area (sq ft)",
+      "name": "floor_area_sqft",
+      "type": "number",
+      "instructions": "Leave blank to work it out from m².",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 20,
+        "class": "",
+        "id": ""
+      },
+      "min": 0,
+      "step": 1
+    },
+    {
+      "key": "field_premier_ht_image",
+      "label": "Picture of the house",
+      "name": "image",
+      "type": "image",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 40,
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_premier_ht_summary",
+      "label": "Summary",
+      "name": "summary",
+      "type": "textarea",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "rows": 3,
+      "new_lines": ""
+    },
+    {
+      "key": "field_premier_ht_highlights",
+      "label": "Highlights",
+      "name": "highlights",
+      "type": "repeater",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "table",
+      "button_label": "Add highlight",
+      "min": 0,
+      "max": 0,
+      "sub_fields": [
+        {
+          "key": "field_premier_ht_highlight",
+          "label": "Highlight",
+          "name": "highlight",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "parent_repeater": "field_premier_ht_highlights"
+        }
+      ]
+    },
+    {
+      "key": "field_premier_ht_tab_plans",
+      "label": "Floor plans",
+      "name": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_premier_ht_ground",
+      "label": "Ground floor rooms",
+      "name": "ground_floor",
+      "type": "repeater",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "layout": "table",
+      "button_label": "Add room",
+      "sub_fields": [
+        {
+          "key": "field_premier_ht_g_room",
+          "label": "Room",
+          "name": "room",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "parent_repeater": "field_premier_ht_ground"
+        },
+        {
+          "key": "field_premier_ht_g_size",
+          "label": "Size",
+          "name": "size",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "placeholder": "e.g. 3.46 × 4.05 m",
+          "parent_repeater": "field_premier_ht_ground"
+        }
+      ]
+    },
+    {
+      "key": "field_premier_ht_first",
+      "label": "First floor rooms",
+      "name": "first_floor",
+      "type": "repeater",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "layout": "table",
+      "button_label": "Add room",
+      "sub_fields": [
+        {
+          "key": "field_premier_ht_f_room",
+          "label": "Room",
+          "name": "room",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "parent_repeater": "field_premier_ht_first"
+        },
+        {
+          "key": "field_premier_ht_f_size",
+          "label": "Size",
+          "name": "size",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "placeholder": "e.g. 3.20 × 3.70 m",
+          "parent_repeater": "field_premier_ht_first"
+        }
+      ]
+    },
+    {
+      "key": "field_premier_ht_plan_ground",
+      "label": "Ground floor plan image",
+      "name": "plan_ground",
+      "type": "image",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 33,
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "preview_size": "medium"
+    },
+    {
+      "key": "field_premier_ht_plan_first",
+      "label": "First floor plan image",
+      "name": "plan_first",
+      "type": "image",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 33,
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "preview_size": "medium"
+    },
+    {
+      "key": "field_premier_ht_plan_elev",
+      "label": "Elevations image",
+      "name": "plan_elevations",
+      "type": "image",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 34,
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "preview_size": "medium"
+    },
+    {
+      "key": "field_premier_ht_tab_downloads",
+      "label": "Downloads",
+      "name": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_premier_ht_pdf",
+      "label": "Floor plans PDF",
+      "name": "drawings_pdf",
+      "type": "file",
+      "instructions": "Visitors can download this from the house type page.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "return_format": "id",
+      "library": "all",
+      "mime_types": "pdf"
+    },
+    {
+      "key": "field_premier_ht_drawing_ref",
+      "label": "Drawing number",
+      "name": "drawing_ref",
+      "type": "text",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": 50,
+        "class": "",
+        "id": ""
+      },
+      "placeholder": "e.g. 226-35-TP-C-10"
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "house_type"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "acf_after_title",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "",
+  "show_in_rest": 0,
+  "modified": 1792000000
+}

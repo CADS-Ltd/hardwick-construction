@@ -1,0 +1,132 @@
+<?php
+/**
+ * Premier Heritage theme.
+ *
+ * Page layouts for developments, plots and house types live in /template-parts.
+ * With Elementor Pro, any of them can be replaced by a Theme Builder template
+ * (header, footer, single development, single house type) — the theme steps
+ * aside automatically when one is assigned.
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+define( 'PREMIER_THEME_VERSION', '1.0.0' );
+
+add_action( 'after_setup_theme', function () {
+	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script', 'navigation-widgets' ) );
+	add_theme_support( 'responsive-embeds' );
+	register_nav_menus( array(
+		'primary' => 'Main menu',
+		'footer'  => 'Footer menu',
+	) );
+} );
+
+/** Elementor Pro Theme Builder: let header, footer, single and archive templates replace the theme's. */
+add_action( 'elementor/theme/register_locations', function ( $manager ) {
+	$manager->register_all_core_location();
+} );
+
+add_action( 'wp_enqueue_scripts', function () {
+	$uri = get_template_directory_uri();
+	wp_enqueue_style( 'premier-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap', array(), null );
+	wp_enqueue_style( 'premier-heritage', $uri . '/assets/css/heritage.css', array(), PREMIER_THEME_VERSION );
+	wp_enqueue_style( 'premier-wordpress', $uri . '/assets/css/wordpress.css', array( 'premier-heritage' ), PREMIER_THEME_VERSION );
+	wp_enqueue_script( 'premier-theme', $uri . '/assets/js/theme.js', array(), PREMIER_THEME_VERSION, true );
+} );
+
+add_action( 'wp_head', function () {
+	// Lets the scroll animations hide content only when JavaScript is running
+	echo "<script>document.documentElement.className += ' js';</script>\n";
+	echo '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+}, 1 );
+
+/** Pages whose first section is a full-height photo get the transparent header. */
+function premier_has_hero() {
+	if ( is_singular( array( 'development', 'house_type' ) ) || is_post_type_archive( 'development' ) ) {
+		return true;
+	}
+	if ( is_front_page() || is_page() ) {
+		$id = get_queried_object_id();
+		if ( $id && get_post_meta( $id, '_elementor_edit_mode', true ) === 'builder' ) {
+			$data = (string) get_post_meta( $id, '_elementor_data', true );
+			$pos  = strpos( $data, '"widgetType"' );
+			return false !== $pos && str_starts_with( substr( $data, $pos, 40 ), '"widgetType":"premier-hero"' );
+		}
+	}
+	return false;
+}
+
+add_filter( 'body_class', function ( $classes ) {
+	$classes[] = premier_has_hero() ? 'has-hero' : 'no-hero';
+	return $classes;
+} );
+
+/** Data from the Premier Developments plugin, or safe defaults when it is not active. */
+function premier_company() {
+	if ( class_exists( 'Premier_Data' ) ) {
+		return Premier_Data::company();
+	}
+	return array(
+		'name'      => get_bloginfo( 'name' ),
+		'strapline' => get_bloginfo( 'description' ),
+		'phone'     => '',
+		'mobile'    => '',
+		'email'     => get_bloginfo( 'admin_email' ),
+		'address'   => array(),
+		'about'     => '',
+		'stats'     => array(),
+	);
+}
+
+function premier_tel( $n ) {
+	return 'tel:' . preg_replace( '/[^0-9+]/', '', (string) $n );
+}
+
+/** Menu links as plain anchors, matching the Heritage header and footer. */
+function premier_menu_links( $location, $class = 'draw', $wrap_li = false ) {
+	$locations = get_nav_menu_locations();
+	if ( empty( $locations[ $location ] ) ) {
+		return '';
+	}
+	$items = wp_get_nav_menu_items( $locations[ $location ] );
+	$out   = '';
+	foreach ( (array) $items as $item ) {
+		if ( $item->menu_item_parent ) {
+			continue;
+		}
+		$current = untrailingslashit( $item->url ) === untrailingslashit( home_url( add_query_arg( array() ) ) );
+		$link    = '<a class="' . esc_attr( $class . ( $current ? ' is-current' : '' ) ) . '" href="' . esc_url( $item->url ) . '"' . ( $current ? ' aria-current="page"' : '' ) . '>' . esc_html( $item->title ) . '</a>';
+		$out    .= $wrap_li ? '<li>' . $link . '</li>' : $link;
+	}
+	return $out;
+}
+
+/** Where the header "Enquire" button goes: the enquiry band on development pages, else the home page contact section. */
+function premier_enquire_url() {
+	if ( is_singular( array( 'development', 'house_type' ) ) ) {
+		return '#enquire';
+	}
+	return home_url( '/#contact' );
+}
+
+/** The wordmark used in the header and footer. */
+function premier_wordmark( $light = false ) {
+	$name  = premier_company()['name'];
+	$parts = preg_match( '/^(.*?)\s*\((.*)\)\s*$/', $name, $m ) ? array( $m[1], $m[2] ) : array( $name, '' );
+	return '<a class="wordmark' . ( $light ? ' wordmark-light' : '' ) . '" href="' . esc_url( home_url( '/' ) ) . '" aria-label="' . esc_attr( $name . ' — home' ) . '">'
+		. '<span class="wordmark-mono" aria-hidden="true">' . esc_html( mb_substr( $parts[0], 0, 1 ) ) . '</span>'
+		. '<span class="wordmark-text"><span class="wordmark-name">' . esc_html( $parts[0] ) . '</span>'
+		. ( $parts[1] ? '<span class="wordmark-sub">' . esc_html( $parts[1] ) . '</span>' : '' )
+		. '</span></a>';
+}
+
+/** Template part with the plugin's data; shows a notice if the plugin is missing. */
+function premier_requires_plugin() {
+	if ( class_exists( 'Premier_Data' ) ) {
+		return true;
+	}
+	echo '<main id="main" class="section"><div class="wrap"><p>Please activate the <strong>Premier Developments</strong> plugin.</p></div></main>';
+	return false;
+}
