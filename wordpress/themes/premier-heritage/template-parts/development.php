@@ -9,7 +9,9 @@ defined( 'ABSPATH' ) || exit;
 
 $d     = $args['d'];
 $c     = $d['counts'];
-$done  = 'completed' === $d['stage'] || ! $d['plots'];
+$done  = 'completed' === $d['stage'];
+// Announced but no plots released yet (St George's Hill, say)
+$soon  = $d['upcoming'];
 $arrow = Premier_Render::ARROW;
 $plural = fn( $n, $one, $many ) => $n . ' ' . ( 1 === (int) $n ? $one : $many );
 $home  = home_url( '/' );
@@ -21,6 +23,9 @@ $facts = array( array( 'Location', $d['location'] ) );
 if ( $done ) {
 	$facts[] = array( 'Status', trim( 'Completed ' . $d['completed'] ) );
 	$facts[] = array( 'Availability', 'All homes sold' );
+} elseif ( $soon ) {
+	$facts[] = array( 'Status', 'Coming soon' );
+	$facts[] = array( 'Homes and prices', 'To be announced' );
 } else {
 	$facts[] = array( 'Homes', $plural( $c['total'], 'home', 'homes' ) . ( $d['bed_range'] ? ' · ' . $d['bed_range'] : '' ) );
 	$facts[] = array( 'Prices from', $d['price_from'] ? Premier_Data::price( $d['price_from'] ) : 'Enquire' );
@@ -33,11 +38,11 @@ $others = array_values( array_filter( array_merge( Premier_Data::developments( '
 $others = array_slice( $others, 0, 3 );
 $images = array_values( array_filter( array_merge( array( $d['hero'] ), $d['gallery'] ) ) );
 // Heritage B: the site plan, house types and plot table all sit in the Homes section
-$inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
+$inline = ! $done && ! $soon && $d['site_plan'] && Premier_Data::plots_inline();
 ?>
 <main id="main">
 	<section class="hero hero-dev" aria-labelledby="dev-name">
-		<div class="hero-media" aria-hidden="true"><?php echo Premier_Render::img( $d['hero'], 'full', array( 'alt' => '', 'loading' => 'eager', 'fetchpriority' => 'high' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+		<div class="hero-media<?php echo $d['hero'] ? '' : ' is-empty'; ?>" aria-hidden="true"><?php echo Premier_Render::img( $d['hero'], 'full', array( 'alt' => '', 'loading' => 'eager', 'fetchpriority' => 'high' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 		<div class="hero-shade" aria-hidden="true"></div>
 		<div class="wrap hero-content">
 			<a class="back-link hero-fade" style="--d:.1s" href="<?php echo esc_url( $list_url ); ?>">
@@ -49,6 +54,8 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 			<p class="hero-chip hero-fade" style="--d:.95s"><span class="chip-dot<?php echo $done ? ' is-done' : ''; ?>" aria-hidden="true"></span><?php
 				if ( $done ) {
 					echo esc_html( trim( 'Completed ' . $d['completed'] ) . ' · All homes sold' );
+				} elseif ( $soon ) {
+					echo 'Coming soon · Register your interest';
 				} else {
 					echo esc_html( 'Now selling · ' . ( $c['available'] ? $plural( $c['available'], 'home', 'homes' ) . ' available' : 'Register your interest' ) . ( $d['price_from'] ? ' · From ' . Premier_Data::price( $d['price_from'] ) : '' ) );
 				}
@@ -83,7 +90,7 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 			<aside class="facts" aria-label="At a glance" data-reveal style="--i:1">
 				<p class="facts-title">At a glance</p>
 				<?php echo Premier_Render::facts( $facts ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				<a class="btn btn-gold btn-block" href="#enquire"><?php echo $done ? 'Ask about new homes' : 'Book a viewing'; ?></a>
+				<a class="btn btn-gold btn-block" href="#enquire"><?php echo $done ? 'Ask about new homes' : ( $soon ? 'Register your interest' : 'Book a viewing' ); ?></a>
 			</aside>
 		</div>
 	</section>
@@ -92,12 +99,14 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 		<div class="wrap">
 			<header class="section-head section-head-split" data-reveal>
 				<div>
-					<p class="eyebrow"><?php echo $done ? 'The homes' : ( $inline ? 'Plots &amp; homes for sale' : 'Homes for sale' ); ?></p>
-					<h2 id="homes-title" class="display"><?php echo $inline ? 'Choose your plot' : 'Availability'; ?></h2>
+					<p class="eyebrow"><?php echo $done || $soon ? 'The homes' : ( $inline ? 'Plots &amp; homes for sale' : 'Homes for sale' ); ?></p>
+					<h2 id="homes-title" class="display"><?php echo $inline ? 'Choose your plot' : ( $soon ? 'Coming soon' : 'Availability' ); ?></h2>
 				</div>
 				<p class="section-intro"><?php
 					if ( $done ) {
 						echo 'This development has been completed and every home is now sold.';
+					} elseif ( $soon ) {
+						echo esc_html( 'House types, plots and prices at ' . $d['name'] . ' will be published here as soon as they are confirmed.' );
 					} elseif ( $inline ) {
 						echo 'Hover over a home on the plan, or tap it on a phone, to see its house type, room sizes and every plot of that type available now. Click a home to open its full details and floor plans.';
 					} else {
@@ -112,6 +121,14 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 					<p class="sold-out-title"><?php echo esc_html( trim( 'Completed ' . $d['completed'] ) . ' — all homes sold' ); ?></p>
 					<p>Thank you to everyone who chose a home at <?php echo esc_html( $d['name'] ); ?>. Take a look at our current developments to find homes available now.</p>
 					<a class="btn btn-navy" href="<?php echo esc_url( $current_url ); ?>">View current developments</a>
+				</div>
+			<?php elseif ( $soon ) : ?>
+				<div class="sold-out" data-reveal>
+					<span class="sold-out-rule" aria-hidden="true"></span>
+					<p class="eyebrow"><?php echo esc_html( $d['name'] ); ?></p>
+					<p class="sold-out-title"><?php echo esc_html( $d['headline'] ?: 'New homes coming soon' ); ?></p>
+					<p>Register your interest and we will be in touch as soon as house types, plots and prices are released.</p>
+					<a class="btn btn-navy" href="#enquire">Register your interest</a>
 				</div>
 			<?php elseif ( $inline ) : ?>
 				<?php echo Premier_Render::site_plan( $d ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -163,12 +180,12 @@ $inline = ! $done && $d['site_plan'] && Premier_Data::plots_inline();
 				<p class="loc-label">Development address</p>
 				<p class="loc-place"><?php echo esc_html( $d['name'] . ', ' . $d['location'] ); ?></p>
 				<?php if ( $d['postcode'] ) : ?><p class="loc-postcode"><?php echo esc_html( $d['postcode'] ); ?></p><?php endif; ?>
-				<p class="loc-note"><?php echo $done ? 'All homes are now privately owned — please respect residents’ privacy.' : 'Viewings strictly by appointment.'; ?></p>
+				<p class="loc-note"><?php echo $done ? 'All homes are now privately owned — please respect residents’ privacy.' : ( $soon ? 'Register your interest to hear when viewings open.' : 'Viewings strictly by appointment.' ); ?></p>
 			</div>
 		</div>
 	</section>
 
-	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => $done ? 'Looking for a home like <em>' . esc_html( $d['name'] ) . '</em>?' : 'Interested in <em>' . esc_html( $d['name'] ) . '</em>?', 'lead' => $done ? 'Every home here is now sold, but new developments are always in the pipeline. Call or email to hear about them first.' : 'Call the team or send us an email to arrange a viewing or reserve a plot.', 'subject' => 'Enquiry: ' . $d['name'], 'development' => $done ? '' : $d['name'] ) ); ?>
+	<?php get_template_part( 'template-parts/enquire', null, array( 'title' => $done ? 'Looking for a home like <em>' . esc_html( $d['name'] ) . '</em>?' : 'Interested in <em>' . esc_html( $d['name'] ) . '</em>?', 'lead' => $done ? 'Every home here is now sold, but new developments are always in the pipeline. Call or email to hear about them first.' : ( $soon ? 'Call the team or send us an email to register your interest and hear first when plots are released.' : 'Call the team or send us an email to arrange a viewing or reserve a plot.' ), 'subject' => 'Enquiry: ' . $d['name'], 'development' => $done ? '' : $d['name'] ) ); ?>
 
 	<?php if ( $others ) : ?>
 	<section class="section others" aria-labelledby="others-title">

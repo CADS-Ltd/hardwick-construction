@@ -294,6 +294,18 @@ class Premier_Widget_Developments extends Premier_Widget_Base {
 			$s['page_link_text'] = 'completed' === $role ? 'View all completed developments' : 'View all current developments';
 		}
 		$body = 'grid' === $s['layout'] ? Premier_Render::development_grid( $list ) : Premier_Render::development_rows( $list );
+		if ( ! $list && 'completed' === $stage ) {
+			// Nothing completed yet: the Completed page says so and every other page leaves the section out
+			if ( Premier_Data::page_id( 'completed' ) !== (int) get_the_ID() ) {
+				if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+					echo '<p style="padding:24px;text-align:center;opacity:.7">Completed developments: hidden until a completed development is published.</p>';
+				}
+				return;
+			}
+			$s['page_link'] = '';
+			$s['intro']     = '';
+			$body           = Premier_Render::completed_holding();
+		}
 		echo $this->section_open( $s ) . '<div class="wrap">' . $this->section_head( $s, 'grid' === $s['layout'], $this->page_link_html( $s, $role ) ) . $body . '</div></section>'; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 }

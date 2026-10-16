@@ -28,7 +28,9 @@
     try { data = JSON.parse(dataEl.textContent); } catch (e) { return; }
 
     var types = data.types || {};
+    // House types in the order the development lists them (their Order field, then name)
     var typeKeys = Object.keys(types).sort(function (a, b) {
+      if (types[a].order !== undefined && types[b].order !== undefined) return types[a].order - types[b].order;
       return types[a].name.localeCompare(types[b].name, undefined, { numeric: true });
     });
     var byPlot = {};

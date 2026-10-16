@@ -45,16 +45,20 @@ class Premier_Render {
 				: '';
 			$out .= '<article class="dev-row' . ( $i % 2 ? ' is-flipped' : '' ) . '">'
 				. '<a class="dev-row-media frame" href="' . esc_url( $d['url'] ) . '" tabindex="-1" aria-hidden="true" data-reveal>'
-				. '<span class="frame-clip">' . self::img( $d['hero'], 'large', array( 'alt' => '' ) ) . '</span></a>'
+				. '<span class="frame-clip">' . ( self::img( $d['hero'], 'large', array( 'alt' => '' ) ) ?: self::empty_media( $d ) ) . '</span></a>'
 				. '<div class="dev-row-body" data-reveal>'
 				. '<p class="dev-row-index"><span>' . $num . '</span>' . self::e( $d['location'] ) . '</p>'
 				. '<h3 class="dev-row-title"><a href="' . esc_url( $d['url'] ) . '">' . self::e( $d['name'] ) . '</a></h3>'
 				. ( $d['headline'] ? '<p class="dev-row-headline">' . self::e( $d['headline'] ) . '</p>' : '' )
 				. ( $d['summary'] ? '<p class="dev-row-summary">' . self::e( $d['summary'] ) . '</p>' : '' )
 				. '<dl class="meta">'
-				. '<div><dt>Homes</dt><dd>' . self::e( $d['bed_range'] ?: '—' ) . '</dd></div>'
-				. '<div><dt>Prices from</dt><dd>' . self::e( $d['price_from'] ? Premier_Data::price( $d['price_from'] ) : 'Enquire' ) . '</dd></div>'
-				. '<div><dt>Availability</dt><dd><span class="dot" aria-hidden="true"></span>' . self::e( $c['available'] ? $c['available'] . ' available' : 'Register interest' ) . '</dd></div>'
+				. ( $d['upcoming']
+					? '<div><dt>Homes</dt><dd>Details to follow</dd></div>'
+						. '<div><dt>Prices</dt><dd>To be announced</dd></div>'
+						. '<div><dt>Availability</dt><dd><span class="dot is-soon" aria-hidden="true"></span>Coming soon</dd></div>'
+					: '<div><dt>Homes</dt><dd>' . self::e( $d['bed_range'] ?: '—' ) . '</dd></div>'
+						. '<div><dt>Prices from</dt><dd>' . self::e( $d['price_from'] ? Premier_Data::price( $d['price_from'] ) : 'Enquire' ) . '</dd></div>'
+						. '<div><dt>Availability</dt><dd><span class="dot" aria-hidden="true"></span>' . self::e( $c['available'] ? $c['available'] . ' available' : 'Register interest' ) . '</dd></div>' )
 				. '</dl>'
 				. '<p class="dev-row-links"><a class="link-arrow draw" href="' . esc_url( $d['url'] ) . '">View development<span class="sr-only"> — ' . self::e( $d['name'] ) . '</span> ' . self::ARROW . '</a>' . $plan . '</p>'
 				. '</div></article>';
@@ -63,13 +67,24 @@ class Premier_Render {
 	}
 
 	public static function development_card( $d ) {
-		$tag = 'completed' === $d['stage'] ? trim( 'Completed ' . $d['completed'] ) : 'Now selling';
+		$tag = 'completed' === $d['stage'] ? trim( 'Completed ' . $d['completed'] ) : ( $d['upcoming'] ? 'Coming soon' : 'Now selling' );
 		return '<a class="done-card" href="' . esc_url( $d['url'] ) . '" data-reveal>'
-			. '<span class="done-media">' . self::img( $d['hero'], 'medium_large', array( 'alt' => $d['name'] . ', ' . $d['location'] ) ) . '</span>'
+			. '<span class="done-media">' . ( self::img( $d['hero'], 'medium_large', array( 'alt' => $d['name'] . ', ' . $d['location'] ) ) ?: self::empty_media( $d ) ) . '</span>'
 			. '<span class="done-meta">' . self::e( $tag ) . '</span>'
 			. '<span class="done-name">' . self::e( $d['name'] ) . '</span>'
 			. '<span class="done-loc">' . self::e( $d['location'] ) . '</span>'
 			. '</a>';
+	}
+
+	/**
+	 * Stand-in for a development that has no photo yet (Main photo left empty):
+	 * its name on navy under a gold roofline.
+	 */
+	public static function empty_media( $d ) {
+		return '<span class="dev-empty">'
+			. '<svg class="dev-empty-mark" viewBox="0 0 120 44" aria-hidden="true"><path d="M2 42h116M12 42V25L30 9l18 16v17M48 25 64 11l16 14v17M80 25l14-12 14 12v17"/></svg>'
+			. '<span class="dev-empty-name">' . self::e( $d['name'] ) . '</span>'
+			. '<small>' . ( $d['upcoming'] ? 'Coming soon' : 'Photos to follow' ) . '</small></span>';
 	}
 
 	/** Completed (or any) developments as a grid of cards. */
@@ -80,10 +95,24 @@ class Premier_Render {
 		return '<div class="completed-grid ' . esc_attr( $class ) . '" data-stagger>' . implode( '', array_map( array( __CLASS__, 'development_card' ), $list ) ) . '</div>';
 	}
 
+	/** The Completed developments page before any development is marked completed. */
+	public static function completed_holding() {
+		$current = Premier_Data::page_url( 'current' );
+		return '<div class="sold-out" data-reveal>'
+			. '<span class="sold-out-rule" aria-hidden="true"></span>'
+			. '<p class="sold-out-title">Our completed developments will be shown here soon</p>'
+			. '<p>We are gathering photographs of the homes we have built. In the meantime, take a look at the developments we are building now.</p>'
+			. ( $current ? '<a class="btn btn-navy" href="' . esc_url( $current ) . '">View current developments</a>' : '' )
+			. '</div>';
+	}
+
 	/** The "Now selling" strip under the home page hero. */
 	public static function now_selling_list( $list ) {
 		$out = '';
 		foreach ( $list as $d ) {
+			if ( $d['upcoming'] ) {
+				continue;
+			}
 			$out .= '<li><a class="draw" href="' . esc_url( $d['url'] ) . '">' . self::e( $d['name'] )
 				. '<span> · ' . self::e( explode( ',', $d['location'] )[0] ) . '</span></a></li>';
 		}
@@ -166,8 +195,9 @@ class Premier_Render {
 		$ratio = ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) ? $meta['width'] . ' / ' . $meta['height'] : '4 / 3';
 
 		$types = array();
-		foreach ( $d['house_types'] as $t ) {
+		foreach ( $d['house_types'] as $i => $t ) {
 			$types[ $t['id'] ] = array(
+				'order'      => $i,
 				'name'       => $t['name'],
 				'style'      => $t['style'],
 				'beds'       => $t['beds'],

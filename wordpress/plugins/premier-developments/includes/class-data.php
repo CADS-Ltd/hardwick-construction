@@ -221,6 +221,8 @@ class Premier_Data {
 			'url'         => get_permalink( $id ),
 			'plots_url'   => $site_plan ? ( self::plots_inline() ? get_permalink( $id ) . '#homes' : trailingslashit( get_permalink( $id ) ) . 'plots/' ) : '',
 			'stage'       => $stage,
+			// A current development with no plots yet is announced as "coming soon"
+			'upcoming'    => 'current' === $stage && ! $plots,
 			'completed'   => (string) self::field( 'completed_year', $id ),
 			'location'    => (string) self::field( 'location', $id ),
 			'postcode'    => (string) self::field( 'postcode', $id ),
@@ -240,14 +242,13 @@ class Premier_Data {
 		);
 	}
 
-	/** House type ids attached to a development, in title order (Type A, Type B…). */
+	/** House type ids attached to a development, by their Order (Page Attributes) and then title. */
 	public static function house_type_ids_for( $dev_id ) {
 		return get_posts( array(
 			'post_type'   => 'house_type',
 			'post_status' => 'publish',
 			'numberposts' => -1,
-			'orderby'     => 'title',
-			'order'       => 'ASC',
+			'orderby'     => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
 			'fields'      => 'ids',
 			'meta_query'  => array( array( 'key' => 'development', 'value' => (int) $dev_id ) ),
 		) );

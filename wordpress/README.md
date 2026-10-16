@@ -40,10 +40,12 @@ All of this is done from the WordPress admin:
 | **Outline a plot on the site plan** | Under the table, in **Site plan outliner**: click **Draw** next to the plot, click each corner of the house on the plan, then click the first point again. Then **Update**. |
 | **Finish a development** | **Overview** tab › **Stage** › *Completed*, and enter the year. It moves to "Completed developments" automatically. |
 | **Start a new development** | **Developments › Add new development**. Fill in the Overview tab, then upload the site plan and add plots in the Plots tab. |
+| **Announce a development early** | Add it with just the Overview tab filled in. With no plots it shows as *Coming soon* (with "register your interest"), and with no Main photo it gets a navy panel with its name until a photo is added. |
+| **Order of developments or house types** | The **Order** box (Page Attributes) on each one: lower numbers come first. |
 | **Add a house type** (with floor plans and PDF) | **Developments › House types › Add new**. Choose its development, add the picture, room sizes, plan images and the PDF. It then appears in that development's plot table. |
 | **Phone, email, address, stats** | **Company details** in the admin menu. Used across the whole site. |
 | **Home page text and photos** | **Pages › Home › Edit with Elementor**. Each section is a *Premier Property* widget with its own settings. |
-| **Menus** | **Appearance › Menus**, with *Main menu* and *Footer menu* locations. |
+| **Menus** | **Appearance › Menus**, with *Main menu* and *Footer menu* locations. Links to Completed developments are hidden until a development is marked completed. |
 
 ## Pages and URLs
 

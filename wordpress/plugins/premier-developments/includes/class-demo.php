@@ -661,6 +661,7 @@ class Premier_Demo {
 		$handler->update( $id, $data );
 		update_option( 'premier_contact_form', $id );
 		update_option( 'premier_contact_form_dev_field', 4 );
+		update_option( 'premier_form_dev_choices', array_column( Premier_Data::developments( 'current' ), 'name' ), false );
 		self::$log[] = 'WPForms enquiry form created (sends to ' . ( $c['email'] ? $c['email'] : 'the admin email' ) . ').';
 		return (int) $id;
 	}

@@ -206,3 +206,21 @@
   .hero-holding .holding-top .brand-logo img { height: 36px; }
   .hero-holding .hero-content { padding-top: 120px; }
 }
+
+/* A development without a photo yet: its name on navy under a gold roofline */
+.dev-empty {
+  position: relative; width: 100%; height: 100%; display: grid; place-content: center; justify-items: center; gap: 10px;
+  padding: 24px; text-align: center; color: var(--ivory);
+  background: radial-gradient(120% 90% at 50% 0%, var(--navy-soft) 0%, var(--navy) 55%, var(--navy-deep) 100%);
+}
+.dev-empty::after { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(200, 162, 74, .35); pointer-events: none; }
+.dev-empty-mark { width: clamp(84px, 30%, 132px); height: auto; margin-bottom: 6px; fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linejoin: round; stroke-linecap: round; }
+.dev-empty-name { font-family: var(--serif); font-size: clamp(26px, 3vw, 38px); line-height: 1.1; }
+.dev-empty small { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-soft); }
+.done-media .dev-empty-name { font-size: clamp(24px, 2.4vw, 30px); }
+.dot.is-soon { background: transparent; box-shadow: inset 0 0 0 1.5px var(--gold); }
+.hero-media.is-empty {
+  background:
+    radial-gradient(90% 70% at 75% 10%, rgba(38, 54, 106, .9) 0%, rgba(15, 31, 75, 0) 70%),
+    linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+}

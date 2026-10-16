@@ -111,9 +111,13 @@ class Premier_SEO {
 			if ( $d ) {
 				$where = self::town( $d['location'] );
 				$beds  = $d['bed_range'] ? ucwords( $d['bed_range'] ) . ' ' : '';
-				$title = 'completed' === $d['stage']
-					? self::fit( array( $d['name'] . ', ' . $where . ' – Completed Development', $d['name'] . ', ' . $where . ' – Completed', $d['name'] . ' – Completed' ) )
-					: self::fit( array( $d['name'] . ', ' . $where . ' – New ' . $beds . 'Homes for Sale', $d['name'] . ', ' . $where . ' – New ' . $beds . 'Homes', $d['name'] . ' – New Homes for Sale' ) );
+				if ( 'completed' === $d['stage'] ) {
+					$title = self::fit( array( $d['name'] . ', ' . $where . ' – Completed Development', $d['name'] . ', ' . $where . ' – Completed', $d['name'] . ' – Completed' ) );
+				} elseif ( $d['upcoming'] ) {
+					$title = self::fit( array( $d['name'] . ', ' . $where . ' – New Homes Coming Soon', $d['name'] . ', ' . $where . ' – Coming Soon', $d['name'] . ' – Coming Soon' ) );
+				} else {
+					$title = self::fit( array( $d['name'] . ', ' . $where . ' – New ' . $beds . 'Homes for Sale', $d['name'] . ', ' . $where . ' – New ' . $beds . 'Homes', $d['name'] . ' – New Homes for Sale' ) );
+				}
 			}
 		} elseif ( 'house_type' === $type ) {
 			$t = Premier_Data::house_type( $id );
@@ -140,6 +144,9 @@ class Premier_SEO {
 			}
 			if ( 'completed' === $d['stage'] ) {
 				return self::clip( $d['name'] . ' in ' . $d['location'] . ', completed ' . $d['completed'] . ' by ' . Premier_Data::company()['name'] . '. ' . $d['summary'] );
+			}
+			if ( $d['upcoming'] ) {
+				return self::clip( 'Coming soon: ' . $d['name'] . ', ' . $d['location'] . '. ' . rtrim( $d['headline'] ?: $d['summary'], '.' ) . '. Register your interest with us today.' );
 			}
 			$lead = 'New homes for sale at ' . $d['name'] . ', ' . $d['location'] . '.';
 			if ( $d['bed_range'] || $d['price_from'] ) {
@@ -248,15 +255,21 @@ class Premier_SEO {
 	}
 
 	public static function robots( $robots ) {
-		if ( is_singular( 'house_type' ) && self::is_thin_house_type( get_queried_object_id() ) ) {
+		if ( ( is_singular( 'house_type' ) && self::is_thin_house_type( get_queried_object_id() ) ) || ( is_page() && self::is_empty_completed( get_queried_object_id() ) ) ) {
 			$robots['index'] = 'noindex';
 		}
 		return $robots;
 	}
 
+	/** The Completed developments page while no development is completed: kept out of search until it has something to show. */
+	public static function is_empty_completed( $id ) {
+		$page = Premier_Data::page_id( 'completed' );
+		return $page && (int) $id === $page && ! Premier_Data::developments( 'completed' );
+	}
+
 	/** Returning false removes the entry from the sitemap. */
 	public static function sitemap_entry( $url, $type, $object ) {
-		if ( 'post' === $type && is_object( $object ) && self::is_thin_house_type( $object->ID ) ) {
+		if ( 'post' === $type && is_object( $object ) && ( self::is_thin_house_type( $object->ID ) || self::is_empty_completed( $object->ID ) ) ) {
 			return false;
 		}
 		return $url;
@@ -565,7 +578,7 @@ class Premier_SEO {
 			'knowledgegraph_name'          => $name,
 			'website_name'                 => $name,
 			'website_alternate_name'       => 'Premier Property',
-			'organization_description'     => 'Premier Property Central builds quality new homes in Swadlincote and South Derbyshire.',
+			'organization_description'     => 'Premier Property Central is a family-run housebuilder in Swadlincote, building quality new homes across the East Midlands since 1976.',
 			'knowledgegraph_logo'          => $logo,
 			'knowledgegraph_logo_id'       => $logo_id,
 			'url'                          => home_url( '/' ),
@@ -647,7 +660,7 @@ class Premier_SEO {
 			),
 			Premier_Data::page_id( 'about' ) => array(
 				'About %sitename% %sep% Swadlincote Housebuilder',
-				$name . ' is a housebuilder based in Swadlincote, Derbyshire, building quality new homes across South Derbyshire.',
+				$name . ' is a family-run housebuilder in Swadlincote, building select developments of quality family homes across the East Midlands since 1976.',
 				'housebuilder swadlincote,premier property central',
 			),
 			Premier_Data::page_id( 'contact' ) => array(

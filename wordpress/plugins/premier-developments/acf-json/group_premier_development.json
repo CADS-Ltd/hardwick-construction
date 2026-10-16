@@ -114,8 +114,8 @@
       "label": "Main photo",
       "name": "hero_image",
       "type": "image",
-      "instructions": "Shown large at the top of the development page and on the home page.",
-      "required": 1,
+      "instructions": "Shown large at the top of the development page and on the home page. Optional: until a photo is added, a navy panel with the development name is shown.",
+      "required": 0,
       "conditional_logic": 0,
       "wrapper": {
         "width": "",
@@ -396,5 +396,5 @@
   "active": true,
   "description": "Everything shown on a development page.",
   "show_in_rest": 0,
-  "modified": 1792000000
+  "modified": 1792148509
 }

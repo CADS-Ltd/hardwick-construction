@@ -20,6 +20,68 @@ class Premier_Post_Types {
 		add_action( 'acf/save_post', array( __CLASS__, 'clear_page_cache' ), 99 );
 		add_action( 'trashed_post', array( __CLASS__, 'clear_page_cache' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'house_type_filter_query' ) );
+		add_filter( 'wp_get_nav_menu_items', array( __CLASS__, 'hide_completed_links' ) );
+		add_action( 'acf/save_post', array( __CLASS__, 'sync_form_choices' ), 99 );
+		add_action( 'trashed_post', array( __CLASS__, 'sync_form_choices' ) );
+		add_action( 'untrashed_post', array( __CLASS__, 'sync_form_choices' ) );
+	}
+
+	/**
+	 * The enquiry form's "Which development are you interested in?" list follows
+	 * the current developments: adding, renaming, completing or binning one
+	 * updates it. Choices added by hand in WPForms (such as "General enquiry")
+	 * are kept, after the developments.
+	 */
+	public static function sync_form_choices( $post_id = 0 ) {
+		if ( $post_id && 'development' !== get_post_type( $post_id ) ) {
+			return;
+		}
+		$form_id  = Premier_Data::contact_form_id();
+		$field_id = (int) get_option( 'premier_contact_form_dev_field' );
+		if ( ! $form_id || ! $field_id || ! function_exists( 'wpforms' ) ) {
+			return;
+		}
+		$form = wpforms()->obj( 'form' )->get( $form_id );
+		$data = $form ? wpforms_decode( $form->post_content ) : null;
+		if ( empty( $data['fields'][ $field_id ]['choices'] ) ) {
+			return;
+		}
+		$names   = array_column( Premier_Data::developments( 'current' ), 'name' );
+		// Names this added last time; before the first sync, everything but "General enquiry" came from the demo
+		$managed = get_option( 'premier_form_dev_choices', null );
+		$others  = array();
+		foreach ( $data['fields'][ $field_id ]['choices'] as $choice ) {
+			$label = (string) ( $choice['label'] ?? '' );
+			$auto  = is_array( $managed ) ? in_array( $label, $managed, true ) : 'General enquiry' !== $label;
+			if ( '' !== $label && ! $auto && ! in_array( $label, $names, true ) ) {
+				$others[] = $label;
+			}
+		}
+		$choices = array();
+		foreach ( array_merge( $names, $others ) as $i => $label ) {
+			$choices[ $i + 1 ] = array( 'label' => $label, 'value' => '', 'image' => '' );
+		}
+		update_option( 'premier_form_dev_choices', $names, false );
+		if ( array_column( $choices, 'label' ) !== array_column( $data['fields'][ $field_id ]['choices'], 'label' ) ) {
+			$data['fields'][ $field_id ]['choices'] = $choices;
+			wpforms()->obj( 'form' )->update( $form_id, $data );
+		}
+	}
+
+	/**
+	 * Until a development is marked completed, menu links to the Completed
+	 * developments page (or the home page's #completed section) are left out.
+	 * They come back by themselves once one is published.
+	 */
+	public static function hide_completed_links( $items ) {
+		if ( is_admin() || ! is_array( $items ) || Premier_Data::developments( 'completed' ) ) {
+			return $items;
+		}
+		$page = Premier_Data::page_id( 'completed' );
+		return array_values( array_filter( $items, function ( $item ) use ( $page ) {
+			$to_page = $page && 'post_type' === $item->type && (int) $item->object_id === $page;
+			return ! $to_page && '#completed' !== strstr( (string) $item->url, '#' );
+		} ) );
 	}
 
 	public static function register() {
@@ -37,7 +99,7 @@ class Premier_Post_Types {
 			'rewrite'       => array( 'slug' => 'developments', 'with_front' => false, 'ep_mask' => EP_PERMALINK ),
 			'menu_icon'     => 'dashicons-admin-multisite',
 			'menu_position' => 5,
-			'supports'      => array( 'title' ),
+			'supports'      => array( 'title', 'page-attributes' ),
 			'show_in_rest'  => true,
 		) );
 
@@ -54,7 +116,7 @@ class Premier_Post_Types {
 			'has_archive'   => false,
 			'rewrite'       => array( 'slug' => 'house-types', 'with_front' => false ),
 			'show_in_menu'  => 'edit.php?post_type=development',
-			'supports'      => array( 'title' ),
+			'supports'      => array( 'title', 'page-attributes' ),
 			'show_in_rest'  => true,
 		) );
 
