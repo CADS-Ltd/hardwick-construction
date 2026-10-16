@@ -511,6 +511,8 @@ class Premier_SEO {
 			'local_seo_about_page'         => Premier_Data::page_id( 'about' ),
 			'local_seo_contact_page'       => Premier_Data::page_id( 'contact' ),
 			'twitter_card_type'            => 'summary_large_image',
+			// No author pages: they would only show the admin's login name
+			'disable_author_archives'      => 'on',
 			// Developments and house types: titles and descriptions written from their details
 			'pt_development_title'               => '%premier_seo_title%',
 			'pt_development_description'         => '%premier_seo_description%',

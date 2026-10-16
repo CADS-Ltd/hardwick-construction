@@ -75,6 +75,23 @@ add_action( 'wp_head', function () {
 	echo '<style id="premier-fonts">' . str_replace( '../fonts/', esc_url( $fonts ), $css ) . "</style>\n"; // phpcs:ignore WordPress.Security.EscapeOutput
 }, 1 );
 
+/**
+ * Site icon (browser tab, phone home screen, Google results): the PP monogram
+ * from the logo, unless one is chosen under Appearance › Customise › Site Identity.
+ */
+add_filter( 'get_site_icon_url', function ( $url, $size ) {
+	// $url may hold WordPress's own default (for /favicon.ico), so only a chosen icon wins
+	if ( get_option( 'site_icon' ) ) {
+		return $url;
+	}
+	foreach ( array( 32, 180, 192, 270, 512 ) as $available ) {
+		if ( $available >= $size ) {
+			break;
+		}
+	}
+	return get_template_directory_uri() . '/assets/img/icon/icon-' . $available . '.png';
+}, 10, 2 );
+
 /** Pages whose first section is a full-height photo get the transparent header. */
 function premier_has_hero() {
 	if ( is_singular( array( 'development', 'house_type' ) ) || is_post_type_archive( 'development' ) ) {
