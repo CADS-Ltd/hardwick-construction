@@ -79,9 +79,9 @@ On the home page each section (Current, Completed, About, Contact) has a link to
 ## Speed (WP Rocket)
 
 - **Fonts** (Cormorant Garamond and Jost) are self-hosted in the theme and preloaded, so no request goes to Google Fonts. Elementor's own Google Fonts are switched off.
-- **Logos** are WebP. The footer logo loads lazily.
+- **Logos** are WebP, in 260, 360 and 485px copies so phones download the small one. The footer logo loads lazily.
 - Recommended **WP Rocket › File Optimization** settings: *Minify CSS*, *Optimize CSS delivery*, *Minify JavaScript*, *Load JavaScript deferred* and *Delay JavaScript execution*. The theme's scripts and the site plan are excluded from the delay automatically, so the menu, animations and plan work straight away.
-- After changing the theme or plugin, clear the WP Rocket cache, and purge Cloudflare if it caches CSS.
+- After updating the theme or plugin, go to **WP Rocket › Dashboard** and use **Clear Used CSS** as well as **Clear and Preload Cache**. *Remove Unused CSS* keeps its own copy of the theme's CSS, so style changes don't show until it is cleared. It rebuilds in the background over the next few minutes. Purge Cloudflare too if it caches CSS.
 
 ## Heritage A or B
 
