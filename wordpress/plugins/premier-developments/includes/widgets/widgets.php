@@ -500,3 +500,46 @@ class Premier_Widget_Plots_Banner extends Premier_Widget_Base {
 		echo Premier_Render::plan_cta( $d ); // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 }
+
+/**
+ * Coming soon page: a full-screen holding page for Elementor's Coming Soon
+ * mode. The logo, phone, email and address come from Company details.
+ */
+class Premier_Widget_Holding extends Premier_Widget_Base {
+	public function get_name() { return 'premier-holding'; }
+	public function get_title() { return 'Coming soon page'; }
+	public function get_icon() { return 'eicon-clock-o'; }
+
+	protected function register_controls() {
+		$this->start_controls_section( 'content', array( 'label' => 'Coming soon page' ) );
+		$this->add_control( 'image', array( 'label' => 'Background photo', 'type' => Controls_Manager::MEDIA ) );
+		$this->add_control( 'eyebrow', array( 'label' => 'Small label', 'type' => Controls_Manager::TEXT, 'default' => 'Housebuilders · Swadlincote', 'label_block' => true ) );
+		$this->add_control( 'title', array( 'label' => 'Heading', 'type' => Controls_Manager::TEXTAREA, 'rows' => 2, 'default' => 'Our new website is <em>on its way</em>', 'description' => 'Wrap a word in &lt;em&gt;…&lt;/em&gt; to set it in italic gold.' ) );
+		$this->add_control( 'lede', array( 'label' => 'Text under the heading', 'type' => Controls_Manager::TEXTAREA, 'rows' => 3, 'default' => 'We are putting the finishing touches to our new website. In the meantime, call or email us about any of our developments.' ) );
+		$this->add_control( 'show_address', array( 'label' => 'Show the office address', 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' ) );
+		$this->end_controls_section();
+	}
+
+	protected function render() {
+		$s   = $this->get_settings_for_display();
+		$c   = Premier_Data::company();
+		$img = ! empty( $s['image']['id'] ) ? Premier_Render::img( $s['image']['id'], 'full', array( 'alt' => '', 'loading' => 'eager', 'fetchpriority' => 'high' ) )
+			: ( ! empty( $s['image']['url'] ) ? '<img src="' . esc_url( $s['image']['url'] ) . '" alt="">' : '' );
+		$logo = function_exists( 'premier_wordmark' ) ? premier_wordmark( true ) : '<p class="holding-name">' . esc_html( $c['name'] ) . '</p>';
+		$tel  = $c['phone'] ? preg_replace( '/[^0-9+]/', '', $c['phone'] ) : '';
+		echo '<section class="hero hero-home hero-holding">'
+			. '<div class="hero-media" aria-hidden="true">' . $img . '</div>' // phpcs:ignore WordPress.Security.EscapeOutput
+			. '<div class="hero-shade" aria-hidden="true"></div>'
+			. '<div class="wrap holding-top hero-fade" style="--d:.1s">' . $logo . '</div>' // phpcs:ignore WordPress.Security.EscapeOutput
+			. '<div class="wrap hero-content">'
+			. ( $s['eyebrow'] ? '<p class="eyebrow eyebrow-light hero-fade" style="--d:.25s">' . esc_html( $s['eyebrow'] ) . '</p>' : '' )
+			. '<h1 class="hero-title hero-fade" style="--d:.45s">' . $this->heading_html( $s['title'] ) . '</h1>' // phpcs:ignore WordPress.Security.EscapeOutput
+			. ( $s['lede'] ? '<p class="hero-lede hero-fade" style="--d:.7s">' . esc_html( $s['lede'] ) . '</p>' : '' )
+			. '<div class="hero-actions hero-fade" style="--d:.95s">'
+			. ( $tel ? '<a class="btn btn-gold" href="tel:' . esc_attr( $tel ) . '">Call ' . esc_html( $c['phone'] ) . '</a>' : '' )
+			. ( $c['email'] ? '<a class="btn btn-ghost-light" href="mailto:' . esc_attr( $c['email'] ) . '">Email us</a>' : '' )
+			. '</div>'
+			. ( 'yes' === $s['show_address'] && $c['address'] ? '<p class="holding-address hero-fade" style="--d:1.15s">' . esc_html( implode( ', ', $c['address'] ) ) . '</p>' : '' )
+			. '</div></section>';
+	}
+}

@@ -34,6 +34,7 @@ class Premier_Elementor {
 			'Premier_Widget_Plots',
 			'Premier_Widget_House_Types',
 			'Premier_Widget_Plots_Banner',
+			'Premier_Widget_Holding',
 		) as $class ) {
 			$manager->register( new $class() );
 		}

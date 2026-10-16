@@ -85,6 +85,14 @@ On the home page each section (Current, Completed, About, Contact) has a link to
 - Recommended **WP Rocket › File Optimization** settings: *Minify CSS*, *Optimize CSS delivery*, *Minify JavaScript*, *Load JavaScript deferred* and *Delay JavaScript execution*. The theme's scripts and the site plan are excluded from the delay automatically, so the menu, animations and plan work straight away.
 - After updating the theme or plugin, go to **WP Rocket › Dashboard** and use **Clear Used CSS** as well as **Clear and Preload Cache**. *Remove Unused CSS* keeps its own copy of the theme's CSS, so style changes don't show until it is cleared. It rebuilds in the background over the next few minutes. Purge Cloudflare too if it caches CSS.
 
+## Coming soon page
+
+**Tools › Premier demo content › Set up the coming soon page** creates a holding page (the *Coming soon page* Elementor widget: logo, message, Call and Email buttons and the address, all from **Company details**) and switches on Elementor's **Coming Soon** mode. Visitors see only the holding page; anyone logged in sees the full site.
+
+- Edit the wording or photo under **Templates › Saved Templates › Coming soon**.
+- Turn it off under **Elementor › Tools › Maintenance Mode › Choose Mode: Disabled**, then clear the WP Rocket cache.
+- Coming Soon mode answers with HTTP 200, so the holding page can stay in Google. While it is on, the page uses the company's title and description and points its canonical link at the home page (Rank Math ignores Elementor templates, so the plugin adds these).
+
 ## Privacy safeguards
 
 The admin's login name is kept off the public site: author pages (`/author/…` and `?author=1`) redirect to the home page, the REST API's user list is only available to logged-in users, and the author is removed from embed data and Rank Math's Slack preview.

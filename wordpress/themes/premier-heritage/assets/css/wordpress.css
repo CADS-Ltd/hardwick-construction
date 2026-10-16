@@ -193,3 +193,16 @@
 .hero-foot-label, .meta dt, .done-meta, .contact-list dt, .footer-title, .facts dt, .avail-label, .plots th, .badge,
 .loc-label, .pr-title, .type-card-area, .panel-media.is-empty small, .type-card-empty small, .plan-tip small,
 .subnav-links a, .plots td::before { font-size: 12px; }
+
+/* Coming soon page (Elementor's Coming Soon mode): the logo sits top left, the message at the foot of the photo */
+.hero-holding .holding-top { position: absolute; top: 0; left: 0; right: 0; padding-top: 28px; padding-bottom: 28px; border-bottom: 1px solid rgba(247, 244, 238, .14); }
+.hero-holding .holding-top .brand-logo img { height: 46px; }
+.hero-holding .hero-content { padding-top: 160px; padding-bottom: clamp(64px, 12vh, 140px); }
+.hero-holding .hero-title { max-width: 13ch; }
+.hero-holding .holding-address { margin: 30px 0 0; font-size: 14px; letter-spacing: .04em; color: rgba(247, 244, 238, .72); }
+.hero-holding .holding-name { margin: 0; font-family: var(--serif); font-size: 26px; color: var(--ivory); }
+@media (max-width: 720px) {
+  .hero-holding .holding-top { padding-top: 20px; padding-bottom: 20px; }
+  .hero-holding .holding-top .brand-logo img { height: 36px; }
+  .hero-holding .hero-content { padding-top: 120px; }
+}

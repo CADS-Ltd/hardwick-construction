@@ -25,6 +25,14 @@ class Premier_SEO {
 		add_filter( 'rank_math/sitemap/entry', array( __CLASS__, 'sitemap_entry' ), 10, 3 );
 		add_filter( 'rank_math/sitemap/post_type_archive_link', array( __CLASS__, 'sitemap_archive' ), 10, 2 );
 		add_filter( 'rank_math/frontend/breadcrumb/items', array( __CLASS__, 'breadcrumbs' ) );
+		// Elementor's Coming Soon page shows the company, not a template, to search engines
+		add_filter( 'rank_math/frontend/title', array( __CLASS__, 'holding_title' ), 20 );
+		add_filter( 'pre_get_document_title', array( __CLASS__, 'holding_title' ), 20 );
+		add_filter( 'rank_math/frontend/description', array( __CLASS__, 'holding_description' ), 20 );
+		add_filter( 'rank_math/frontend/canonical', array( __CLASS__, 'holding_canonical' ), 20 );
+		add_filter( 'rank_math/frontend/robots', array( __CLASS__, 'holding_robots' ), 20 );
+		add_filter( 'get_canonical_url', array( __CLASS__, 'holding_canonical' ), 20 );
+		add_action( 'wp_head', array( __CLASS__, 'holding_head' ), 5 );
 		// Pages without a schema type of their own still say which website and business they belong to
 		add_filter( 'rank_math/schema/add_global_entities', '__return_true' );
 		add_action( 'acf/save_post', array( __CLASS__, 'fill_post_meta' ), 30 );
@@ -272,6 +280,60 @@ class Premier_SEO {
 			}
 		}
 		return $crumbs;
+	}
+
+	/* ------------------------------------------------------------------
+	 * Coming soon page
+	 * ------------------------------------------------------------------ */
+
+	/** True while Elementor's Coming Soon mode is showing its template. */
+	private static function is_holding() {
+		return 'coming_soon' === get_option( 'elementor_maintenance_mode_mode' )
+			&& is_singular( 'elementor_library' )
+			&& (int) get_option( 'elementor_maintenance_mode_template_id' ) === (int) get_queried_object_id();
+	}
+
+	public static function holding_title( $title ) {
+		return self::is_holding() ? Premier_Data::company()['name'] . ' | New Homes in South Derbyshire' : $title;
+	}
+
+	public static function holding_description( $description ) {
+		if ( ! self::is_holding() ) {
+			return $description;
+		}
+		$c = Premier_Data::company();
+		return self::clip( $c['name'] . ' builds quality new homes in Swadlincote and South Derbyshire. Our new website is on its way'
+			. ( $c['phone'] ? '. Call ' . $c['phone'] . ' or email us.' : '.' ) );
+	}
+
+	/** Every address shows the same holding page, so they all point to the home page. */
+	public static function holding_canonical( $canonical ) {
+		return self::is_holding() ? home_url( '/' ) : $canonical;
+	}
+
+	/** Rank Math leaves Elementor templates alone, so the holding page's description and sharing tags are added here. */
+	public static function holding_head() {
+		if ( ! self::is_holding() || did_action( 'rank_math/head' ) ) {
+			return;
+		}
+		$title = self::holding_title( '' );
+		$desc  = self::holding_description( '' );
+		echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
+		echo '<meta property="og:type" content="website">' . "\n";
+		echo '<meta property="og:site_name" content="' . esc_attr( Premier_Data::company()['name'] ) . '">' . "\n";
+		echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
+		echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
+		echo '<meta property="og:url" content="' . esc_url( home_url( '/' ) ) . '">' . "\n";
+		echo '<meta name="twitter:card" content="summary">' . "\n";
+	}
+
+	/** Templates are normally noindex; the holding page may be listed (unless the whole site is set to discourage search engines). */
+	public static function holding_robots( $robots ) {
+		if ( self::is_holding() && get_option( 'blog_public' ) ) {
+			$robots['index']  = 'index';
+			$robots['follow'] = 'follow';
+		}
+		return $robots;
 	}
 
 	/* ------------------------------------------------------------------

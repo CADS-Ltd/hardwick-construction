@@ -24,9 +24,11 @@ class Premier_Demo {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
 		add_action( 'admin_post_premier_demo', array( __CLASS__, 'handle' ) );
 		add_action( 'admin_post_premier_pages', array( __CLASS__, 'handle_pages' ) );
+		add_action( 'admin_post_premier_holding', array( __CLASS__, 'handle_holding' ) );
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'premier demo', array( __CLASS__, 'cli' ) );
 			WP_CLI::add_command( 'premier pages', array( __CLASS__, 'cli_pages' ) );
+			WP_CLI::add_command( 'premier holding', array( __CLASS__, 'cli_holding' ) );
 		}
 	}
 
@@ -60,6 +62,17 @@ class Premier_Demo {
 				<?php wp_nonce_field( 'premier_pages' ); ?>
 				<input type="hidden" name="action" value="premier_pages">
 				<?php submit_button( 'Create site pages', 'secondary' ); ?>
+			</form>
+			<hr>
+			<h2>Coming soon page</h2>
+			<?php if ( isset( $_GET['holding'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification ?>
+				<div class="notice notice-success inline"><p><?php echo esc_html( implode( ' ', (array) get_transient( 'premier_holding_log' ) ) ); ?></p></div>
+			<?php endif; ?>
+			<p>Creates the <strong>Coming soon</strong> holding page (an Elementor template with the logo, phone, email and address from Company details) and switches on Elementor's <strong>Coming Soon</strong> mode. Visitors see only the holding page; anyone logged in sees the full site. Turn it off under <strong>Elementor › Tools › Maintenance Mode</strong>.</p>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<?php wp_nonce_field( 'premier_holding' ); ?>
+				<input type="hidden" name="action" value="premier_holding">
+				<?php submit_button( 'Set up the coming soon page', 'secondary' ); ?>
 			</form>
 			<hr>
 			<h2>SEO (Rank Math)</h2>
@@ -96,6 +109,28 @@ class Premier_Demo {
 		set_transient( 'premier_pages_log', self::$log, 60 );
 		wp_safe_redirect( admin_url( 'tools.php?page=premier-demo&pages=1' ) );
 		exit;
+	}
+
+	public static function handle_holding() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'Not allowed.' );
+		}
+		check_admin_referer( 'premier_holding' );
+		self::holding_page();
+		set_transient( 'premier_holding_log', self::$log, 60 );
+		wp_safe_redirect( admin_url( 'tools.php?page=premier-demo&holding=1' ) );
+		exit;
+	}
+
+	/**
+	 * Create the Coming soon holding page and switch on Elementor's Coming Soon mode.
+	 */
+	public static function cli_holding() {
+		self::holding_page();
+		foreach ( self::$log as $line ) {
+			WP_CLI::log( $line );
+		}
+		WP_CLI::success( 'Coming soon page set up.' );
 	}
 
 	/**
@@ -631,6 +666,57 @@ class Premier_Demo {
 	}
 
 	/** Footer "Explore" links go to the full pages; the main menu keeps scrolling the home page. */
+	/**
+	 * The Coming soon template (created once, kept if edited) and Elementor's
+	 * Coming Soon mode: HTTP 200, so the holding page can stay in Google,
+	 * with logged-in users seeing the full site.
+	 */
+	public static function holding_page() {
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			self::$log[] = 'Elementor is not active.';
+			return 0;
+		}
+		$id = (int) get_option( 'premier_holding_page' );
+		if ( ! $id || get_post_type( $id ) !== 'elementor_library' || get_post_status( $id ) !== 'publish' ) {
+			$id = wp_insert_post( array(
+				'post_type'   => 'elementor_library',
+				'post_title'  => 'Coming soon',
+				'post_status' => 'publish',
+			) );
+			if ( is_wp_error( $id ) || ! $id ) {
+				self::$log[] = 'The Coming soon template could not be created.';
+				return 0;
+			}
+			wp_set_object_terms( $id, 'page', 'elementor_library_type' );
+			update_post_meta( $id, '_elementor_template_type', 'page' );
+			update_post_meta( $id, '_elementor_edit_mode', 'builder' );
+			update_post_meta( $id, '_elementor_version', defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : '3.0.0' );
+			update_post_meta( $id, '_wp_page_template', 'elementor_canvas' );
+			update_post_meta( $id, '_elementor_data', wp_slash( wp_json_encode( array(
+				self::el_section( 'premier-holding', array(
+					'image'        => self::media_setting( 'img/aerial-cul-de-sac.jpg' ),
+					'eyebrow'      => 'Housebuilders · Swadlincote',
+					'title'        => 'Our new website is <em>on its way</em>',
+					'lede'         => 'We are putting the finishing touches to our new website. In the meantime, call or email us about any of our developments.',
+					'show_address' => 'yes',
+				) ),
+			) ) ) );
+			update_option( 'premier_holding_page', $id );
+			self::$log[] = 'Coming soon template created (Templates › Saved Templates › Coming soon).';
+		} else {
+			self::$log[] = 'Coming soon template already exists (left as it is).';
+		}
+		update_option( 'elementor_maintenance_mode_mode', 'coming_soon' );
+		update_option( 'elementor_maintenance_mode_exclude_mode', 'logged_in' );
+		update_option( 'elementor_maintenance_mode_exclude_roles', array() );
+		update_option( 'elementor_maintenance_mode_template_id', $id );
+		if ( function_exists( 'rocket_clean_domain' ) ) {
+			rocket_clean_domain();
+		}
+		self::$log[] = 'Coming Soon mode is on: visitors see the holding page, logged-in users see the full site.';
+		return $id;
+	}
+
 	/**
 	 * Real photos from the client replace stock ones on pages created by an
 	 * earlier version, as long as the stock photo is still there.
