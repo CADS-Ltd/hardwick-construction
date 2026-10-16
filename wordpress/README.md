@@ -85,6 +85,7 @@ On the home page each section (Current, Completed, About, Contact) has a link to
 - **Uploaded photos** are saved as WebP (the original and every resized copy) when the server supports it, so a JPEG straight from a camera ends up a fraction of the size. Photos uploaded before this was added stay as they were.
 - **Site icon:** the PP monogram from the logo, in `themes/premier-heritage/assets/img/icon/`. Choosing an icon under **Appearance › Customise › Site Identity** replaces it.
 - Recommended **WP Rocket › File Optimization** settings: *Minify CSS*, *Optimize CSS delivery*, *Minify JavaScript*, *Load JavaScript deferred* and *Delay JavaScript execution*. The theme's scripts and the site plan are excluded from the delay automatically, so the menu, animations and plan work straight away.
+- **Same settings on a new licence:** `docs/wp-rocket-settings.json` is an export of the staging settings with the licence details removed. Install WP Rocket, activate it with your own licence, then **WP Rocket › Tools › Import settings** and upload that file.
 - After updating the theme or plugin, go to **WP Rocket › Dashboard** and use **Clear Used CSS** as well as **Clear and Preload Cache**. *Remove Unused CSS* keeps its own copy of the theme's CSS, so style changes don't show until it is cleared. It rebuilds in the background over the next few minutes. Purge Cloudflare too if it caches CSS.
 
 ## Coming soon page
