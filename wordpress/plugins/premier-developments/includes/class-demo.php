@@ -170,6 +170,19 @@ class Premier_Demo {
 	}
 
 	/** Download a file once and keep it in the media library. */
+	/** An attachment imported earlier from $path (0 if none). */
+	private static function imported( $path ) {
+		$existing = get_posts( array(
+			'post_type'   => 'attachment',
+			'post_status' => 'inherit',
+			'numberposts' => 1,
+			'fields'      => 'ids',
+			'meta_key'    => '_premier_demo_file', // phpcs:ignore WordPress.DB.SlowDBQuery
+			'meta_value'  => $path, // phpcs:ignore WordPress.DB.SlowDBQuery
+		) );
+		return $existing ? (int) $existing[0] : 0;
+	}
+
 	private static function media( $path ) {
 		if ( ! $path ) {
 			return 0;
@@ -373,7 +386,7 @@ class Premier_Demo {
 				'anchor'     => 'completed',
 			) ),
 			self::el_section( 'premier-about', array(
-				'image'      => self::media_setting( 'img/build-plans.jpg' ),
+				'image'      => self::media_setting( 'img/aerial-crescent.jpg' ),
 				'eyebrow'    => 'About Premier Property',
 				'heading'    => 'A local name on every home we build',
 				'text'       => 'Premier Property (Central) is a housebuilder based in Swadlincote, building homes for local people in the towns and villages we know best.',
@@ -444,7 +457,7 @@ class Premier_Demo {
 			) ),
 			'completed' => array( 'completed-developments', 'Completed developments', array(
 				self::el_section( 'premier-page-header', array(
-					'image'   => self::media_setting( 'img/ext-brick-street.jpg' ),
+					'image'   => self::media_setting( 'img/aerial-cul-de-sac.jpg' ),
 					'eyebrow' => 'Our portfolio',
 					'title'   => 'Completed <em>developments</em>',
 					'lede'    => 'The communities we have built — every home now sold and lived in.',
@@ -472,7 +485,7 @@ class Premier_Demo {
 			) ),
 			'about'     => array( 'about-us', 'About us', array(
 				self::el_section( 'premier-page-header', array(
-					'image'   => self::media_setting( 'img/build-site.jpg' ),
+					'image'   => self::media_setting( 'img/aerial-crescent.jpg' ),
 					'eyebrow' => 'Housebuilders · Swadlincote',
 					'title'   => 'About Premier Property <em>Central</em>',
 					'lede'    => 'A local housebuilder in Swadlincote, building quality new homes across South Derbyshire.',
@@ -531,6 +544,7 @@ class Premier_Demo {
 			self::$log[] = $p[1] . ' page created.';
 		}
 
+		self::upgrade_images();
 		self::footer_menu();
 		if ( ! $form && ! function_exists( 'wpforms' ) ) {
 			self::$log[] = 'WPForms is not active, so the Contact us page shows an email button instead of a form.';
@@ -617,6 +631,51 @@ class Premier_Demo {
 	}
 
 	/** Footer "Explore" links go to the full pages; the main menu keeps scrolling the home page. */
+	/**
+	 * Real photos from the client replace stock ones on pages created by an
+	 * earlier version, as long as the stock photo is still there.
+	 */
+	private static function upgrade_images() {
+		$swaps = array(
+			array( (int) get_option( 'page_on_front' ), 'premier-about', 'img/build-plans.jpg', 'img/aerial-crescent.jpg' ),
+			array( Premier_Data::page_id( 'completed' ), 'premier-page-header', 'img/ext-brick-street.jpg', 'img/aerial-cul-de-sac.jpg' ),
+			array( Premier_Data::page_id( 'about' ), 'premier-page-header', 'img/build-site.jpg', 'img/aerial-crescent.jpg' ),
+		);
+		$count = 0;
+		foreach ( $swaps as list( $page, $widget, $old, $new ) ) {
+			$old_id = self::imported( $old );
+			$data   = $page && $old_id ? json_decode( (string) get_post_meta( $page, '_elementor_data', true ), true ) : null;
+			if ( ! is_array( $data ) ) {
+				continue;
+			}
+			$changed = false;
+			$walk    = function ( &$els ) use ( &$walk, $widget, $old_id, $new, &$changed ) {
+				foreach ( $els as &$el ) {
+					if ( ( $el['widgetType'] ?? '' ) === $widget && (int) ( $el['settings']['image']['id'] ?? 0 ) === $old_id ) {
+						$image = self::media_setting( $new );
+						if ( $image['id'] ) {
+							$el['settings']['image'] = $image;
+							$changed                 = true;
+						}
+					}
+					if ( ! empty( $el['elements'] ) ) {
+						$walk( $el['elements'] );
+					}
+				}
+			};
+			$walk( $data );
+			if ( $changed ) {
+				update_post_meta( $page, '_elementor_data', wp_slash( wp_json_encode( $data ) ) );
+				delete_post_meta( $page, '_elementor_element_cache' );
+				delete_post_meta( $page, '_elementor_css' );
+				$count++;
+			}
+		}
+		if ( $count ) {
+			self::$log[] = 'New photos on ' . $count . ' page(s).';
+		}
+	}
+
 	private static function footer_menu() {
 		$items = array();
 		foreach ( array( 'current' => 'Current developments', 'completed' => 'Completed developments', 'about' => 'About us', 'contact' => 'Contact us' ) as $role => $title ) {

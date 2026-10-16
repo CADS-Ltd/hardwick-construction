@@ -79,7 +79,7 @@ On the home page each section (Current, Completed, About, Contact) has a link to
 ## Speed (WP Rocket)
 
 - **Fonts** (Cormorant Garamond and Jost) are self-hosted in the theme and preloaded, so no request goes to Google Fonts. Elementor's own Google Fonts are switched off.
-- **Logos** are WebP, in 260, 360 and 485px copies so phones download the small one. The footer logo loads lazily.
+- **Logos** are vector SVGs (`assets/img/logo.svg` and `logo-light.svg`), sharp on every screen. They were rebuilt from the supplied logo: the monogram is drawn as shapes and the lettering uses D-DIN Bold and Regular (SIL Open Font License) converted to outlines, so no font is loaded. `logo.png` is a 2× copy for places that need a bitmap, such as Google's business logo. The footer logo loads lazily.
 - **Uploaded photos** are saved as WebP (the original and every resized copy) when the server supports it, so a JPEG straight from a camera ends up a fraction of the size. Photos uploaded before this was added stay as they were.
 - **Site icon:** the PP monogram from the logo, in `themes/premier-heritage/assets/img/icon/`. Choosing an icon under **Appearance › Customise › Site Identity** replaces it.
 - Recommended **WP Rocket › File Optimization** settings: *Minify CSS*, *Optimize CSS delivery*, *Minify JavaScript*, *Load JavaScript deferred* and *Delay JavaScript execution*. The theme's scripts and the site plan are excluded from the delay automatically, so the menu, animations and plan work straight away.

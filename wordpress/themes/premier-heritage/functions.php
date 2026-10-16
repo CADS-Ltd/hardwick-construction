@@ -181,7 +181,7 @@ function premier_wordmark( $light = false ) {
 	$dark_id  = (int) get_theme_mod( 'custom_logo' );
 	$light_id = (int) get_theme_mod( 'premier_logo_light' );
 	$name     = premier_company()['name'];
-	// Shown 31–44px tall in the header (about 177–251px wide) and 48px in the footer
+	// For an uploaded logo: shown 31–44px tall in the header (about 177–251px wide) and 48px in the footer
 	$sizes    = $light ? '274px' : '(max-width: 400px) 177px, (max-width: 720px) 205px, 251px';
 	// The footer logo ($light) sits below the fold, so it loads lazily
 	$load     = ( $light ? ' loading="lazy"' : '' ) . ' decoding="async"';
@@ -190,9 +190,9 @@ function premier_wordmark( $light = false ) {
 			$src    = wp_get_attachment_image_url( $id, 'full' );
 			$srcset = (string) wp_get_attachment_image_srcset( $id, 'full' );
 		} else {
-			// Smaller copies so phones don't download the full-width logo
-			$src    = $theme . $file . '.webp';
-			$srcset = $theme . $file . '-260.webp 260w, ' . $theme . $file . '-360.webp 360w, ' . $src . ' 485w';
+			// The theme's own logo is a vector (SVG), so it stays sharp on every screen
+			$src    = $theme . $file . '.svg';
+			$srcset = '';
 		}
 		return '<img class="' . $class . '" src="' . esc_url( $src ) . '"'
 			. ( $srcset ? ' srcset="' . esc_attr( $srcset ) . '" sizes="' . esc_attr( $sizes ) . '"' : '' )
