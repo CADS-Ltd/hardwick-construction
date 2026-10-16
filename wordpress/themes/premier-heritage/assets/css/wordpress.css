@@ -146,8 +146,8 @@
   margin: 0 !important; font-family: var(--sans);
 }
 .premier-form .wpforms-form .wpforms-field-label {
-  font-family: var(--sans) !important; font-size: 11.5px !important; font-weight: 500 !important;
-  letter-spacing: .2em !important; text-transform: uppercase !important; color: var(--gold-ink) !important; margin-bottom: 10px !important;
+  font-family: var(--sans) !important; font-size: 13px !important; font-weight: 500 !important;
+  letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--gold-ink) !important; margin-bottom: 10px !important;
 }
 .premier-form .wpforms-form .wpforms-required-label { color: var(--gold-ink) !important; }
 .premier-form .wpforms-form input[type=text], .premier-form .wpforms-form input[type=email], .premier-form .wpforms-form input[type=tel],
@@ -188,3 +188,8 @@
 .type-card-body > .link-arrow, .type-card-links button.link-arrow { min-height: 44px; }
 .footer-links li { margin-bottom: 0; }
 .footer-links a, .footer-base a { display: inline-block; padding: 9px 0; }
+
+/* Legibility: the small uppercase labels never drop below 12px (Google counts smaller text as hard to read on phones) */
+.hero-foot-label, .meta dt, .done-meta, .contact-list dt, .footer-title, .facts dt, .avail-label, .plots th, .badge,
+.loc-label, .pr-title, .type-card-area, .panel-media.is-empty small, .type-card-empty small, .plan-tip small,
+.subnav-links a, .plots td::before { font-size: 12px; }

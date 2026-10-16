@@ -163,14 +163,27 @@ function premier_wordmark( $light = false ) {
 	$theme    = get_template_directory_uri() . '/assets/img/';
 	$dark_id  = (int) get_theme_mod( 'custom_logo' );
 	$light_id = (int) get_theme_mod( 'premier_logo_light' );
-	$dark     = $dark_id ? wp_get_attachment_image_url( $dark_id, 'full' ) : $theme . 'logo.webp';
-	$lightsrc = $light_id ? wp_get_attachment_image_url( $light_id, 'full' ) : ( $dark_id ? $dark : $theme . 'logo-light.webp' );
 	$name     = premier_company()['name'];
+	// Shown 31–44px tall in the header (about 177–251px wide) and 48px in the footer
+	$sizes    = $light ? '274px' : '(max-width: 400px) 177px, (max-width: 720px) 205px, 251px';
 	// The footer logo ($light) sits below the fold, so it loads lazily
 	$load     = ( $light ? ' loading="lazy"' : '' ) . ' decoding="async"';
+	$img      = function ( $id, $file, $class, $alt ) use ( $theme, $sizes, $load ) {
+		if ( $id ) {
+			$src    = wp_get_attachment_image_url( $id, 'full' );
+			$srcset = (string) wp_get_attachment_image_srcset( $id, 'full' );
+		} else {
+			// Smaller copies so phones don't download the full-width logo
+			$src    = $theme . $file . '.webp';
+			$srcset = $theme . $file . '-260.webp 260w, ' . $theme . $file . '-360.webp 360w, ' . $src . ' 485w';
+		}
+		return '<img class="' . $class . '" src="' . esc_url( $src ) . '"'
+			. ( $srcset ? ' srcset="' . esc_attr( $srcset ) . '" sizes="' . esc_attr( $sizes ) . '"' : '' )
+			. ' alt="' . esc_attr( $alt ) . '" width="485" height="85"' . $load . '>';
+	};
 	return '<a class="brand-logo' . ( $light ? ' is-light' : '' ) . '" href="' . esc_url( home_url( '/' ) ) . '" aria-label="' . esc_attr( $name . ' — home' ) . '">'
-		. '<img class="logo-dark" src="' . esc_url( $dark ) . '" alt="' . esc_attr( $name ) . '" width="485" height="85"' . $load . '>'
-		. '<img class="logo-light" src="' . esc_url( $lightsrc ) . '" alt="" width="485" height="85"' . $load . '>'
+		. $img( $dark_id, 'logo', 'logo-dark', $name )
+		. $img( $light_id ?: $dark_id, 'logo-light', 'logo-light', '' )
 		. '</a>';
 }
 

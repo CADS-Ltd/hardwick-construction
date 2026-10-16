@@ -25,6 +25,8 @@ class Premier_SEO {
 		add_filter( 'rank_math/sitemap/entry', array( __CLASS__, 'sitemap_entry' ), 10, 3 );
 		add_filter( 'rank_math/sitemap/post_type_archive_link', array( __CLASS__, 'sitemap_archive' ), 10, 2 );
 		add_filter( 'rank_math/frontend/breadcrumb/items', array( __CLASS__, 'breadcrumbs' ) );
+		// Pages without a schema type of their own still say which website and business they belong to
+		add_filter( 'rank_math/schema/add_global_entities', '__return_true' );
 		add_action( 'acf/save_post', array( __CLASS__, 'fill_post_meta' ), 30 );
 		add_action( 'admin_post_premier_seo', array( __CLASS__, 'handle' ) );
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -313,6 +315,9 @@ class Premier_SEO {
 					$entity['containsPlace'] = array_map( fn( $t ) => array( '@type' => 'SingleFamilyResidence', '@id' => $t['url'] . '#house-type', 'name' => $t['name'], 'url' => $t['url'] ), $d['house_types'] );
 				}
 				$data['premierDevelopment'] = $entity;
+				if ( isset( $data['WebPage'] ) ) {
+					$data['WebPage']['mainEntity'] = array( '@id' => $entity['@id'] );
+				}
 			}
 		}
 		foreach ( array( 'current', 'completed' ) as $role ) {
@@ -357,6 +362,9 @@ class Premier_SEO {
 					$entity['containedInPlace'] = array( '@id' => $d['url'] . '#development', '@type' => 'Residence', 'name' => $d['name'] );
 				}
 				$data['premierHouseType'] = $entity;
+				if ( isset( $data['WebPage'] ) ) {
+					$data['WebPage']['mainEntity'] = array( '@id' => $entity['@id'] );
+				}
 			}
 		}
 		return $data;
