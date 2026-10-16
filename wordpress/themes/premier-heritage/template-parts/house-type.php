@@ -94,7 +94,7 @@ endif;
 			<?php $meta = wp_get_attachment_metadata( $t['image'] ); ?>
 			<figure class="showcase-frame" data-reveal data-lightbox-group="<?php echo esc_attr( $t['name'] ); ?>"<?php if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) : ?> style="--ar:<?php echo esc_attr( round( $meta['width'] / $meta['height'], 4 ) ); ?>"<?php endif; ?>>
 				<button type="button" class="g-item showcase-shot" data-full="<?php echo esc_url( Premier_Render::img_url( $t['image'], 'full' ) ); ?>">
-					<?php echo Premier_Render::img( $t['image'], 'full', array( 'alt' => $t['name'] . ( $d ? ' at ' . $d['name'] : '' ) . ' — computer generated image of the front of the house', 'sizes' => '(max-width: 1140px) 100vw, 1100px' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<?php echo Premier_Render::img( $t['image'], 'full', array( 'alt' => $t['name'] . ( $d ? ' at ' . $d['name'] : '' ) . ' — computer generated image of the front of the house', 'sizes' => '(max-width: 1140px) 100vw, 1100px', 'loading' => 'eager' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<span class="g-zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
 				</button>
 				<figcaption class="showcase-caption">

@@ -33,6 +33,7 @@ class Premier_SEO {
 		add_filter( 'rank_math/frontend/robots', array( __CLASS__, 'holding_robots' ), 20 );
 		add_filter( 'get_canonical_url', array( __CLASS__, 'holding_canonical' ), 20 );
 		add_action( 'wp_head', array( __CLASS__, 'holding_head' ), 5 );
+		add_action( 'template_redirect', array( __CLASS__, 'holding_robots_txt' ), 1 );
 		// Pages without a schema type of their own still say which website and business they belong to
 		add_filter( 'rank_math/schema/add_global_entities', '__return_true' );
 		add_action( 'acf/save_post', array( __CLASS__, 'fill_post_meta' ), 30 );
@@ -262,6 +263,17 @@ class Premier_SEO {
 	}
 
 	/** The Completed developments page while no development is completed: kept out of search until it has something to show. */
+	/**
+	 * Elementor's Coming Soon mode answers every address with the holding page,
+	 * /robots.txt included. Serve the real robots.txt before it steps in.
+	 */
+	public static function holding_robots_txt() {
+		if ( is_robots() && 'coming_soon' === get_option( 'elementor_maintenance_mode_mode' ) ) {
+			do_action( 'do_robots' );
+			exit;
+		}
+	}
+
 	public static function is_empty_completed( $id ) {
 		$page = Premier_Data::page_id( 'completed' );
 		return $page && (int) $id === $page && ! Premier_Data::developments( 'completed' );
