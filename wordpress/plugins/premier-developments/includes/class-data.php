@@ -92,6 +92,11 @@ class Premier_Data {
 
 	/* ------------------------------------------------------------------ */
 
+	/** Drop cached data, e.g. after Company details are saved. */
+	public static function forget( $key ) {
+		unset( self::$cache[ $key ] );
+	}
+
 	public static function company() {
 		if ( isset( self::$cache['company'] ) ) {
 			return self::$cache['company'];

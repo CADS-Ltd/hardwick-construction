@@ -28,6 +28,8 @@ class Premier_SEO {
 		// Pages without a schema type of their own still say which website and business they belong to
 		add_filter( 'rank_math/schema/add_global_entities', '__return_true' );
 		add_action( 'acf/save_post', array( __CLASS__, 'fill_post_meta' ), 30 );
+		add_action( 'acf/save_post', array( __CLASS__, 'remember_email' ), 5 );
+		add_action( 'acf/save_post', array( __CLASS__, 'sync_company' ), 30 );
 		add_action( 'admin_post_premier_seo', array( __CLASS__, 'handle' ) );
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			WP_CLI::add_command( 'premier seo', array( __CLASS__, 'cli' ) );
@@ -405,6 +407,73 @@ class Premier_SEO {
 		'About Us – Housebuilder in Swadlincote %sep% %sitename%',
 	);
 
+	/** Rank Math's business email, phone and address, from Company details. */
+	private static function business_contact( $c ) {
+		$addr = array();
+		if ( $c['address'] ) {
+			$lines = $c['address'];
+			$addr  = array(
+				'streetAddress'   => implode( ', ', array_slice( $lines, 0, max( 1, count( $lines ) - 3 ) ) ),
+				'addressLocality' => $lines[ count( $lines ) - 3 ] ?? '',
+				'addressRegion'   => $lines[ count( $lines ) - 2 ] ?? '',
+				'postalCode'      => $lines[ count( $lines ) - 1 ] ?? '',
+				'addressCountry'  => 'GB',
+			);
+		}
+		return array(
+			'email'         => $c['email'],
+			'phone'         => $c['phone'],
+			'local_address' => $addr,
+			'phone_numbers' => $c['phone'] ? array( array( 'type' => 'sales', 'number' => $c['phone'] ) ) : array(),
+		);
+	}
+
+	/** The email address saved in Company details before this save, so enquiries can follow it. */
+	private static $old_email = '';
+
+	public static function remember_email( $post_id ) {
+		if ( 'options' === $post_id ) {
+			self::$old_email = (string) Premier_Data::field( 'email', 'option' );
+		}
+	}
+
+	/**
+	 * Company details are the one place the client edits their contact details:
+	 * keep Google's business details (Rank Math) and the enquiry form's
+	 * recipient in step with them.
+	 */
+	public static function sync_company( $post_id ) {
+		if ( 'options' !== $post_id ) {
+			return;
+		}
+		Premier_Data::forget( 'company' );
+		$c = Premier_Data::company();
+		if ( self::active() ) {
+			self::merge_option( 'rank-math-options-titles', self::business_contact( $c ) );
+		}
+		$form_id = Premier_Data::contact_form_id();
+		$old     = self::$old_email;
+		if ( ! $form_id || ! $c['email'] || ! $old || $old === $c['email'] || ! function_exists( 'wpforms' ) ) {
+			return;
+		}
+		$form = wpforms()->obj( 'form' )->get( $form_id );
+		$data = $form ? wpforms_decode( $form->post_content ) : null;
+		if ( empty( $data['settings']['notifications'] ) ) {
+			return;
+		}
+		$changed = false;
+		foreach ( $data['settings']['notifications'] as $i => $n ) {
+			// Only a recipient still pointing at the old address is changed
+			if ( isset( $n['email'] ) && str_contains( $n['email'], $old ) ) {
+				$data['settings']['notifications'][ $i ]['email'] = str_replace( $old, $c['email'], $n['email'] );
+				$changed = true;
+			}
+		}
+		if ( $changed ) {
+			wpforms()->obj( 'form' )->update( $form_id, $data );
+		}
+	}
+
 	public static function setup() {
 		$log = array();
 		if ( ! self::active() ) {
@@ -428,18 +497,6 @@ class Premier_SEO {
 		$home       = (int) get_option( 'page_on_front' );
 		$og_default = self::page_header_image( $home );
 
-		$addr = array();
-		if ( $c['address'] ) {
-			$lines = $c['address'];
-			$addr  = array(
-				'streetAddress'   => implode( ', ', array_slice( $lines, 0, max( 1, count( $lines ) - 3 ) ) ),
-				'addressLocality' => $lines[ count( $lines ) - 3 ] ?? '',
-				'addressRegion'   => $lines[ count( $lines ) - 2 ] ?? '',
-				'postalCode'      => $lines[ count( $lines ) - 1 ] ?? '',
-				'addressCountry'  => 'GB',
-			);
-		}
-
 		$titles = array(
 			'title_separator'              => '|',
 			'knowledgegraph_type'          => 'company',
@@ -450,11 +507,7 @@ class Premier_SEO {
 			'knowledgegraph_logo'          => $logo,
 			'knowledgegraph_logo_id'       => $logo_id,
 			'url'                          => home_url( '/' ),
-			'email'                        => $c['email'],
-			'phone'                        => $c['phone'],
 			'local_business_type'          => 'HomeAndConstructionBusiness',
-			'local_address'                => $addr,
-			'phone_numbers'                => $c['phone'] ? array( array( 'type' => 'sales', 'number' => $c['phone'] ) ) : array(),
 			'local_seo_about_page'         => Premier_Data::page_id( 'about' ),
 			'local_seo_contact_page'       => Premier_Data::page_id( 'contact' ),
 			'twitter_card_type'            => 'summary_large_image',
@@ -479,7 +532,7 @@ class Premier_SEO {
 			$titles['open_graph_image']    = wp_get_attachment_image_url( $og_default, 'full' );
 			$titles['open_graph_image_id'] = $og_default;
 		}
-		self::merge_option( 'rank-math-options-titles', $titles );
+		self::merge_option( 'rank-math-options-titles', array_merge( $titles, self::business_contact( $c ) ) );
 		$log[] = 'Business details, local SEO (Home & Construction Business) and title templates set.';
 
 		self::merge_option( 'rank-math-options-sitemap', array(

@@ -17,6 +17,8 @@ class Premier_Post_Types {
 		add_action( 'restrict_manage_posts', array( __CLASS__, 'house_type_filter' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'plots_without_plan' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'archive_to_page' ) );
+		add_action( 'acf/save_post', array( __CLASS__, 'clear_page_cache' ), 99 );
+		add_action( 'trashed_post', array( __CLASS__, 'clear_page_cache' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'house_type_filter_query' ) );
 	}
 
@@ -97,6 +99,21 @@ class Premier_Post_Types {
 		if ( $page ) {
 			wp_safe_redirect( $page, 301 );
 			exit;
+		}
+	}
+
+	/**
+	 * A plot's price or status shows on many pages (the development, its house
+	 * types, the Current and Completed pages, the home page), so after saving a
+	 * development or house type the whole WP Rocket cache is cleared. Its preload
+	 * then rebuilds the pages in the background.
+	 */
+	public static function clear_page_cache( $post_id ) {
+		if ( ! in_array( get_post_type( $post_id ), array( 'development', 'house_type' ), true ) || wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+		if ( function_exists( 'rocket_clean_domain' ) ) {
+			rocket_clean_domain();
 		}
 	}
 
